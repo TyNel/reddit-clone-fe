@@ -23,6 +23,11 @@ body {
   background-color: #dae0e6;
 }
 
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

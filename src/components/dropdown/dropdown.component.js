@@ -25,7 +25,6 @@ export default function Dropdown() {
       <Link to="/" className="dropdown-item">
         <GiTwoCoins className="dropdown-icon" />
         <div className="dropdown-text">Coins</div>
-        <br className="linebreak1" />
         <div className="dropdown-subtext">0 coins</div>
       </Link>
       <Link to="/" className="dropdown-item">
