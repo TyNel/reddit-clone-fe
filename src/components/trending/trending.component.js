@@ -1,13 +1,11 @@
 import "../trending/trending.styles.css";
-import { Link } from "react-router-dom";
+import TrendingItem from "../trending-item/trending-item.component";
 
 export default function Trending() {
   return (
-    <div className="container trending-container">
-      <div className="trending-header">Trending Today</div>
-      <div className="trending-posts-container">
-        <Link to="/" className="trending-item"></Link>
-      </div>
+    <div className="container trending-preview">
+      <div className="trending-header">Trending today</div>
+      <TrendingItem />
     </div>
   );
 }

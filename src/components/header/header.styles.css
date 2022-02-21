@@ -1,11 +1,3 @@
-/* - FONT SIZE SYSTEM (px)
-10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 */
-
-/* 
-- SPACING SYSTEM (px)
-2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
- */
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -24,7 +16,7 @@
   display: flex;
   align-items: center;
   height: 3.4rem;
-  width: 59rem;
+  width: 69rem;
   border: 1px solid #edeff1;
   padding: 1.8rem 1.8rem;
   background-color: #f6f7f8;
