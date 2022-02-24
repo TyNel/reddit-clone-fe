@@ -1,12 +1,13 @@
 .trending-container {
   display: flex;
-  width: 24rem;
+  width: 23.5rem;
   height: 19rem;
   flex-direction: column;
   border: 1px solid black;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   position: relative;
+  background-size: cover;
 }
 
 .trending-link {

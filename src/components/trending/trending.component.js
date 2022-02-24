@@ -6,6 +6,9 @@ export default function Trending() {
     <div className="container trending-preview">
       <div className="trending-header">Trending today</div>
       <TrendingItem />
+      <TrendingItem />
+      <TrendingItem />
+      <TrendingItem />
     </div>
   );
 }

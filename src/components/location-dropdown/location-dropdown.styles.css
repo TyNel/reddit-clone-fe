@@ -1,0 +1,24 @@
+.location-dropdown-container {
+  display: flex;
+  position: absolute;
+  top: 37rem;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.075);
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+}
+
+.location-item {
+  text-decoration: none;
+  padding: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #7e8183;
+}
+
+.location-item:hover {
+  background-color: #e9f5fd;
+  color: #1c1c1c;
+  cursor: pointer;
+}

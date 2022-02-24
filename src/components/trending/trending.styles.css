@@ -1,11 +1,14 @@
 .trending-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   padding-top: 1rem;
 }
 
 .trending-header {
+  width: 100%;
   font-size: 1.4rem;
   font-weight: 500;
-  padding-bottom: 1rem;
   color: #1a1a1b;
   letter-spacing: 0.2px;
 }
