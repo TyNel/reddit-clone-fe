@@ -3,6 +3,7 @@ import "../posts/posts.styles.css";
 import PostItem from "../post-item/post-item.component";
 import LocationDropDown from "../location-dropdown/location-dropdown.component";
 import TopCommunities from "../../components/top-communities/top-communties.component";
+import Premium from "../premium/premium-component";
 import { Link } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
@@ -46,6 +47,7 @@ export default function Posts() {
       </div>
       <div className="top-communities-container">
         <TopCommunities />
+        <Premium />
       </div>
     </div>
   );
