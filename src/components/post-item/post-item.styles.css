@@ -8,6 +8,10 @@
   border-radius: 3px;
 }
 
+.post-item-container:hover {
+  border: 1px solid #333;
+}
+
 .vote-container {
   display: flex;
   height: 100%;
@@ -22,8 +26,14 @@
 }
 
 .vote-logo {
-  width: 2rem;
-  height: 2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  font-weight: 300;
+}
+
+.vote-logo:hover {
+  color: #ff0000;
+  background-color: #c5c6c6;
 }
 
 .post-item-body {
@@ -74,6 +84,10 @@
   background-color: #0079d3;
   color: #fff;
   margin-left: auto;
+}
+
+.join-button:hover {
+  filter: brightness(110%);
 }
 
 .post-item-title {

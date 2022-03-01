@@ -1,0 +1,102 @@
+.top-communities-container {
+  max-height: 42rem;
+  background-color: #fff;
+}
+
+.top-communities-header {
+  display: flex;
+  align-items: flex-end;
+  height: 8rem;
+  width: 100%;
+  background-image: linear-gradient(to top left, #ff0000, #ffa500);
+}
+
+.header-text {
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 0 0 0.5rem 1rem;
+  color: #fff;
+}
+
+.top-communities-item {
+  display: flex;
+  font-size: 1.4rem;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 1rem 2rem;
+  position: relative;
+  border-bottom: 1px solid #edeff1;
+  text-decoration: none;
+  color: #000;
+}
+
+.arrow-icon.first {
+  visibility: hidden;
+}
+
+.arrow-icon {
+  font-size: 2rem;
+  fill: #46d160;
+}
+
+.sub-icon {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 9999px;
+}
+
+.sub-name {
+  font-weight: 500;
+}
+
+.btn--join-community {
+  position: absolute;
+  right: 0;
+  display: flex;
+  width: 5.5rem;
+  height: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-right: 0.8rem;
+  border-radius: 9999px;
+  background-color: #0079d3;
+  color: #fff;
+  margin-left: auto;
+}
+
+.btn--join-community:hover,
+.view-all:hover {
+  filter: brightness(110%);
+}
+
+.view-all {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  margin: 1rem;
+  color: #fff;
+  background-color: #0079d3;
+}
+
+.leaderboard-container {
+  display: flex;
+  gap: 1rem;
+  padding: 0 0 1rem 1rem;
+}
+
+.leaderboard {
+  font-size: 1.2rem;
+  padding: 0.25rem 0.75rem;
+  color: #278dd9;
+  background-color: #f6f7f8;
+  border: none;
+}
+
+.leaderboard:hover {
+  background-color: #dddedf;
+}

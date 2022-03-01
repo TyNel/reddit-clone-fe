@@ -11,4 +11,11 @@
   font-weight: 500;
   color: #1a1a1b;
   letter-spacing: 0.2px;
+  padding-top: 1rem;
+}
+
+.trending-item-container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
 }

@@ -1,21 +1,23 @@
 .posts-container {
-  padding-top: 2rem;
   display: grid;
-  grid-template-columns: 2.5fr 1.5fr;
-  gap: 1.5rem;
+  grid-template-columns: 2.05fr 1fr;
+  gap: 1rem;
+  column-gap: 3rem;
+  padding: 0 5.8rem 0 5.8rem;
 }
 
 .popular-posts {
-  grid-row: 1/-1;
+  grid-column: 1;
   font-size: 1.4rem;
   color: #1a1a1b;
   font-weight: 500;
   letter-spacing: 0.2px;
+  padding-top: 2rem;
 }
 
 .posts-header {
   display: flex;
-  grid-row: 2 / 3;
+  grid-column: 1 / span 1;
   gap: 1rem;
   background-color: #fff;
   padding: 1rem 1.2rem;
@@ -56,4 +58,9 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.top-communities-container {
+  grid-column: 2;
+  grid-row: 2 / span 2;
 }

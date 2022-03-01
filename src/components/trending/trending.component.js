@@ -5,10 +5,12 @@ export default function Trending() {
   return (
     <div className="container trending-preview">
       <div className="trending-header">Trending today</div>
-      <TrendingItem />
-      <TrendingItem />
-      <TrendingItem />
-      <TrendingItem />
+      <div className="trending-item-container">
+        <TrendingItem />
+        <TrendingItem />
+        <TrendingItem />
+        <TrendingItem />
+      </div>
     </div>
   );
 }
