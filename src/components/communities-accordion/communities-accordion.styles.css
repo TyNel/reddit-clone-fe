@@ -1,0 +1,57 @@
+.accordion-container {
+  background-color: #fff;
+  color: #fff;
+  cursor: pointer;
+  border-bottom: 1px solid #edeff1;
+}
+
+.accordian-header {
+  display: flex;
+  align-items: center;
+}
+
+.accordian-title {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  padding: 1.25rem 1rem;
+}
+
+.accordian-icon {
+  font-size: 1.8rem;
+  color: #333;
+  margin-left: auto;
+  margin-right: 1rem;
+  color: #7e8183;
+}
+
+.accordion-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.accordian-link {
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  padding: 0 2.4rem 0.8rem 0;
+}
+
+.btn-container {
+  display: flex;
+  width: 100%;
+}
+
+.see-more-btn {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 0.8rem 0.8rem 0.8rem 0;
+  color: #0079d3;
+}

@@ -4,6 +4,7 @@ import PostItem from "../post-item/post-item.component";
 import LocationDropDown from "../location-dropdown/location-dropdown.component";
 import TopCommunities from "../../components/top-communities/top-communties.component";
 import Premium from "../premium/premium-component";
+import CommunitiesAccordion from "../communities-accordion/communities-accordion.component";
 import { Link } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
@@ -48,6 +49,10 @@ export default function Posts() {
       <div className="top-communities-container">
         <TopCommunities />
         <Premium />
+        <CommunitiesAccordion />
+        <CommunitiesAccordion />
+        <CommunitiesAccordion />
+        <CommunitiesAccordion />
       </div>
     </div>
   );
