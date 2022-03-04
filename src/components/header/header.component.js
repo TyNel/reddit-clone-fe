@@ -9,7 +9,6 @@ import Dropdown from "../dropdown/dropdown.component";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="header">
       <div className="homepage-icon-box">

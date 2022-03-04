@@ -46,21 +46,32 @@
   font-size: 2rem;
 }
 
-.posts-item-container {
-  grid-column: 1 / 2;
-}
-
 .location-select {
   border: none;
 }
 
-.posts-item-container {
+.left-side-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  grid-column: 1 / 2;
 }
 
-.top-communities-container {
+.right-side-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   grid-column: 2;
   grid-row: 2 / span 2;
+}
+
+.accordion {
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+}
+
+.return--btn {
+  align-self: center;
+  position: sticky;
+  top: 94vh;
 }

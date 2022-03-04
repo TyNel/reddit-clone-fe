@@ -15,6 +15,12 @@ import { FiTrendingUp } from "react-icons/fi";
 
 export default function Posts() {
   const [open, setOpen] = useState(false);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="container posts-container">
@@ -42,19 +48,24 @@ export default function Posts() {
           Rising
         </Link>
       </h2>
-      <div className="posts-item-container">
+      <div className="left-side-container">
         <PostItem />
         <PostItem />
         <PostItem />
       </div>
-      <div className="top-communities-container">
+      <div className="right-side-container">
         <TopCommunities />
         <Premium />
-        <CommunitiesAccordion />
-        <CommunitiesAccordion />
-        <CommunitiesAccordion />
-        <CommunitiesAccordion />
+        <span className="accordion">
+          <CommunitiesAccordion />
+          <CommunitiesAccordion />
+          <CommunitiesAccordion />
+          <CommunitiesAccordion />
+        </span>
         <FooterNav />
+        <div className="btn btn--full return--btn" onClick={scrollToTop}>
+          Back to Top
+        </div>
       </div>
     </div>
   );
