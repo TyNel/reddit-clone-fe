@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function TrendingItem() {
   const trendingData = [
     {
+      id: 300,
       backgroundImage: "https://bit.ly/3v6Pc9l",
       title: "test title",
       info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -16,14 +17,18 @@ export default function TrendingItem() {
     <div className="trending">
       {trendingData.map((data) => (
         <div
+          key={data.id}
           className="trending-container"
           style={{
-            backgroundImage: `url${data.backgroundImage}`,
+            backgroundImage: `url(${data.backgroundImage})`,
           }}
         >
           <Link to="/" className="trending-link">
             <h2 className="trending-title-text">{data.title}</h2>
-            <div className="trending-text">{data.info}</div>
+            <div className="trending-text">
+              {data.info.slice(0, 55)}
+              {data.info.length >= 55 ? "..." : ""}
+            </div>
             <div className="bottom-logo-container">
               <img src={data.logoImg} alt="subreddit logo" className="logo" />
               <span className="trending-logo-link">
