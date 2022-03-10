@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../../components/header/header.component";
 import Trending from "../../components/trending/trending.component";
 import Posts from "../../components/posts/posts.component";
+import Header from "../../components/header/header.component";
 
 export default function HomePage() {
   return (

@@ -53,13 +53,15 @@ export default function PostItem() {
             <Link to="/" className="link post-item-title">
               {post.postTitle}
             </Link>
-            <Link to="/" className="link">
-              <img
-                src={post.postImg}
-                alt="deep space"
-                className="post-item-image"
-              />
-            </Link>
+            <div className="post-img-container">
+              <Link to="/" className="link">
+                <img
+                  src={post.postImg}
+                  alt="deep space"
+                  className="post-item-image"
+                />
+              </Link>
+            </div>
           </div>
           <footer className="post-item-footer">
             <Link to="/" className="link footer-link">

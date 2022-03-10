@@ -44,35 +44,6 @@
   gap: 1.2rem;
 }
 
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  font-family: "Noto Sans", "sans-serif";
-  font-size: 1.4rem;
-  font-weight: 700;
-  padding: 0.55rem 3rem;
-  border-radius: 9999px;
-  border: 1px solid #0079d3;
-  cursor: pointer;
-}
-
-.btn--outline {
-  color: #0079d3;
-}
-
-.btn--outline:hover {
-  background-color: #e6f2fb;
-}
-
-.btn--full {
-  color: #fff;
-  background-color: #0079d3;
-}
-
-.btn--full:hover {
-  filter: brightness(110%);
-}
-
 .dropdown-menu-icon {
   display: flex;
   align-items: center;
