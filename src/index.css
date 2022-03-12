@@ -34,6 +34,8 @@ code {
     monospace;
 }
 
+/* Reusable button */
+
 .btn {
   display: inline-block;
   text-decoration: none;
@@ -61,6 +63,16 @@ code {
 
 .btn--full:hover {
   filter: brightness(110%);
+}
+
+/* Grid containers */
+
+.grid--2-cols {
+  display: grid;
+  grid-template-columns: 2.05fr 1fr;
+  gap: 1rem;
+  column-gap: 3rem;
+  padding: 0 5.8rem 0 5.8rem;
 }
 
 /* - FONT SIZE SYSTEM (px)

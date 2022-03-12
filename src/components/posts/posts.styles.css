@@ -1,11 +1,3 @@
-.posts-container {
-  display: grid;
-  grid-template-columns: 2.05fr 1fr;
-  gap: 1rem;
-  column-gap: 3rem;
-  padding: 0 5.8rem 0 5.8rem;
-}
-
 .popular-posts {
   grid-column: 1;
   font-size: 1.4rem;

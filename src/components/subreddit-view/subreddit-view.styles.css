@@ -1,0 +1,35 @@
+.sub-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+}
+
+.sub-header-img-container {
+  display: flex;
+  width: 100%;
+  background-color: #f0f7fd;
+  align-items: center;
+  justify-content: center;
+}
+
+.sub-header-img {
+  height: 13rem;
+  padding: 1.5rem 0;
+  cursor: pointer;
+}
+
+.sub-header-img:hover {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.sub-header-bottom {
+  display: flex;
+  margin-left: 10rem;
+}
+
+.sub-name-container {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+}
