@@ -4,8 +4,8 @@ import Posts from "../../components/posts/posts.component";
 
 export default function HomePage() {
   return (
-    <div className="homepage">
-      <div className="container homepage-body">
+    <div className="container homepage">
+      <div className="homepage-body">
         <Trending />
         <Posts />
       </div>

@@ -39,7 +39,7 @@ export default function PostItem() {
             <BiDownvote className="vote-logo" />
           </div>
           <div className="post-item-body">
-            <Link to="/" className="link post-link-sub">
+            <Link to="/AskReddit" className="link post-link-sub">
               <AiOutlineWindows className="logo" />
               <span className="post-link-sub-text">{post.subreddit}</span>
             </Link>
@@ -50,9 +50,7 @@ export default function PostItem() {
             <Link to="/" className="link join-button">
               Join
             </Link>
-            <Link to="/" className="link post-item-title">
-              {post.postTitle}
-            </Link>
+            <Link to="/" className="link post-item-title"></Link>
             <div className="post-img-container">
               <Link to="/" className="link">
                 <img
@@ -66,7 +64,7 @@ export default function PostItem() {
           <footer className="post-item-footer">
             <Link to="/" className="link footer-link">
               <BsChatLeftText />
-              <span className="footer-link-text">{post.comments}</span>
+              <span className="footer-link-text">{post.comments} Comments</span>
             </Link>
             <Link to="/" className="link footer-link">
               <RiShareForwardLine />

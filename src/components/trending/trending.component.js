@@ -3,7 +3,7 @@ import TrendingItem from "../trending-item/trending-item.component";
 
 export default function Trending() {
   return (
-    <div className="container trending-preview">
+    <div className="trending-preview">
       <div className="trending-header">Trending today</div>
       <div className="trending-item-container">
         <TrendingItem />

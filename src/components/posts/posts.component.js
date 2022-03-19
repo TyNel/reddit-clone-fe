@@ -23,7 +23,7 @@ export default function Posts() {
   };
 
   return (
-    <div className="container grid--2-cols">
+    <div className="grid--2-cols">
       <div className="popular-posts">Popular Posts</div>
       <h2 className="posts-header">
         <Link to="/" className="post-link">
