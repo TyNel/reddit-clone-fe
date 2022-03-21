@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import PostItem from "../post-item/post-item.component";
 import SubRules from "../sub-rules/rules.component";
 import FooterNav from "../footer-nav/footer-nav.component";
+import AboutCommunity from "../about-community/about-community.component";
 import { AiOutlineQuestion } from "react-icons/ai";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { FiTrendingUp } from "react-icons/fi";
-import { MdOutlineEditCalendar } from "react-icons/md";
-import { BsTagFill } from "react-icons/bs";
 
 export default function SubredditView() {
   const scrollToTop = () => {
@@ -138,42 +137,7 @@ export default function SubredditView() {
           <PostItem />
         </div>
         <div className="sub-right-side-container">
-          <div className="about-community-container">
-            <div className="about-header">
-              <span className="about-header-text">About Community</span>
-            </div>
-            <div className="about-body">{`r/${data.about}`}</div>
-            <div className="community-stats-container">
-              <div className="community-stats">
-                {data.memebers}
-                <span className="secondary-text">Members</span>
-              </div>
-              <div className="community-stats">
-                {data.onlineMembers}
-                <span className="secondary-text">Online</span>
-              </div>
-            </div>
-            <div className="date-created">
-              <MdOutlineEditCalendar className="date-icon" /> Created{" "}
-              {data.dateAdded}
-            </div>
-            <div className="topics">
-              <BsTagFill className="date-icon" />
-              {`r/${data.name} topics`}
-            </div>
-            <div className="topic-links">
-              {topics.map((topic) => {
-                return (
-                  <div
-                    className="btn btn--subreddit-join btn--topic"
-                    key={topic.id}
-                  >
-                    {topic.type}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <AboutCommunity topics={topics} data={data} />
           <div className="rules-container">
             <div className="about-header">
               <span className="about-header-text">r/{data.name} Rules</span>

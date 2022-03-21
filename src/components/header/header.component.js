@@ -6,9 +6,22 @@ import { BsPerson } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown.component";
+import SignUp from "../signup/signup.component";
+import Login from "../login/login.component";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [signinModal, setSigninOpen] = useState(false);
+  const [loginModal, setLoginOpen] = useState(false);
+
+  const toggleSigninModal = (data) => {
+    setSigninOpen(data);
+  };
+
+  const toggleLogin = (data) => {
+    setLoginOpen(data);
+  };
+
   return (
     <div className="header">
       <div className="homepage-icon-box">
@@ -23,12 +36,24 @@ export default function Header() {
         <input placeholder="Search Reddit" className="search-bar" type="text" />
       </div>
       <div className="login-signup-container">
-        <Link to="/" className="btn btn--outline">
+        <div
+          className="btn btn--outline"
+          onClick={() => setLoginOpen(!loginModal)}
+        >
           Log In
-        </Link>
-        <Link to="/" className="btn btn--full">
+        </div>
+        {loginModal && (
+          <Login toggleModal={toggleLogin} toggleSignin={toggleSigninModal} />
+        )}
+        <div
+          className="btn btn--full"
+          onClick={() => setSigninOpen(!signinModal)}
+        >
           Sign Up
-        </Link>
+        </div>
+        {signinModal && (
+          <SignUp toggleModal={toggleSigninModal} toggleLogin={toggleLogin} />
+        )}
         <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
           <BsPerson color="#a4a4a4" />
           <MdKeyboardArrowDown color="#a4a4a4" />

@@ -1,0 +1,75 @@
+.about-community-container {
+  width: 31rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.about-header {
+  background-color: #444e59;
+  color: #fff;
+  padding: 1rem;
+}
+
+.about-header-text {
+  border-radius: 0.3rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.about-body {
+  padding: 1rem;
+  font-size: 1.4rem;
+  color: #57606a;
+}
+
+.community-stats-container {
+  display: flex;
+  padding: 0 0 1rem 1rem;
+  gap: 6rem;
+  border-bottom: 1px solid #edeff1;
+}
+
+.community-stats {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.secondary-text {
+  font-size: 1.2rem;
+}
+
+.date-created {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 0 1rem 1rem;
+  font-size: 1.4rem;
+}
+
+.date-icon {
+  font-size: 2rem;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0 1rem 1rem;
+  font-size: 1.4rem;
+}
+
+.topic-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.2rem 0 1rem 1rem;
+}
+
+.btn--topic {
+  font-size: 1.2rem;
+  padding: 0.3rem 1rem;
+}
