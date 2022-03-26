@@ -1,0 +1,12 @@
+.comment-page-container {
+  background-color: #333;
+  z-index: -1;
+}
+
+.comment-page-post {
+  grid-column: 1;
+}
+
+.return--btn {
+  grid-column: 2;
+}

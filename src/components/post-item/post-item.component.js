@@ -10,28 +10,14 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AiOutlineWindows } from "react-icons/ai";
 
-export default function PostItem() {
+export default function PostItem(props) {
   const [open, setOpen] = useState(false);
-
-  const postItemData = [
-    {
-      id: 202,
-      voteCount: 50000,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 10,
-    },
-  ];
-
+  const data = props.data;
   const currentDate = new Date().getHours();
 
   return (
     <div>
-      {postItemData.map((post) => (
+      {data.map((post) => (
         <div className="post-item-container" key={post.id}>
           <div className="vote-container">
             <BiUpvote className="vote-logo" />
@@ -39,7 +25,7 @@ export default function PostItem() {
             <BiDownvote className="vote-logo" />
           </div>
           <div className="post-item-body">
-            <Link to="/AskReddit" className="link post-link-sub">
+            <Link to={`/${post.subreddit}`} className="link post-link-sub">
               <AiOutlineWindows className="logo" />
               <span className="post-link-sub-text">{post.subreddit}</span>
             </Link>
@@ -62,7 +48,10 @@ export default function PostItem() {
             </div>
           </div>
           <footer className="post-item-footer">
-            <Link to="/" className="link footer-link">
+            <Link
+              to={`/${post.subreddit}/comments/${post.id}/${post.postTitle}`}
+              className="link footer-link"
+            >
               <BsChatLeftText />
               <span className="footer-link-text">{post.comments} Comments</span>
             </Link>

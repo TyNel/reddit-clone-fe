@@ -1,23 +1,20 @@
 import "../subreddit-view/subreddit-view.styles.css";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PostItem from "../post-item/post-item.component";
 import SubRules from "../sub-rules/rules.component";
 import FooterNav from "../footer-nav/footer-nav.component";
 import AboutCommunity from "../about-community/about-community.component";
+import ReturnButton from "../return-button/return-button.component";
 import { AiOutlineQuestion } from "react-icons/ai";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { FiTrendingUp } from "react-icons/fi";
+import { Context } from "../../contexts/store";
 
 export default function SubredditView() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   const data = {
     headerImg: "https://bit.ly/3KoEr6P",
     name: "AskReddit",
@@ -31,6 +28,7 @@ export default function SubredditView() {
 
   const rules = [
     {
+      subredditId: 1,
       ruleNumber: 1,
       ruleTitle:
         "Rule 1 - Questions must be clear and direct and may not use the body textbox",
@@ -42,6 +40,7 @@ export default function SubredditView() {
         "No text in the text box - any additional info from you must be added as a comment to your post",
     },
     {
+      subredditId: 1,
       ruleNumber: 2,
       ruleTitle: "Rule 2 - No personal or professional advice requests",
       subPointOne:
@@ -52,6 +51,7 @@ export default function SubredditView() {
         "All posts asking for advice must be generic and not specific to your situation alone",
     },
     {
+      subredditId: 1,
       ruleNumber: 3,
       ruleTitle: "Rule 3 - Open ended questions only",
       subPointOne: "Post must be an open-ended discussion question",
@@ -87,6 +87,30 @@ export default function SubredditView() {
       id: 6,
     },
   ];
+
+  const { subName } = useParams();
+
+  console.log(subName);
+
+  const [state, dispatch] = useContext(Context);
+
+  useEffect(() => {
+    dispatch(
+      {
+        type: "SET_SUBREDDIT_DATA",
+        payload: data,
+      },
+      {
+        type: "SET_SUBTOPICS",
+        payload: topics,
+      },
+      {
+        type: "SET_SUBRULES",
+        payload: rules,
+      }
+    );
+  }, []);
+
   return (
     <>
       <div className="sub-header-top">
@@ -100,9 +124,9 @@ export default function SubredditView() {
         <div className="container sub-header-bottom">
           <div className="sub-name-container">
             <AiOutlineQuestion className="subreddit-icon" />
-            <div className="sub-title">{data.title}</div>
+            <div className="sub-title">{subName}</div>
             <div className="btn btn--subreddit-join">Join</div>
-            <div className="subreddit-name">{`r/${data.name}`}</div>
+            <div className="subreddit-name">{`r/${subName}`}</div>
           </div>
           <div className="header-nav">
             <div className="nav-link">Posts</div>
@@ -131,10 +155,7 @@ export default function SubredditView() {
           </Link>
         </h2>
         <div className="sub-post-container">
-          <PostItem />
-          <PostItem />
-          <PostItem />
-          <PostItem />
+          <PostItem data={state.trendingPosts} />
         </div>
         <div className="sub-right-side-container">
           <AboutCommunity topics={topics} data={data} />
@@ -145,12 +166,7 @@ export default function SubredditView() {
             <SubRules rules={rules} />
           </div>
           <FooterNav />
-          <div
-            className="btn btn--full return--btn sub--return-btn"
-            onClick={scrollToTop}
-          >
-            Back to Top
-          </div>
+          <ReturnButton />
         </div>
       </div>
     </>

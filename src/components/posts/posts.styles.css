@@ -62,9 +62,3 @@
   border: 1px solid #ccc;
   border-radius: 0.3rem;
 }
-
-.return--btn {
-  align-self: center;
-  position: sticky;
-  top: 97%;
-}

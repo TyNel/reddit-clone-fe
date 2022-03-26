@@ -37,7 +37,7 @@ code {
 /* Reusable button */
 
 .btn {
-  display: inline-block;
+  display: inline;
   text-decoration: none;
   font-family: "Noto Sans", "sans-serif";
   font-size: 1.4rem;
@@ -63,6 +63,13 @@ code {
 
 .btn--full:hover {
   filter: brightness(110%);
+}
+
+.return--btn {
+  align-self: center;
+  justify-self: center;
+  position: sticky;
+  top: 97%;
 }
 
 /* Grid containers */
