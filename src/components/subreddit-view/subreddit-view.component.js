@@ -15,17 +15,6 @@ import { FiTrendingUp } from "react-icons/fi";
 import { Context } from "../../contexts/store";
 
 export default function SubredditView() {
-  const data = {
-    headerImg: "https://bit.ly/3KoEr6P",
-    name: "AskReddit",
-    title: "Ask Reddit...",
-    about:
-      "AskReddit is the place to ask and answer thought-provoking questions.",
-    dateAdded: "Jan 25, 2008",
-    memebers: "30.2m",
-    onlineMembers: "10k",
-  };
-
   const rules = [
     {
       subredditId: 1,
@@ -88,27 +77,40 @@ export default function SubredditView() {
     },
   ];
 
-  const { subName } = useParams();
+  const subData = [
+    {
+      subredditId: 1,
+      headerImg: "https://bit.ly/3KoEr6P",
+      name: "AskReddit",
+      title: "Ask Reddit...",
+      about:
+        "AskReddit is the place to ask and answer thought-provoking questions.",
+      dateAdded: "Jan 25, 2008",
+      memebers: "30.2m",
+      onlineMembers: "10k",
+    },
+  ];
 
-  console.log(subName);
+  const { subName } = useParams();
 
   const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
-    dispatch(
-      {
+    if (state.subRedditData.length === 0) {
+      dispatch({
         type: "SET_SUBREDDIT_DATA",
-        payload: data,
-      },
-      {
+        payload: subData,
+      });
+      dispatch({
         type: "SET_SUBTOPICS",
         payload: topics,
-      },
-      {
-        type: "SET_SUBRULES",
-        payload: rules,
-      }
-    );
+      });
+    }
+
+    dispatch({
+      type: "SET_SUBRULES",
+      payload: rules,
+    });
   }, []);
 
   return (
@@ -116,7 +118,7 @@ export default function SubredditView() {
       <div className="sub-header-top">
         <div className="sub-header-img-container">
           <img
-            src={data.headerImg}
+            src={state.subRedditData.headerImg}
             alt="the word askreddit"
             className="sub-header-img"
           />
@@ -158,10 +160,10 @@ export default function SubredditView() {
           <PostItem data={state.trendingPosts} />
         </div>
         <div className="sub-right-side-container">
-          <AboutCommunity topics={topics} data={data} />
+          <AboutCommunity />
           <div className="rules-container">
             <div className="about-header">
-              <span className="about-header-text">r/{data.name} Rules</span>
+              <span className="about-header-text">r/{subName} Rules</span>
             </div>
             <SubRules rules={rules} />
           </div>

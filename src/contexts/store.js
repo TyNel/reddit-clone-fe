@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   subRedditData: [],
   subRules: [],
   subTopics: [],
+  comments: [],
 };
 
 const Store = ({ children }) => {

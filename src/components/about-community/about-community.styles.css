@@ -1,5 +1,6 @@
 .about-community-container {
   width: 31rem;
+  max-height: 29rem;
   background-color: #fff;
   border: 1px solid #ccc;
 }
