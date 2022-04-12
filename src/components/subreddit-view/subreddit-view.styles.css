@@ -39,13 +39,10 @@
 }
 
 .subreddit-icon {
-  font-size: 4rem;
-  border: 1px solid #444e59;
+  height: 7.2rem;
   border-radius: 9999px;
-  padding: 0.5rem;
   transform: translate(0, -15%);
   color: #fff;
-  background-color: #444e59;
 }
 
 .sub-title {

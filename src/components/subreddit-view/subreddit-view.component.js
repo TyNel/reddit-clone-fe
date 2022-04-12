@@ -125,7 +125,11 @@ export default function SubredditView() {
         </div>
         <div className="container sub-header-bottom">
           <div className="sub-name-container">
-            <AiOutlineQuestion className="subreddit-icon" />
+            <img
+              src="https://bit.ly/3K03ygp"
+              alt="gray question mark"
+              className="subreddit-icon"
+            />
             <div className="sub-title">{subName}</div>
             <div className="btn btn--subreddit-join">Join</div>
             <div className="subreddit-name">{`r/${subName}`}</div>

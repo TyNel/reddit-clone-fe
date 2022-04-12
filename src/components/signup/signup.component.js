@@ -1,11 +1,58 @@
 import "../signup/signup.styles.css";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import axios from "axios";
 
 export default function SignUp(props) {
   const toggleModal = props.toggleModal;
   const toggleLogin = props.toggleLogin;
   const [continueForm, setContinue] = useState(false);
+
+  const validationSchema = yup.object({
+    email: yup
+      .string("Please enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    username: yup
+      .string("Please enter a username")
+      .min(8, "Username must be between 2 and 20 characters long")
+      .required("Username is required"),
+    password: yup
+      .string("Please enter your password")
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+  });
+
+  const initialValues = {
+    email: "",
+    username: "",
+    password: "",
+  };
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://localhost:5001/api/reddit/AddUser",
+        values
+      );
+      if (response.status === 200) {
+        toggleModal(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+
+  console.log(formik.values);
+
   return (
     <>
       {continueForm === false ? (
@@ -27,11 +74,16 @@ export default function SignUp(props) {
                   to our User Agreement and Privacy Policy.
                 </div>
               </div>
-              <form className="signup-form">
+              <form className="signup-form" onSubmit={formik.handleSubmit}>
                 <input
                   type="email"
                   id="email"
                   className="user-form-input"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  placeholder=" "
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helpertext={formik.touched.email && formik.errors.email}
                   required
                 />
                 <span className="secondary-form-label">email</span>
@@ -74,12 +126,26 @@ export default function SignUp(props) {
                 </div>
               </div>
               <div className="user-form-container signup-form">
-                <form className="user-form">
+                <form
+                  className="user-form"
+                  onSubmit={formik.handleSubmit}
+                  id="signup-form"
+                >
                   <div className="input-container">
                     <input
                       type="text"
                       id="username"
                       className="user-form-input username--form"
+                      value={formik.values.username}
+                      onChange={formik.handleChange}
+                      placeholder=" "
+                      error={
+                        formik.touched.username &&
+                        Boolean(formik.errors.username)
+                      }
+                      helpertext={
+                        formik.touched.username && formik.errors.username
+                      }
                       required
                     />
                     <span className="secondary-form-label">
@@ -88,9 +154,19 @@ export default function SignUp(props) {
                   </div>
                   <div className="input-container">
                     <input
-                      type="text"
+                      type="password"
                       id="password"
                       className="user-form-input username--form"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      placeholder=" "
+                      error={
+                        formik.touched.password &&
+                        Boolean(formik.errors.password)
+                      }
+                      helpertext={
+                        formik.touched.password && formik.errors.password
+                      }
                       required
                     />
                     <span className="secondary-form-label">Password</span>
@@ -104,7 +180,13 @@ export default function SignUp(props) {
                 >
                   Back
                 </div>
-                <div className="btn btn--full user--submit">Sign Up</div>
+                <button
+                  form="signup-form"
+                  className="btn btn--full user--submit"
+                  type="submit"
+                >
+                  Sign Up
+                </button>
               </div>
             </div>
           </div>

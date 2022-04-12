@@ -109,6 +109,18 @@ input:hover + span {
   transition: all 0.2s ease-in-out;
 }
 
+.user-form-input:not(:placeholder-shown) + span {
+  position: absolute;
+  top: 0.4rem;
+  left: 1.1rem;
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  color: #a5a4a4;
+}
+
 .continue--btn {
   display: flex;
   align-items: center;

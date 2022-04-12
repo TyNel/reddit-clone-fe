@@ -1,9 +1,50 @@
 import "../signup/signup.styles.css";
 import { VscClose } from "react-icons/vsc";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import axios from "axios";
 
 export default function Login(props) {
   const toggleModal = props.toggleModal;
   const toggleSignin = props.toggleSignin;
+
+  const validationSchema = yup.object({
+    username: yup
+      .string("Please enter a username")
+      .min(2, "Username must be 2 characters or more")
+      .max(20, "Username must be 20 characters or less")
+      .required("Username is required"),
+    password: yup
+      .string("Please enter your password")
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
+  });
+
+  const initialValues = {
+    username: "",
+    password: "",
+  };
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://localhost:5001/api/reddit/UserLogin",
+        values
+      );
+      if (response.status === 200) {
+        console.log("logged in");
+        toggleModal(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
 
   return (
     <div className="modal-container">
@@ -21,27 +62,44 @@ export default function Login(props) {
               our User Agreement and Privacy Policy.
             </div>
           </div>
-          <form className="user-form login-form">
+          <form
+            className="user-form login-form"
+            onSubmit={formik.handleSubmit}
+            id="user-login-form"
+          >
             <div className="input-container">
               <input
                 type="text"
                 id="username"
                 className="user-form-input login-form"
-                required
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                placeholder=" "
               />
+              {formik.touched.username && formik.errors.username ? (
+                <div>{formik.errors.username}</div>
+              ) : null}
               <span className="secondary-form-label">username</span>
             </div>
             <div className="input-container">
               <input
-                type="text"
+                type="password"
                 id="password"
                 className="user-form-input login-form"
-                required
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                placeholder=" "
               />
               <span className="secondary-form-label">Password</span>
             </div>
           </form>
-          <div className="btn btn--full continue--btn">Log In</div>
+          <button
+            form="user-login-form"
+            type="submit"
+            className="btn btn--full continue--btn"
+          >
+            Log In
+          </button>
           <div className="login-link">
             New to Reddit?{" "}
             <span
