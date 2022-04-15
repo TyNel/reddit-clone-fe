@@ -44,9 +44,14 @@
   gap: 1.2rem;
 }
 
-.dropdown-menu-icon {
+.dropdown-menu-icon,
+.create-post-icon {
   display: flex;
   align-items: center;
   font-size: 2.2rem;
   cursor: pointer;
+}
+
+.create-post-icon {
+  margin-left: 3rem;
 }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "../about-community/about-community.styles.css";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { BsTagFill } from "react-icons/bs";
@@ -6,15 +7,24 @@ import { useContext } from "react";
 
 export default function AboutCommunity() {
   const [state, dispatch] = useContext(Context);
+  const [currentTopics, setCurrentTopics] = useState([]);
+
+  useEffect(() => {
+    if (state.subRedditData.length > 0) {
+      setCurrentTopics(JSON.parse(state.subRedditData[0].topics));
+    } else {
+      return;
+    }
+  }, []);
 
   return (
     <>
       {state.subRedditData.map((data) => (
-        <div className="about-community-container" key={data.subredditId}>
+        <div className="about-community-container" key={data.subId}>
           <div className="about-header">
             <span className="about-header-text">About Community</span>
           </div>
-          <div className="about-body">{`r/${data.about}`}</div>
+          <div className="about-body">{`r/${data.subDescription}`}</div>
           <div className="community-stats-container">
             <div className="community-stats">
               {data.memebers}
@@ -31,16 +41,16 @@ export default function AboutCommunity() {
           </div>
           <div className="topics">
             <BsTagFill className="date-icon" />
-            {`r/${data.name} topics`}
+            {`r/${data.subName} topics`}
           </div>
           <div className="topic-links">
-            {state.subTopics.map((topic) => {
+            {currentTopics.map((topic) => {
               return (
                 <div
                   className="btn btn--subreddit-join btn--topic"
                   key={topic.id}
                 >
-                  {topic.type}
+                  {topic.topicName}
                 </div>
               );
             })}

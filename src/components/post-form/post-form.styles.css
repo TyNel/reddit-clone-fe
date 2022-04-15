@@ -1,0 +1,33 @@
+.tabs {
+  display: flex;
+  list-style: none;
+  background-color: #fff;
+  margin-top: 1rem;
+}
+
+.tabs li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  border-right: 1px solid #dae0e6;
+  border-bottom: 1px solid #dae0e6;
+  width: 33.31%;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+.tab-icon {
+  margin-right: 0.6rem;
+  font-size: 2rem;
+}
+
+.active {
+  border-bottom: 2px solid #0079d3;
+  color: #0079d3;
+}

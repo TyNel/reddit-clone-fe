@@ -3,6 +3,7 @@ import HomePage from "./pages/homepage/homepage.component";
 import Header from "./components/header/header.component";
 import Subreddit from "./pages/subreddit/subreddit.component";
 import Comments from "./pages/comments/comments.component";
+import SubmitPost from "./pages/submitPost/submitPost.component";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
           path="/r/:subName/comments/:postId/:postTitle"
           element={<Comments />}
         />
+        <Route exact path="/r/submit" element={<SubmitPost />} />
+        <Route exact path="/r/:subName/submit" element={<SubmitPost />} />
       </Routes>
     </div>
   );

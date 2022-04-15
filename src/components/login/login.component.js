@@ -33,6 +33,7 @@ export default function Login(props) {
       );
       if (response.status === 200) {
         console.log("logged in");
+        localStorage.setItem("user", JSON.stringify(response.data));
         toggleModal(false);
       }
     } catch (error) {

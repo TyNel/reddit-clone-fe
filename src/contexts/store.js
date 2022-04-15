@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   subRedditData: [],
   subRules: [],
   subTopics: [],
+  subNames: [],
   comments: [],
 };
 

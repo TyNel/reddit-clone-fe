@@ -1,0 +1,39 @@
+.create-post-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+.create-post-title {
+  padding: 1.4rem 1.4rem 1.4rem 1rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid #fff;
+}
+
+.community-link-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 3.8rem;
+  width: 45%;
+  background-color: #fff;
+  margin-top: 2.5rem;
+  border-radius: 4px;
+}
+
+.community-icon {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.searchbar-icon-post {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  font-size: 2rem;
+}
+
+.community-searchbar {
+  border: none;
+  font-weight: 600;
+}

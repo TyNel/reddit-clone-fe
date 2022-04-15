@@ -4,6 +4,7 @@ import "../header/header.styles.css";
 import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown.component";
 import SignUp from "../signup/signup.component";
@@ -35,30 +36,36 @@ export default function Header() {
         </div>
         <input placeholder="Search Reddit" className="search-bar" type="text" />
       </div>
-      <div className="login-signup-container">
-        <div
-          className="btn btn--outline"
-          onClick={() => setLoginOpen(!loginModal)}
-        >
-          Log In
+      {localStorage.getItem("user") === null ? (
+        <div className="login-signup-container">
+          <div
+            className="btn btn--outline"
+            onClick={() => setLoginOpen(!loginModal)}
+          >
+            Log In
+          </div>
+          {loginModal && (
+            <Login toggleModal={toggleLogin} toggleSignin={toggleSigninModal} />
+          )}
+          <div
+            className="btn btn--full"
+            onClick={() => setSigninOpen(!signinModal)}
+          >
+            Sign Up
+          </div>
+          {signinModal && (
+            <SignUp toggleModal={toggleSigninModal} toggleLogin={toggleLogin} />
+          )}
         </div>
-        {loginModal && (
-          <Login toggleModal={toggleLogin} toggleSignin={toggleSigninModal} />
-        )}
-        <div
-          className="btn btn--full"
-          onClick={() => setSigninOpen(!signinModal)}
-        >
-          Sign Up
-        </div>
-        {signinModal && (
-          <SignUp toggleModal={toggleSigninModal} toggleLogin={toggleLogin} />
-        )}
-        <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
-          <BsPerson color="#a4a4a4" />
-          <MdKeyboardArrowDown color="#a4a4a4" />
-          {open && <Dropdown />}
-        </div>
+      ) : (
+        <Link to="/r/submit" className="create-post-icon">
+          <MdAdd color="#a4a4a4" />
+        </Link>
+      )}
+      <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
+        <BsPerson color="#a4a4a4" />
+        <MdKeyboardArrowDown color="#a4a4a4" />
+        {open && <Dropdown toggleLogin={toggleLogin} />}
       </div>
     </div>
   );

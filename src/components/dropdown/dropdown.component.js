@@ -9,7 +9,16 @@ import { RiGlobeLine } from "react-icons/ri";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdLogin } from "react-icons/md";
 
-export default function Dropdown() {
+export default function Dropdown(props) {
+  const toggleLogin = props.toggleLogin;
+  const userLogin = () => {
+    toggleLogin(true);
+  };
+  const userLogOut = () => {
+    localStorage.clear();
+    toggleLogin(true);
+  };
+
   return (
     <div className="dropdown-container">
       <h3 className="dropdown-subheader">View Options</h3>
@@ -49,7 +58,15 @@ export default function Dropdown() {
       </Link>
       <Link to="/" className="dropdown-item">
         <MdLogin className="dropdown-icon" />
-        <div className="dropdown-text">Log In / Sign Up</div>
+        {localStorage.getItem("user") === null ? (
+          <div className="dropdown-text" onClick={() => userLogin()}>
+            Log In / Sign Up
+          </div>
+        ) : (
+          <div className="dropdown-text" onClick={() => userLogOut()}>
+            Log Out
+          </div>
+        )}
       </Link>
     </div>
   );

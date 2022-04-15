@@ -25,6 +25,11 @@ export const Reducer = (state, action) => {
         ...state,
         comments: action.payload,
       };
+    case "SET_SUBNAMES":
+      return {
+        ...state,
+        subNames: action.payload,
+      };
 
     default:
       return state;

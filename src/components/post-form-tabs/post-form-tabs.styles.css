@@ -1,0 +1,45 @@
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+  background-color: #fff;
+  padding-top: 1rem;
+}
+
+.tab-header {
+  display: flex;
+  margin: 0 1rem;
+}
+
+.tab-title {
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid #edeff1;
+}
+
+.tab-content {
+  display: flex;
+  margin: 0 1rem;
+}
+
+.tab-body {
+  padding: 1rem;
+  min-height: 8rem;
+  width: 100%;
+  border: 1px solid #edeff1;
+}
+
+.tab-footer {
+  display: flex;
+}
+
+.post--btn {
+  margin: 0 1rem 1rem 0;
+  margin-left: auto;
+}
+
+.tab-title:focus,
+.tab-body:focus {
+  border: 1px solid #2f3030;
+}

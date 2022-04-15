@@ -51,8 +51,6 @@ export default function SignUp(props) {
     onSubmit,
   });
 
-  console.log(formik.values);
-
   return (
     <>
       {continueForm === false ? (
@@ -82,9 +80,6 @@ export default function SignUp(props) {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   placeholder=" "
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helpertext={formik.touched.email && formik.errors.email}
-                  required
                 />
                 <span className="secondary-form-label">email</span>
               </form>
@@ -139,14 +134,6 @@ export default function SignUp(props) {
                       value={formik.values.username}
                       onChange={formik.handleChange}
                       placeholder=" "
-                      error={
-                        formik.touched.username &&
-                        Boolean(formik.errors.username)
-                      }
-                      helpertext={
-                        formik.touched.username && formik.errors.username
-                      }
-                      required
                     />
                     <span className="secondary-form-label">
                       Choose a username
@@ -160,14 +147,6 @@ export default function SignUp(props) {
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       placeholder=" "
-                      error={
-                        formik.touched.password &&
-                        Boolean(formik.errors.password)
-                      }
-                      helpertext={
-                        formik.touched.password && formik.errors.password
-                      }
-                      required
                     />
                     <span className="secondary-form-label">Password</span>
                   </div>
