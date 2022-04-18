@@ -41,7 +41,7 @@ export default function SubredditView() {
       }
     }
     GetSubData();
-  }, []);
+  }, [dispatch, subName]);
 
   return (
     <>

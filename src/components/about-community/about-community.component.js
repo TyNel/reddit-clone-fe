@@ -15,7 +15,7 @@ export default function AboutCommunity() {
     } else {
       return;
     }
-  }, []);
+  }, [state.subRedditData]);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function AboutCommunity() {
           <div className="about-body">{`r/${data.subDescription}`}</div>
           <div className="community-stats-container">
             <div className="community-stats">
-              {data.memebers}
+              {data.members}
               <span className="secondary-text">Members</span>
             </div>
             <div className="community-stats">

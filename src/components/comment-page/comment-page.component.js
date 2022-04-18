@@ -2,6 +2,7 @@ import "../comment-page/comment-page.styles.css";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
+import axios from "axios";
 import PostItem from "../post-item/post-item.component";
 import AboutCommunity from "../about-community/about-community.component";
 import FooterNav from "../footer-nav/footer-nav.component";
@@ -10,7 +11,8 @@ import CommentSection from "../comment-section/comment-section.component";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);
-  const { postId } = useParams();
+  const { postId, subName } = useParams();
+
   const currentPost = [
     state.trendingPosts.find((post) => post.id.toString() === postId),
   ];
@@ -39,20 +41,6 @@ export default function CommentPage() {
     {
       type: "Technology",
       id: 6,
-    },
-  ];
-
-  const subData = [
-    {
-      subredditId: 1,
-      headerImg: "https://bit.ly/3KoEr6P",
-      name: "AskReddit",
-      title: "Ask Reddit...",
-      about:
-        "AskReddit is the place to ask and answer thought-provoking questions.",
-      dateAdded: "Jan 25, 2008",
-      memebers: "30.2m",
-      onlineMembers: "10k",
     },
   ];
 
@@ -100,11 +88,24 @@ export default function CommentPage() {
   };
 
   useEffect(() => {
-    if (state.subRedditData.length === 0) {
-      dispatch({
-        type: "SET_SUBREDDIT_DATA",
-        payload: subData,
-      });
+    async function GetSubData() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/SubReddit",
+          {
+            params: { subName },
+          }
+        );
+        if (response.status === 200) {
+          dispatch({
+            type: "SET_SUBREDDIT_DATA",
+            payload: [response.data],
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
       dispatch({
         type: "SET_SUBTOPICS",
         payload: topics,
@@ -114,6 +115,8 @@ export default function CommentPage() {
       type: "SET_COMMENTS",
       payload: comments,
     });
+
+    GetSubData();
   }, []);
 
   return (

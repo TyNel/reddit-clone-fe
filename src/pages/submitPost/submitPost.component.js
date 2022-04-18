@@ -16,8 +16,6 @@ export default function SubmitPost() {
 
   // console.log(JSON.parse(state.subRedditData));
 
-  console.log(JSON.parse(state.subRedditData[0].rules));
-
   const handleChange = (e) => {
     const query = e.target.value;
     const dataFiltered = state.subNames.filter((sub) => {
