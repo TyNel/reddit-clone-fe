@@ -10,16 +10,6 @@ export const Reducer = (state, action) => {
         ...state,
         subRedditData: action.payload,
       };
-    case "SET_SUBRULES":
-      return {
-        ...state,
-        subRules: action.payload,
-      };
-    case "SET_SUBTOPICS":
-      return {
-        ...state,
-        subTopics: action.payload,
-      };
     case "SET_COMMENTS":
       return {
         ...state,
@@ -29,6 +19,11 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         subNames: action.payload,
+      };
+    case "SET_CURRENT_POST":
+      return {
+        ...state,
+        currentPost: action.payload,
       };
 
     default:

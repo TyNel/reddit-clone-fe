@@ -83,6 +83,7 @@
   background-color: #0079d3;
   color: #fff;
   margin-left: auto;
+  margin-right: 0.5rem;
 }
 
 .join-button:hover {
@@ -91,9 +92,16 @@
 
 .post-item-title {
   font-size: 1.8rem;
+  padding-left: 0.6rem;
   font-weight: 600;
   color: #222;
-  padding-left: 0.2rem;
+  width: 100%;
+}
+
+.post-body-container {
+  font-size: 1.4rem;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .post-img-container {

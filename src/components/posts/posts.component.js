@@ -7,6 +7,7 @@ import Premium from "../premium/premium-component";
 import CommunitiesAccordion from "../communities-accordion/communities-accordion.component";
 import FooterNav from "../footer-nav/footer-nav.component";
 import ReturnButton from "../return-button/return-button.component";
+import axios from "axios";
 import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
@@ -19,74 +20,27 @@ export default function Posts() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
 
-  const data = [
-    {
-      id: 202,
-      voteCount: 50000,
-      subRedditId: 1,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 6756,
-    },
-    {
-      id: 203,
-      voteCount: 12546,
-      subRedditId: 1,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 5000,
-    },
-    {
-      id: 204,
-      voteCount: 5001,
-      subRedditId: 1,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 10000,
-    },
-    {
-      id: 205,
-      voteCount: 577126,
-      subRedditId: 1,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 1200,
-    },
-    {
-      id: 206,
-      voteCount: 1000,
-      subRedditId: 1,
-      subreddit: "r/AskReddit",
-      user: "u/randomuser123",
-      dateAdded: "10:00:11",
-      postTitle: "random text that is the title",
-      postBody: "random text that is the post body",
-      postImg: "https://bit.ly/3v6Pc9l",
-      comments: 1000,
-    },
-  ];
+  const trendingArray = state.trendingPosts;
 
   useEffect(() => {
-    dispatch({
-      type: "SET_TRENDING_POSTS",
-      payload: data,
-    });
+    if (trendingArray.length === 0) {
+      GetTrendingPosts();
+    }
+    async function GetTrendingPosts() {
+      try {
+        const trendingPosts = await axios.get(
+          "https://localhost:5001/api/reddit/Posts"
+        );
+        if (trendingPosts.status === 200) {
+          dispatch({
+            type: "SET_TRENDING_POSTS",
+            payload: trendingPosts.data,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }, []);
 
   return (
@@ -116,7 +70,11 @@ export default function Posts() {
         </Link>
       </h2>
       <div className="left-side-container">
-        <PostItem data={state.trendingPosts} />
+        {trendingArray.map((post) => (
+          <div key={post.postId}>
+            <PostItem data={post} />
+          </div>
+        ))}
       </div>
       <div className="right-side-container">
         <TopCommunities />

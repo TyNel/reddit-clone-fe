@@ -17,7 +17,11 @@ function App() {
           element={<Comments />}
         />
         <Route exact path="/r/submit" element={<SubmitPost />} />
-        <Route exact path="/r/:subName/submit" element={<SubmitPost />} />
+        <Route
+          exact
+          path="/r/:subId/:subName/submit"
+          element={<SubmitPost />}
+        />
       </Routes>
     </div>
   );

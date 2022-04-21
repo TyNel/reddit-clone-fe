@@ -11,38 +11,9 @@ import CommentSection from "../comment-section/comment-section.component";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);
-  const { postId, subName } = useParams();
+  const { subName } = useParams();
 
-  const currentPost = [
-    state.trendingPosts.find((post) => post.id.toString() === postId),
-  ];
-
-  const topics = [
-    {
-      type: "Reddit",
-      id: 1,
-    },
-    {
-      type: "Ask",
-      id: 2,
-    },
-    {
-      type: "Social Media",
-      id: 3,
-    },
-    {
-      type: "Mobile App",
-      id: 4,
-    },
-    {
-      type: "Meta/Reddit",
-      id: 5,
-    },
-    {
-      type: "Technology",
-      id: 6,
-    },
-  ];
+  const currentPost = state.currentPost;
 
   const comments = [
     {
@@ -105,11 +76,6 @@ export default function CommentPage() {
       } catch (error) {
         console.log(error);
       }
-
-      dispatch({
-        type: "SET_SUBTOPICS",
-        payload: topics,
-      });
     }
     dispatch({
       type: "SET_COMMENTS",
@@ -124,7 +90,6 @@ export default function CommentPage() {
       <div className="comment-page-header"></div>
       <div className="comment-page-post">
         <PostItem data={currentPost} />
-
         {rootComments.map((rootComment) => (
           <div key={rootComment.id}>
             {" "}

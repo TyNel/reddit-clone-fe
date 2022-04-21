@@ -17,7 +17,6 @@ import axios from "axios";
 export default function SubredditView() {
   const { subName } = useParams();
   const [state, dispatch] = useContext(Context);
-  const [rules, setRules] = useState([]);
 
   useEffect(() => {
     async function GetSubData() {
@@ -33,8 +32,6 @@ export default function SubredditView() {
             type: "SET_SUBREDDIT_DATA",
             payload: [response.data],
           });
-
-          setRules(JSON.parse(response.data.rules));
         }
       } catch (error) {
         console.log(error);
@@ -99,12 +96,7 @@ export default function SubredditView() {
         </div>
         <div className="sub-right-side-container">
           <AboutCommunity />
-          <div className="rules-container">
-            <div className="about-header">
-              <span className="about-header-text">r/{subName} Rules</span>
-            </div>
-            <SubRules rules={rules} />
-          </div>
+          <SubRules />
           <FooterNav />
           <ReturnButton />
         </div>

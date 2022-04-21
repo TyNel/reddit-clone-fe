@@ -8,12 +8,26 @@
   overflow-x: hidden;
 }
 
-.dropdown-result-item {
+.icon--create-post {
+  border: none;
+  height: 4rem;
+  width: 4rem;
+}
+
+.sub-link-container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.dropdown-result-item {
   text-decoration: none;
-  color: #1c1c1c;
-  padding: 0.7rem 1.4rem;
+  font-weight: 500;
+  color: #333;
   width: 100%;
+}
+
+.post-sub-name {
+  font-size: 1.4rem;
 }

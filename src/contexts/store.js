@@ -3,9 +3,8 @@ import { Reducer } from "./reducer.context";
 
 const INITIAL_STATE = {
   trendingPosts: [],
+  currentPost: [],
   subRedditData: [],
-  subRules: [],
-  subTopics: [],
   subNames: [],
   comments: [],
 };

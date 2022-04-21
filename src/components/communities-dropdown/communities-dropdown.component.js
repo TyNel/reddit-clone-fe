@@ -9,12 +9,17 @@ export default function CommunitiesDropdown(props) {
     <div className="dropdown-results-container">
       {data.map((sub) => (
         <div className="sub-link-container" key={sub.subId}>
+          <img
+            src={sub.subIcon}
+            className="sub-icon icon--create-post"
+            alt="subreddit icon"
+          />
           <Link
-            to={`/r/${sub.subName}/submit`}
-            className="dropwdown-result-item"
+            to={`/r/${sub.subId}/${sub.subName}/submit`}
+            className="dropdown-result-item"
             onClick={() => toggleSearch(false)}
           >
-            {sub.subName}
+            <span className="post-sub-name">r/{sub.subName}</span>
           </Link>
         </div>
       ))}

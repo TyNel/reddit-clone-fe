@@ -24,7 +24,7 @@ export default function AboutCommunity() {
           <div className="about-header">
             <span className="about-header-text">About Community</span>
           </div>
-          <div className="about-body">{`r/${data.subDescription}`}</div>
+          <div className="about-body">{`${data.subDescription}`}</div>
           <div className="community-stats-container">
             <div className="community-stats">
               {data.members}
@@ -44,13 +44,13 @@ export default function AboutCommunity() {
             {`r/${data.subName} topics`}
           </div>
           <div className="topic-links">
-            {currentTopics.map((topic) => {
+            {currentTopics.map((data) => {
               return (
                 <div
                   className="btn btn--subreddit-join btn--topic"
-                  key={topic.id}
+                  key={data.topicId}
                 >
-                  {topic.topicName}
+                  {data.topicName}
                 </div>
               );
             })}

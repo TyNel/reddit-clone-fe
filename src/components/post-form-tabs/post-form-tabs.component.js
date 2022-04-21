@@ -1,30 +1,31 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../post-form-tabs/post-form-tabs.styles.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 
 export function Post() {
-  const state = useContext(Context);
+  const [state, dispatch] = useContext(Context);
+  const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const communityData = state[0].subRedditData;
+  const { subId, subName } = useParams();
+  const convertToInt = parseInt(subId);
 
   const validationSchema = yup.object({
     postTitle: yup.string("Please enter a title").required("Title is required"),
-    password: yup
-      .string("Please enter your password")
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
   });
 
   const initialValues = {
     postAuthor: currentUser.userName,
-    postCommunity: communityData.length > 0 ? communityData[0].subId : "",
+    postCommunity: subId ? convertToInt : "",
     postTitle: "",
     postBody: "",
   };
+
+  const enableReinitialize = true;
 
   const onSubmit = async (values) => {
     try {
@@ -33,9 +34,16 @@ export function Post() {
         values
       );
       if (response.status === 200) {
+        dispatch({
+          type: "SET_CURRENT_POST",
+          payload: response.data,
+        });
+        navigate(
+          `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`
+        );
       }
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -43,10 +51,11 @@ export function Post() {
     initialValues,
     validationSchema,
     onSubmit,
+    enableReinitialize,
   });
 
   return (
-    <div className="tab-container">
+    <form className="tab-container" onSubmit={formik.handleSubmit}>
       <div className="tab-header">
         <input
           className="tab-title"
@@ -68,9 +77,17 @@ export function Post() {
         ></textarea>
       </div>
       <div className="tab-footer">
-        <button className="btn btn--full post--btn">Post</button>
+        <button
+          type="submit"
+          className={
+            subName ? "btn btn--full post--btn" : "btn post--btn disabled--btn"
+          }
+          disabled={subName ? false : true}
+        >
+          Post
+        </button>
       </div>
-    </div>
+    </form>
   );
 }
 
