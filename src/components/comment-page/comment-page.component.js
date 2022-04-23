@@ -8,47 +8,14 @@ import AboutCommunity from "../about-community/about-community.component";
 import FooterNav from "../footer-nav/footer-nav.component";
 import ReturnButton from "../return-button/return-button.component";
 import CommentSection from "../comment-section/comment-section.component";
+import CommentForm from "../comment-form/comment-form.component";
+import { VscCommentDiscussion } from "react-icons/vsc";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);
   const { subName } = useParams();
 
   const currentPost = state.currentPost;
-
-  const comments = [
-    {
-      id: 1,
-      body: "Mon Mothma was a terrible leader for the rebellion, literally every time a character advances the goals of the Alliance she's always against it beforehand and then, only after it works, does she go along with it.",
-      username: "Getgiggles",
-      icon: "https://bit.ly/36RvJPT",
-      parentId: null,
-      createAt: "2022-03-27T23:00:33.010+2:00",
-    },
-    {
-      id: 2,
-      body: "Mon Mothma was a terrible leader for the rebellion, literally every time a character advances the goals of the Alliance she's always against it beforehand and then, only after it works, does she go along with it.",
-      username: "Hannah",
-      icon: "https://bit.ly/36RvJPT",
-      parentId: 1,
-      createAt: "2022-03-27T23:00:33.010+2:00",
-    },
-    {
-      id: 3,
-      body: "Mon Mothma was a terrible leader for the rebellion, literally every time a character advances the goals of the Alliance she's always against it beforehand and then, only after it works, does she go along with it.",
-      username: "DeysB",
-      icon: "https://bit.ly/36RvJPT",
-      parentId: null,
-      createAt: "2022-03-27T23:00:33.010+2:00",
-    },
-    {
-      id: 4,
-      body: "Mon Mothma was a terrible leader for the rebellion, literally every time a character advances the goals of the Alliance she's always against it beforehand and then, only after it works, does she go along with it.",
-      username: "reply to 3",
-      icon: "https://bit.ly/36RvJPT",
-      parentId: 3,
-      createAt: "2022-03-27T23:00:33.010+2:00",
-    },
-  ];
 
   const rootComments = state.comments.filter(
     (comment) => comment.parentId === null
@@ -59,6 +26,9 @@ export default function CommentPage() {
   };
 
   useEffect(() => {
+    if (state.subRedditData.length === 0) {
+      GetSubData();
+    }
     async function GetSubData() {
       try {
         const response = await axios.get(
@@ -77,28 +47,39 @@ export default function CommentPage() {
         console.log(error);
       }
     }
-    dispatch({
-      type: "SET_COMMENTS",
-      payload: comments,
-    });
-
-    GetSubData();
+    // dispatch({
+    //   type: "SET_COMMENTS",
+    //   payload: comments,
+    // });
   }, []);
 
   return (
     <div className="container grid--2-cols comment-page-content">
       <div className="comment-page-header"></div>
-      <div className="comment-page-post">
+      <div className="comment-page-body">
         <PostItem data={currentPost} />
-        {rootComments.map((rootComment) => (
-          <div key={rootComment.id}>
-            {" "}
-            <CommentSection
-              comment={rootComment}
-              replies={getReplies(rootComment.id)}
-            />
+        <CommentForm />
+        {rootComments.length > 0 ? (
+          <div>
+            {rootComments.map((rootComment) => (
+              <div key={rootComment.id}>
+                {" "}
+                <CommentSection
+                  comment={rootComment}
+                  replies={getReplies(rootComment.id)}
+                />
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className="empty-comments-container">
+            <VscCommentDiscussion className="no-comment-icon" />
+            <div className="no-comment-text">No Comments Yet</div>
+            <div className="no-comment-text sub-text">
+              Be the first to share what you think!
+            </div>
+          </div>
+        )}
       </div>
       <div className="right-side-container">
         <AboutCommunity />
