@@ -128,6 +128,7 @@
   color: #878a8c;
   padding: 0.8rem;
   margin: 0.4rem 0;
+  cursor: pointer;
 }
 
 .footer-link:hover {

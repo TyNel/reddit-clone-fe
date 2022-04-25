@@ -1,5 +1,5 @@
 import "../comment-page/comment-page.styles.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
 import axios from "axios";
@@ -13,16 +13,17 @@ import { VscCommentDiscussion } from "react-icons/vsc";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);
+  const [toggleForm, setToggleForm] = useState();
   const { subName } = useParams();
-
   const currentPost = state.currentPost;
-
   const rootComments = state.comments.filter(
-    (comment) => comment.parentId === null
+    (comment) => comment.commentParentId === null
   );
 
   const getReplies = (commentId) => {
-    return state.comments.filter((comment) => comment.parentId === commentId);
+    return state.comments.filter(
+      (comment) => comment.commentParentId === commentId
+    );
   };
 
   useEffect(() => {
@@ -47,10 +48,6 @@ export default function CommentPage() {
         console.log(error);
       }
     }
-    // dispatch({
-    //   type: "SET_COMMENTS",
-    //   payload: comments,
-    // });
   }, []);
 
   return (
@@ -62,11 +59,13 @@ export default function CommentPage() {
         {rootComments.length > 0 ? (
           <div>
             {rootComments.map((rootComment) => (
-              <div key={rootComment.id}>
+              <div key={rootComment.commentId}>
                 {" "}
                 <CommentSection
                   comment={rootComment}
-                  replies={getReplies(rootComment.id)}
+                  replies={getReplies(rootComment.commentId)}
+                  toggleForm={() => setToggleForm()}
+                  currentComment={toggleForm}
                 />
               </div>
             ))}

@@ -25,6 +25,11 @@ export const Reducer = (state, action) => {
         ...state,
         currentPost: action.payload,
       };
+    case "SET_REPLY_STATE":
+      return {
+        ...state,
+        toggleReplyForm: action.payload,
+      };
 
     default:
       return state;

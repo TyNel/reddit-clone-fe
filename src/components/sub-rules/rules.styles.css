@@ -8,6 +8,14 @@
   border-radius: 0.3rem;
 }
 
+.rule-item {
+  border-bottom: 1px solid #edeff1;
+}
+
+.rule-container:last-child {
+  border: none;
+}
+
 .rules-header {
   background-color: #444e59;
   color: #fff;

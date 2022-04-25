@@ -11,6 +11,7 @@
 .user-icon-img {
   width: 3.6rem;
   margin: 0.5rem;
+  border-radius: 9999px;
 }
 
 .user-name {

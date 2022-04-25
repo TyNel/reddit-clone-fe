@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
 import "../post-item/post-item.styles.css";
@@ -15,14 +16,26 @@ import { AiOutlineWindows } from "react-icons/ai";
 export default function PostItem(props) {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
-  const { postId } = useParams();
   const data = props.data;
+  const postId = data.postId;
   const currentDate = new Date().getHours();
-  const handleClick = () => {
+  const handleClick = async (e) => {
     dispatch({
       type: "SET_CURRENT_POST",
       payload: data,
     });
+    const response = await axios.get(
+      "https://localhost:5001/api/reddit/Comments",
+      {
+        params: { postId },
+      }
+    );
+    if (response.status === 200) {
+      dispatch({
+        type: "SET_COMMENTS",
+        payload: response.data,
+      });
+    }
   };
   return (
     <div>
@@ -33,7 +46,7 @@ export default function PostItem(props) {
           <BiDownvote className="vote-logo" />
         </div>
         <div className="post-item-body">
-          <Link to={`/${data.subName}`} className="link post-link-sub">
+          <Link to={`/r/${data.subName}`} className="link post-link-sub">
             <AiOutlineWindows className="logo" />
             <span className="post-link-sub-text">{data.subName}</span>
           </Link>
@@ -63,7 +76,7 @@ export default function PostItem(props) {
         </div>
         <footer className="post-item-footer">
           <Link
-            onClick={() => handleClick()}
+            onClick={(e) => handleClick(e)}
             to={`/r/${data.subName}/comments/${data.postId}/${data.postTitle}`}
             className="link footer-link"
           >

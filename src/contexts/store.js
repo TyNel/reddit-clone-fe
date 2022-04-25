@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   subRedditData: [],
   subNames: [],
   comments: [],
+  toggleReplyForm: null,
 };
 
 const Store = ({ children }) => {

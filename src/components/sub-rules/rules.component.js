@@ -22,19 +22,19 @@ export default function SubRules(props) {
   useEffect(() => {
     if (state.subRedditData.length > 0) {
       setCurrentTopics(JSON.parse(state.subRedditData[0].rules));
-    } else {
-      return;
     }
   }, [state.subRedditData]);
 
+  console.log(currentRules);
+
   return (
-    <>
+    <div className="rule-container">
+      <div className="rules-header">
+        <span className="about-header-text">r/{subName} Rules</span>
+      </div>
       {currentRules.map((rule) => {
         return (
-          <div className="rule-container" key={rule.ruleId}>
-            <div className="rules-header">
-              <span className="about-header-text">r/{subName} Rules</span>
-            </div>
+          <div className="rule-item" key={rule.ruleId}>
             <div
               className="rule-header"
               onClick={() => toggleRule(rule.ruleId)}
@@ -58,6 +58,6 @@ export default function SubRules(props) {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
