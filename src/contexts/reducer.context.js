@@ -30,7 +30,6 @@ export const Reducer = (state, action) => {
         ...state,
         toggleReplyForm: action.payload,
       };
-
     default:
       return state;
   }

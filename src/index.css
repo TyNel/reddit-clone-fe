@@ -34,6 +34,17 @@ code {
     monospace;
 }
 
+.form-error {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #ea0027;
+  margin: -0.8rem 0rem 0rem 1rem;
+}
+
+.tab-error {
+  border: 1px solid #ea0027;
+}
+
 /* Reusable button */
 
 .btn {

@@ -14,6 +14,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   const toggleSigninModal = (data) => {
     setSigninOpen(data);
@@ -64,6 +65,9 @@ export default function Header() {
       )}
       <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
         <BsPerson color="#a4a4a4" />
+        <span className="userName">
+          {currentUser ? currentUser.userName : null}
+        </span>
         <MdKeyboardArrowDown color="#a4a4a4" />
         {open && <Dropdown toggleLogin={toggleLogin} />}
       </div>

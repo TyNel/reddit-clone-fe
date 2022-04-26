@@ -38,7 +38,7 @@ export default function PostItem(props) {
     }
   };
   return (
-    <div>
+    <>
       <div className="post-item-container">
         <div className="vote-container">
           <BiUpvote className="vote-logo" />
@@ -57,20 +57,31 @@ export default function PostItem(props) {
           <Link to="/" className="link join-button">
             Join
           </Link>
-          {data.postImage === null ? (
+          {data.postImageUrl === null ? (
             <div className="post-item-title">{data.postTitle}</div>
           ) : (
             <div className="post-img-container">
+              <div className="post-item-title">{data.postTitle}</div>
               <Link to="/" className="link">
                 <img
-                  src={data.postImg}
-                  alt="deep space"
+                  src={data.postImageUrl}
+                  alt="User submitted post"
                   className="post-item-image"
                 />
               </Link>
             </div>
           )}
-          {postId ? (
+          {data.postLink !== null ? (
+            <a
+              href={data.postLink}
+              className="post-body-container"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {data.postLink}
+            </a>
+          ) : null}
+          {data.postBodyText !== null ? (
             <div className="post-body-container">{data.postBodyText}</div>
           ) : null}
         </div>
@@ -99,6 +110,6 @@ export default function PostItem(props) {
           </div>
         </footer>
       </div>
-    </div>
+    </>
   );
 }
