@@ -19,11 +19,11 @@ import { FiTrendingUp } from "react-icons/fi";
 export default function Posts() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
-
-  const trendingArray = state.trendingPosts;
+  const posts = state.posts;
+  const userVotes = state.userPostVotes;
 
   useEffect(() => {
-    if (trendingArray.length === 0) {
+    if (posts.length === 0) {
       GetTrendingPosts();
     }
     async function GetTrendingPosts() {
@@ -33,7 +33,7 @@ export default function Posts() {
         );
         if (trendingPosts.status === 200) {
           dispatch({
-            type: "SET_TRENDING_POSTS",
+            type: "SET_POSTS",
             payload: trendingPosts.data,
           });
         }
@@ -70,9 +70,9 @@ export default function Posts() {
         </Link>
       </h2>
       <div className="left-side-container">
-        {trendingArray.map((post) => (
+        {posts.map((post) => (
           <div key={post.postId}>
-            <PostItem data={post} />
+            <PostItem data={post} votes={userVotes} />
           </div>
         ))}
       </div>

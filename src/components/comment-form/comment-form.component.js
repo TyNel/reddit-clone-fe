@@ -45,7 +45,7 @@ export default function CommentForm(props) {
         navigate(`/r/${subName}/comments/${postId}/${postTitle}`);
       }
     } catch (error) {
-      console.warn(error);
+      console.log(error);
     }
   };
 

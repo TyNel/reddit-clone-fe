@@ -1,17 +1,23 @@
 import { createContext, useReducer } from "react";
 import { Reducer } from "./reducer.context";
 
+const user = JSON.parse(localStorage.getItem("user"));
+const userPVotes = user ? JSON.parse(user.postVotes) : [];
+
 const INITIAL_STATE = {
-  trendingPosts: [],
+  posts: [],
   currentPost: [],
   subRedditData: [],
   subNames: [],
   comments: [],
   toggleReplyForm: null,
+  userPostVotes: userPVotes,
+  user: user ? user : [],
 };
 
 const Store = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
+
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   );

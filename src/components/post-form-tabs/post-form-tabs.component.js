@@ -28,6 +28,7 @@ export function Post() {
   const enableReinitialize = true;
 
   const onSubmit = async (values) => {
+    const data = { ...state.posts };
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/AddPost",
@@ -42,7 +43,10 @@ export function Post() {
           type: "SET_COMMENTS",
           payload: [],
         });
-        state.trendingPosts.push(response.data);
+        dispatch({
+          type: "SET_POSTS",
+          payload: data.push(response.data),
+        });
         navigate(
           `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`
         );
@@ -109,13 +113,12 @@ export function Images() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
-  const urlValidation =
-    /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/gm;
+
   const validationSchema = yup.object({
     postTitle: yup.string("Please enter a title").required("Title is required"),
     postImageUrl: yup
       .string("Please provide image url")
-      .matches(urlValidation, "Url is not valid")
+      .url("Url is not valid")
       .required("Image is required"),
   });
 

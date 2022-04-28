@@ -1,9 +1,9 @@
 export const Reducer = (state, action) => {
   switch (action.type) {
-    case "SET_TRENDING_POSTS":
+    case "SET_POSTS":
       return {
         ...state,
-        trendingPosts: action.payload,
+        posts: action.payload,
       };
     case "SET_SUBREDDIT_DATA":
       return {
@@ -29,6 +29,16 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         toggleReplyForm: action.payload,
+      };
+    case "SET_USER_POST_VOTES":
+      return {
+        ...state,
+        userPostVotes: action.payload,
+      };
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

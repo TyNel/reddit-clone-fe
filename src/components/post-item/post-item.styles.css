@@ -12,30 +12,6 @@
   border: 1px solid #333;
 }
 
-.vote-container {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-  padding-top: 0.8rem;
-  font-weight: 500;
-  background-color: #f6f7f8;
-}
-
-.vote-logo {
-  width: 2.4rem;
-  height: 2.4rem;
-  font-weight: 300;
-}
-
-.vote-logo:hover {
-  color: #ff0000;
-  background-color: #c5c6c6;
-}
-
 .post-item-body {
   display: flex;
   flex-wrap: wrap;
@@ -92,7 +68,7 @@
 
 .post-item-title {
   font-size: 1.8rem;
-  padding-left: 0.6rem;
+  padding-left: 0.8rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
   color: #222;
@@ -128,7 +104,6 @@
   gap: 0.5rem;
   color: #878a8c;
   padding: 0.8rem;
-  margin: 0.4rem 0;
   cursor: pointer;
 }
 

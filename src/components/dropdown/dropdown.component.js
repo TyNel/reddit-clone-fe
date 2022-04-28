@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
 import "../dropdown/dropdown.styles.css";
 import { HiOutlineMoon } from "react-icons/hi";
@@ -10,11 +12,21 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdLogin } from "react-icons/md";
 
 export default function Dropdown(props) {
+  const [state, dispatch] = useContext(Context);
+  const user = state.user;
   const toggleLogin = props.toggleLogin;
   const userLogin = () => {
     toggleLogin(true);
   };
   const userLogOut = () => {
+    dispatch({
+      type: "SET_USER_POST_VOTES",
+      payload: [],
+    });
+    dispatch({
+      type: "SET_USER",
+      payload: [],
+    });
     localStorage.clear();
     toggleLogin(true);
   };
@@ -56,16 +68,16 @@ export default function Dropdown(props) {
         <IoIosHelpCircleOutline className="dropdown-icon" />
         <div className="dropdown-text">Help Center</div>
       </Link>
-      <Link to="/" className="dropdown-item">
+      <Link
+        to="/"
+        className="dropdown-item"
+        onClick={user.length === 0 ? () => userLogin() : () => userLogOut()}
+      >
         <MdLogin className="dropdown-icon" />
-        {localStorage.getItem("user") === null ? (
-          <div className="dropdown-text" onClick={() => userLogin()}>
-            Log In / Sign Up
-          </div>
+        {user.length === 0 ? (
+          <div className="dropdown-text">Log In / Sign Up</div>
         ) : (
-          <div className="dropdown-text" onClick={() => userLogOut()}>
-            Log Out
-          </div>
+          <div className="dropdown-text">Log Out</div>
         )}
       </Link>
     </div>

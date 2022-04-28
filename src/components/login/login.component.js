@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { Context } from "../../contexts/store";
+import { useNavigate } from "react-router-dom";
 import "../signup/signup.styles.css";
 import { VscClose } from "react-icons/vsc";
 import * as yup from "yup";
@@ -7,6 +10,8 @@ import axios from "axios";
 export default function Login(props) {
   const toggleModal = props.toggleModal;
   const toggleSignin = props.toggleSignin;
+  const navigate = useNavigate();
+  const [state, dispatch] = useContext(Context);
 
   const validationSchema = yup.object({
     username: yup
@@ -32,9 +37,19 @@ export default function Login(props) {
         values
       );
       if (response.status === 200) {
-        console.log("logged in");
+        let votes = JSON.parse(response.data.postVotes);
+        dispatch({
+          type: "SET_USER_POST_VOTES",
+          payload: votes ? votes : [],
+        });
+        dispatch({
+          type: "SET_USER",
+          payload: response.data,
+        });
         localStorage.setItem("user", JSON.stringify(response.data));
+        console.log("logged in");
         toggleModal(false);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
 import "../post-item/post-item.styles.css";
 import PostItemDropDown from "../post-item-dropdown/post-item-dropdown.component";
@@ -12,13 +11,35 @@ import { BsSave } from "react-icons/bs";
 import { RiShareForwardLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AiOutlineWindows } from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function PostItem(props) {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
+  const [loading, setLoading] = useState(false);
+  const userVotes = useRef(state.userPostVotes);
   const data = props.data;
   const postId = data.postId;
+  const votes = props.votes === undefined ? userVotes.current : props.votes;
   const currentDate = new Date().getHours();
+  const currentUser = state.user;
+  const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
+  const getUserVoteIndex = state.userPostVotes.findIndex(
+    (post) => post.likeDislikePostId === postId
+  );
+  const checkVoteStatus = votes[getUserVoteIndex]?.postIsLike;
+
+  const [upVote, setUpVote] = useState({
+    likeDislikePostId: postId,
+    likeDislikeUserId: currentUser ? currentUser.userId : null,
+    postIsLike: 1,
+  });
+  const [downVote, setDownVote] = useState({
+    likeDislikePostId: postId,
+    likeDislikeUserId: currentUser ? currentUser.userId : null,
+    postIsLike: 0,
+  });
+
   const handleClick = async (e) => {
     dispatch({
       type: "SET_CURRENT_POST",
@@ -37,13 +58,85 @@ export default function PostItem(props) {
       });
     }
   };
+
+  const userVote = async (vote) => {
+    try {
+      const response = await axios.post(
+        "https://localhost:5001/api/reddit/LikePost",
+        vote
+      );
+      if (response.status === 200) {
+        setLoading(false);
+        const posts = [...state.posts];
+        const userVotes = [...state.userPostVotes];
+        posts[getPostIndex].voteCount = response.data.voteCount;
+        dispatch({
+          type: "SET_POSTS",
+          payload: posts,
+        });
+        if (getUserVoteIndex >= 0) {
+          userVotes[getUserVoteIndex].postIsLike = response.data.postIsLike;
+          dispatch({
+            type: "SET_USER_POST_VOTES",
+            payload: userVotes,
+          });
+        } else {
+          userVotes.push(response.data);
+          dispatch({
+            type: "SET_USER_POST_VOTES",
+            payload: userVotes,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleVote = (e) => {
+    if (currentUser.length === 0) {
+      window.alert("Please log in to vote");
+      return;
+    }
+    if (e.target.id === "upvote") {
+      setLoading(true);
+      userVote(upVote);
+    }
+    if (e.target.id === "downvote") {
+      setLoading(true);
+      userVote(downVote);
+    }
+  };
+
   return (
     <>
       <div className="post-item-container">
         <div className="vote-container">
-          <BiUpvote className="vote-logo" />
-          {data.voteCount}
-          <BiDownvote className="vote-logo" />
+          <button className="vote-button" onClick={handleVote}>
+            <BiUpvote
+              className={
+                checkVoteStatus === 1
+                  ? "upvote-logo upvote-filled"
+                  : "upvote-logo"
+              }
+              id="upvote"
+            />
+          </button>
+          <div className="vote-count-container">
+            {" "}
+            {loading === true ? <AiOutlineLoading3Quarters /> : data.voteCount}
+          </div>
+
+          <button className="vote-button" onClick={handleVote}>
+            <BiDownvote
+              className={
+                checkVoteStatus === 0
+                  ? "downvote-logo downvote-filled"
+                  : "downvote-logo"
+              }
+              id="downvote"
+            />
+          </button>
         </div>
         <div className="post-item-body">
           <Link to={`/r/${data.subName}`} className="link post-link-sub">

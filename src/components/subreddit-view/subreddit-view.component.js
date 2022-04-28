@@ -92,7 +92,7 @@ export default function SubredditView() {
           </Link>
         </h2>
         <div className="sub-post-container">
-          <PostItem data={state.trendingPosts} />
+          <PostItem data={state.posts} />
         </div>
         <div className="sub-right-side-container">
           <AboutCommunity />
