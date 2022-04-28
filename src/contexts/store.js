@@ -3,6 +3,7 @@ import { Reducer } from "./reducer.context";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const userPVotes = user ? JSON.parse(user.postVotes) : [];
+const userCVotes = user ? JSON.parse(user.commentVotes) : [];
 
 const INITIAL_STATE = {
   posts: [],
@@ -11,8 +12,9 @@ const INITIAL_STATE = {
   subNames: [],
   comments: [],
   toggleReplyForm: null,
-  userPostVotes: userPVotes,
   user: user ? user : [],
+  userPostVotes: userPVotes,
+  userCommentVotes: userCVotes,
 };
 
 const Store = ({ children }) => {

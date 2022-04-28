@@ -35,6 +35,11 @@ export const Reducer = (state, action) => {
         ...state,
         userPostVotes: action.payload,
       };
+    case "SET_USER_COMMENT_VOTES":
+      return {
+        ...state,
+        userCommentVotes: action.payload,
+      };
     case "SET_USER":
       return {
         ...state,

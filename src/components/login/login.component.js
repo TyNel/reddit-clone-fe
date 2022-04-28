@@ -37,10 +37,16 @@ export default function Login(props) {
         values
       );
       if (response.status === 200) {
-        let votes = JSON.parse(response.data.postVotes);
+        let postVotes = JSON.parse(response.data.postVotes);
+        let commentVotes = JSON.parse(response.data.commentVotes);
+
         dispatch({
           type: "SET_USER_POST_VOTES",
-          payload: votes ? votes : [],
+          payload: postVotes ? postVotes : [],
+        });
+        dispatch({
+          type: "SET_USER_COMMENT_VOTES",
+          payload: commentVotes ? commentVotes : [],
         });
         dispatch({
           type: "SET_USER",
