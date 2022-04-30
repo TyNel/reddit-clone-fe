@@ -28,7 +28,6 @@ export function Post() {
   const enableReinitialize = true;
 
   const onSubmit = async (values) => {
-    const data = { ...state.posts };
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/AddPost",
@@ -42,10 +41,6 @@ export function Post() {
         dispatch({
           type: "SET_COMMENTS",
           payload: [],
-        });
-        dispatch({
-          type: "SET_POSTS",
-          payload: data.push(response.data),
         });
         navigate(
           `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`

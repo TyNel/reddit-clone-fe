@@ -17,7 +17,7 @@ export default function SignUp(props) {
       .required("Email is required"),
     username: yup
       .string("Please enter a username")
-      .min(8, "Username must be between 2 and 20 characters long")
+      .min(2, "Username must be between 2 and 20 characters long")
       .required("Username is required"),
     password: yup
       .string("Please enter your password")

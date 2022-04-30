@@ -5,6 +5,7 @@ import CommentForm from "../comment-form/comment-form.component";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BsChatLeftText } from "react-icons/bs";
+import axios from "axios";
 
 export default function CommentSection(props) {
   const [state, dispatch] = useContext(Context);
@@ -12,9 +13,25 @@ export default function CommentSection(props) {
     isRoot: false,
     comment: {},
   });
+  const currentUser = state.user;
   const comment = props.comment;
   const replies = props.replies;
   const toggleForm = props.toggleForm;
+  const getCommentIndex = state.comments?.findIndex(
+    (currentComment) =>
+      currentComment.LikeDislikeCommentId === comment.CommentId
+  );
+  const [upVote, setUpVote] = useState({
+    likeDislikeCommentId: comment.commentId,
+    commentLikeDislikeUserId: currentUser ? currentUser.userId : null,
+    commentIsLike: 1,
+  });
+  const [downVote, setDownVote] = useState({
+    likeDislikeCommentId: comment.commentId,
+    commentLikeDislikeUserId: currentUser ? currentUser.userId : null,
+    commentIsLike: 0,
+  });
+  const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
     if (comment.commentParentId !== null) {
@@ -32,6 +49,52 @@ export default function CommentSection(props) {
         type: "SET_REPLY_STATE",
         payload: comment.commentId,
       });
+    }
+  };
+
+  const handleVote = (e) => {
+    if (currentUser.length === 0) {
+      window.alert("Please log in to vote");
+      return;
+    }
+    if (e.target.id === "upvote") {
+      setLoading(true);
+      userVote(upVote);
+    }
+    if (e.target.id === "downvote") {
+      setLoading(true);
+      userVote(downVote);
+    }
+  };
+
+  const userVote = async (vote) => {
+    try {
+      const response = await axios.post(
+        "https://localhost:5001/api/reddit/LikeComment",
+        vote
+      );
+      if (response.status === 200) {
+        setLoading(false);
+        const comments = [...state.comments];
+        console.log(comments[getCommentIndex]);
+        if (comments[getCommentIndex] >= 0) {
+          comments[getCommentIndex].voteCount = response.data.voteCount;
+          dispatch({
+            type: "SET_COMMENTS",
+            payload: comments,
+          });
+          return;
+        } else {
+          comments.push(response.data);
+          dispatch({
+            type: "SET_COMMENTS",
+            payload: comments,
+          });
+          return;
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -54,9 +117,19 @@ export default function CommentSection(props) {
         <div className="comment-body">{comment.commentBody}</div>
         <div className="comment-footer">
           <div className="comment-vote-container">
-            <BiUpvote className="vote-icon-comments upvote" />
-            <span className="footer-link-text comment-vote-text">Vote</span>
-            <BiDownvote className="vote-icon-comments downvote" />
+            <BiUpvote
+              className="vote-icon-comments upvote"
+              id="upvote"
+              onClick={handleVote}
+            />
+            <span className="footer-link-text comment-vote-text">
+              {comment.voteCount > 0 ? comment.voteCount : 0}
+            </span>
+            <BiDownvote
+              className="vote-icon-comments downvote"
+              id="downvote"
+              onClick={handleVote}
+            />
           </div>
           <div
             className="link footer-link"

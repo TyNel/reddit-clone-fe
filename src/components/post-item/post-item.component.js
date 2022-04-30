@@ -24,7 +24,7 @@ export default function PostItem(props) {
   const currentDate = new Date().getHours();
   const currentUser = state.user;
   const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
-  const getUserVoteIndex = state.userPostVotes.findIndex(
+  const getUserVoteIndex = state.userPostVotes?.findIndex(
     (post) => post.likeDislikePostId === postId
   );
   const checkVoteStatus = votes[getUserVoteIndex]?.postIsLike;

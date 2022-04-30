@@ -1,5 +1,5 @@
 import "../comment-page/comment-page.styles.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
 import axios from "axios";
@@ -13,7 +13,6 @@ import { VscCommentDiscussion } from "react-icons/vsc";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);
-  const [toggleForm, setToggleForm] = useState();
   const { subName } = useParams();
   const currentPost = state.currentPost;
   const rootComments = state.comments.filter(
@@ -64,8 +63,6 @@ export default function CommentPage() {
                 <CommentSection
                   comment={rootComment}
                   replies={getReplies(rootComment.commentId)}
-                  toggleForm={() => setToggleForm()}
-                  currentComment={toggleForm}
                 />
               </div>
             ))}
