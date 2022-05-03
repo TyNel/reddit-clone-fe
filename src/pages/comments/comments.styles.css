@@ -1,0 +1,76 @@
+.comment-page-container {
+  background-color: #333;
+  z-index: -1;
+}
+
+.comment-page-body {
+  grid-column: 1;
+}
+
+.login-signup-container-comments {
+  display: flex;
+  background-color: #fff;
+  margin-top: -1rem;
+  padding: 1rem 4.2rem;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #edeff1;
+  padding: 1rem;
+}
+
+.login-signup-text {
+  font-size: 1.4rem;
+  color: #7c7c7c;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.btn-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-container .btn {
+  font-size: 1rem;
+}
+
+.post-item-comment {
+  border-bottom: none;
+}
+
+.empty-comments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  min-height: 25rem;
+}
+
+.no-comment-icon {
+  font-size: 2.4rem;
+  fill: #60000066;
+  margin: 1.6rem 0;
+}
+
+.no-comment-text {
+  font-size: 1.8rem;
+  font-weight: 500;
+  opacity: 35%;
+  margin-bottom: 0.8rem;
+}
+
+.sub-text {
+  font-size: 1.4rem;
+  margin: none;
+}
+
+.footer-nav-comment-page {
+  grid-column: 2;
+}

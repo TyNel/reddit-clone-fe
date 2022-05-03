@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Context } from "../../contexts/store";
 import logo from "../../assests/Reddit_Lockup_OnWhite.svg";
 import "../header/header.styles.css";
 import { BsSearch } from "react-icons/bs";
@@ -11,10 +12,11 @@ import SignUp from "../signup/signup.component";
 import Login from "../login/login.component";
 
 export default function Header() {
+  const [state, dispatch] = useContext(Context);
   const [open, setOpen] = useState(false);
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const user = state.user;
 
   const toggleSigninModal = (data) => {
     setSigninOpen(data);
@@ -37,7 +39,7 @@ export default function Header() {
         </div>
         <input placeholder="Search Reddit" className="search-bar" type="text" />
       </div>
-      {localStorage.getItem("user") === null ? (
+      {user === "" ? (
         <div className="login-signup-container">
           <div
             className="btn btn--outline"
@@ -65,9 +67,7 @@ export default function Header() {
       )}
       <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
         <BsPerson color="#a4a4a4" />
-        <span className="userName">
-          {currentUser ? currentUser.userName : null}
-        </span>
+        <span className="userName">{user === "" ? null : user.userName}</span>
         <MdKeyboardArrowDown color="#a4a4a4" />
         {open && <Dropdown toggleLogin={toggleLogin} />}
       </div>

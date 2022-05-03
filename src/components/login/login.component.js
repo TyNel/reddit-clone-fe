@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, matchPath } from "react-router-dom";
 import "../signup/signup.styles.css";
 import { VscClose } from "react-icons/vsc";
 import * as yup from "yup";
@@ -10,8 +10,11 @@ import axios from "axios";
 export default function Login(props) {
   const toggleModal = props.toggleModal;
   const toggleSignin = props.toggleSignin;
+  const routeData = useParams();
+  const checkRouteLength = Object.entries(routeData);
   const navigate = useNavigate();
   const [state, dispatch] = useContext(Context);
+  console.log(checkRouteLength.length > 0);
 
   const validationSchema = yup.object({
     username: yup
@@ -55,7 +58,14 @@ export default function Login(props) {
         localStorage.setItem("user", JSON.stringify(response.data));
         console.log("logged in");
         toggleModal(false);
-        navigate("/");
+        if (checkRouteLength.length > 0) {
+          console.log("poggers");
+          navigate(
+            `/r/${routeData.subName}/comments/${routeData.postId}/${routeData.postTitle}`
+          );
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);

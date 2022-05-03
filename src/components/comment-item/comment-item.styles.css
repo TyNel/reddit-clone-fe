@@ -33,6 +33,13 @@
   align-items: center;
   font-size: 1.4rem;
 }
+
+.comment-footer .vote-button {
+  background-color: #fff;
+  padding: 0 0.4rem;
+  color: #878a8c;
+}
+
 .comment-footer,
 .comment-body {
   margin: 0 4.2rem;
@@ -43,27 +50,12 @@
   color: #878a8c;
 }
 
-.upvote:hover {
-  background-color: #e8e8e8;
-  color: #c03604;
-  cursor: pointer;
-}
-.downvote:hover {
-  background-color: #e8e8e8;
-  color: #5a75cc;
-  cursor: pointer;
-}
-
 .comment-vote-text {
   padding: 0 0.5rem;
 }
 
 .comment-footer {
   display: flex;
-}
-.comment-footer-text {
-  font-size: 1.1rem;
-  font-weight: 700;
 }
 
 .comment-replies {

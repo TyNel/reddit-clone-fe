@@ -13,7 +13,7 @@ import { MdLogin } from "react-icons/md";
 
 export default function Dropdown(props) {
   const [state, dispatch] = useContext(Context);
-  const user = state.user;
+  const user = state.user ? state.user : [];
   const toggleLogin = props.toggleLogin;
   const userLogin = () => {
     toggleLogin(true);
@@ -25,7 +25,7 @@ export default function Dropdown(props) {
     });
     dispatch({
       type: "SET_USER",
-      payload: [],
+      payload: "",
     });
     localStorage.clear();
     toggleLogin(true);
@@ -68,8 +68,7 @@ export default function Dropdown(props) {
         <IoIosHelpCircleOutline className="dropdown-icon" />
         <div className="dropdown-text">Help Center</div>
       </Link>
-      <Link
-        to="/"
+      <div
         className="dropdown-item"
         onClick={user.length === 0 ? () => userLogin() : () => userLogOut()}
       >
@@ -79,7 +78,7 @@ export default function Dropdown(props) {
         ) : (
           <div className="dropdown-text">Log Out</div>
         )}
-      </Link>
+      </div>
     </div>
   );
 }

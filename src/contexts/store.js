@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import { Reducer } from "./reducer.context";
 
 const user = JSON.parse(localStorage.getItem("user"));
-const userPVotes = user.postVotes ? JSON.parse(user.postVotes) : [];
+const userPVotes = user ? JSON.parse(user.postVotes) : [];
 
 const INITIAL_STATE = {
   posts: [],
@@ -11,8 +11,9 @@ const INITIAL_STATE = {
   subNames: [],
   comments: [],
   toggleReplyForm: null,
-  user: user ? user : [],
+  user: user === null ? "" : user,
   userPostVotes: userPVotes,
+  userCommentVotes: [],
 };
 
 const Store = ({ children }) => {

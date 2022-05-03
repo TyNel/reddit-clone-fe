@@ -20,7 +20,6 @@ export default function Posts() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
   const posts = state.posts;
-  const userVotes = state.userPostVotes;
 
   useEffect(() => {
     if (posts.length === 0) {
@@ -72,7 +71,7 @@ export default function Posts() {
       <div className="left-side-container">
         {posts.map((post) => (
           <div key={post.postId}>
-            <PostItem data={post} votes={userVotes} />
+            <PostItem data={post} />
           </div>
         ))}
       </div>

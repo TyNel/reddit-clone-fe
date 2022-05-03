@@ -17,17 +17,15 @@ export default function PostItem(props) {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
   const [loading, setLoading] = useState(false);
-  const userVotes = useRef(state.userPostVotes);
   const data = props.data;
   const postId = data.postId;
-  const votes = props.votes === undefined ? userVotes.current : props.votes;
   const currentDate = new Date().getHours();
   const currentUser = state.user;
   const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
   const getUserVoteIndex = state.userPostVotes?.findIndex(
     (post) => post.likeDislikePostId === postId
   );
-  const checkVoteStatus = votes[getUserVoteIndex]?.postIsLike;
+  const checkVoteStatus = state.userPostVotes[getUserVoteIndex]?.postIsLike;
 
   const [upVote, setUpVote] = useState({
     likeDislikePostId: postId,
@@ -60,6 +58,8 @@ export default function PostItem(props) {
   };
 
   const userVote = async (vote) => {
+    const posts = [...state.posts];
+    const userVotes = [...state.userPostVotes];
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/LikePost",
@@ -67,8 +67,6 @@ export default function PostItem(props) {
       );
       if (response.status === 200) {
         setLoading(false);
-        const posts = [...state.posts];
-        const userVotes = [...state.userPostVotes];
         posts[getPostIndex].voteCount = response.data.voteCount;
         dispatch({
           type: "SET_POSTS",
