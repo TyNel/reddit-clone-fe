@@ -4,6 +4,7 @@ import Header from "./components/header/header.component";
 import Subreddit from "./pages/subreddit/subreddit.component";
 import Comments from "./pages/comments/comments.component";
 import SubmitPost from "./pages/submitPost/submitPost.component";
+import Search from "./pages/search/search.component";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           path="/r/:subId/:subName/submit"
           element={<SubmitPost />}
         />
+        <Route exact path="/r/search/:query" element={<Search />} />
       </Routes>
     </div>
   );

@@ -1,45 +1,72 @@
 import "../top-communities/top-communities.styles.css";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
-import { MdKeyboardArrowUp } from "react-icons/md";
-import { FaFootballBall } from "react-icons/fa";
+import axios from "axios";
 
-export default function TopCommunities() {
+export default function TopCommunities(props) {
+  const [state, dispatch] = useContext(Context);
+  const [randomSubData, setRandom] = useState([]);
+  const subData = props.data;
+
+  useEffect(() => {
+    const GetRandomSubs = async () => {
+      const response = await axios.get(
+        "https://localhost:5001/api/reddit/SubNames"
+      );
+
+      if (response.status === 200) {
+        setRandom(response.data);
+      }
+    };
+    if (subData === undefined) {
+      GetRandomSubs();
+    }
+  }, []);
+
   return (
     <div className="top-communities-container">
       <div className="top-communities-header">
-        <span className="header-text">Top Sports Communities</span>
+        <span className="header-text">Communities</span>
       </div>
       <div className="item-container">
-        <Link to="/" className="top-communities-item">
-          1 <MdKeyboardArrowUp className="arrow-icon first" />{" "}
-          <FaFootballBall className="sub-icon" />{" "}
-          <span className="sub-name">r/formula1</span>{" "}
-          <div className="btn btn--join-community">Join</div>
-        </Link>
-        <Link to="/" className="top-communities-item">
-          2 <MdKeyboardArrowUp className="arrow-icon" />{" "}
-          <FaFootballBall className="sub-icon" />
-          <span className="sub-name">r/tennis</span>{" "}
-          <div className="btn btn--join-community">Join</div>
-        </Link>
-        <Link to="/" className="top-communities-item">
-          3 <MdKeyboardArrowUp className="arrow-icon" />{" "}
-          <FaFootballBall className="sub-icon" />
-          <span className="sub-name">r/CollegeBasketBall</span>{" "}
-          <div className="btn btn--join-community">Join</div>
-        </Link>
-        <Link to="/" className="top-communities-item">
-          4 <MdKeyboardArrowUp className="arrow-icon" />{" "}
-          <FaFootballBall className="sub-icon" />{" "}
-          <span className="sub-name">r/SquaredCircle</span>{" "}
-          <div className="btn btn--join-community">Join</div>
-        </Link>
-        <Link to="/" className="top-communities-item">
-          5 <MdKeyboardArrowUp className="arrow-icon" />{" "}
-          <FaFootballBall className="sub-icon" />
-          <span className="sub-name">r/CFB</span>
-          <div className="btn btn--join-community">Join</div>
-        </Link>
+        {subData === undefined
+          ? randomSubData.map((post) => {
+              return (
+                <div key={post.subId}>
+                  <Link
+                    to={`/r/${post.subId}/${post.subName}`}
+                    className="top-communities-item"
+                  >
+                    <img
+                      src={post.subIcon}
+                      className="sub-icon icon--create-post"
+                      alt="subreddit icon"
+                    />
+                    <span className="sub-name">{post.subName}</span>{" "}
+                    <div className="btn btn--join-community">Join</div>
+                  </Link>
+                </div>
+              );
+            })
+          : subData.map((post) => {
+              return (
+                <div key={post.postId}>
+                  <Link
+                    to={`/r/${post.subId}/${post.subName}`}
+                    className="top-communities-item"
+                  >
+                    <img
+                      src={post.subIcon}
+                      className="sub-icon icon--create-post"
+                      alt="subreddit icon"
+                    />
+                    <span className="sub-name">{post.subName}</span>{" "}
+                    <div className="btn btn--join-community">Join</div>
+                  </Link>
+                </div>
+              );
+            })}
       </div>
       <div className="btn view-all">View All</div>
       <div className="leaderboard-container">

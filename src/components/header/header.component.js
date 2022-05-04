@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assests/Reddit_Lockup_OnWhite.svg";
 import "../header/header.styles.css";
 import { BsSearch } from "react-icons/bs";
@@ -19,7 +21,9 @@ export default function Header() {
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
   const [filteredData, setFiltiredData] = useState([]);
+  const [query, setQuery] = useState("");
   const user = state.user;
+  const navigate = useNavigate();
 
   const toggleSigninModal = (data) => {
     setSigninOpen(data);
@@ -30,15 +34,49 @@ export default function Header() {
   };
 
   const handleChange = (e) => {
-    const query = e.target.value;
+    const userInput = e.target.value;
     const dataFiltered = state.subNames.filter((sub) => {
-      return sub.subName.toUpperCase().includes(query.toUpperCase());
+      return sub.subName.toUpperCase().includes(userInput.toUpperCase());
     });
 
-    if (query === "") {
+    if (userInput === "") {
       setFiltiredData([]);
+      setQuery(null);
     } else {
       setFiltiredData(dataFiltered);
+    }
+    setQuery(userInput);
+  };
+
+  const handleSubmit = async (e, query) => {
+    e.preventDefault();
+    if (query === null) {
+      return;
+    }
+    const response = await axios.get(
+      "https://localhost:5001/api/reddit/SearchPosts",
+      {
+        params: { query },
+      }
+    );
+    if (response.status === 200) {
+      dispatch({
+        type: "SET_POSTS",
+        payload: response.data,
+      });
+      navigate(`/r/search/${query}`);
+    }
+  };
+
+  const keyPressed = (e) => {
+    let userInput = query;
+    if (e.key === "Enter") {
+      if (query === "") {
+        alert("Please enter a search term");
+        return;
+      }
+      handleSubmit(e, userInput);
+      setQuery("");
     }
   };
 
@@ -49,18 +87,21 @@ export default function Header() {
           <img src={logo} alt="reddit logo" className="homepage-icon-img" />
         </Link>
       </div>
-      <div className="navbar-search-container">
+      <form className="navbar-search-container" onSubmit={handleSubmit}>
         <div className="searchbar-icon">
           <BsSearch color="#a4a4a4" />
         </div>
         <input
+          required
           placeholder="Search Reddit"
           className="search-bar"
           type="text"
+          value={query}
           onChange={handleChange}
+          onKeyDown={keyPressed}
           onClick={() => toggleSearch(true)}
         />
-        <div className="search-result-container">
+        <div className={search === true ? "search-result-container" : "hidden"}>
           {search && (
             <CommunitiesDropdown
               data={filteredData}
@@ -69,7 +110,7 @@ export default function Header() {
             />
           )}
         </div>
-      </div>
+      </form>
       {user === "" ? (
         <div className="login-signup-container">
           <div

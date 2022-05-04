@@ -29,6 +29,10 @@ body {
   padding: 0 10.8rem;
 }
 
+.hidden {
+  display: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
