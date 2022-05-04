@@ -137,7 +137,10 @@ export default function PostItem(props) {
           </button>
         </div>
         <div className="post-item-body">
-          <Link to={`/r/${data.subName}`} className="link post-link-sub">
+          <Link
+            to={`/r/${data.postCommunity}/${data.subName}`}
+            className="link post-link-sub"
+          >
             <AiOutlineWindows className="logo" />
             <span className="post-link-sub-text">{data.subName}</span>
           </Link>

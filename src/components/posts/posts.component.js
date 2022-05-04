@@ -22,9 +22,7 @@ export default function Posts() {
   const posts = state.posts;
 
   useEffect(() => {
-    if (posts.length === 0) {
-      GetTrendingPosts();
-    }
+    GetTrendingPosts();
     async function GetTrendingPosts() {
       try {
         const trendingPosts = await axios.get(

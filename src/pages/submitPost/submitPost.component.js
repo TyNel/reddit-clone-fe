@@ -78,9 +78,14 @@ export default function SubmitPost() {
               {" "}
               <MdKeyboardArrowDown color="#a4a4a4" />
             </div>
-            {open && (
-              <CommunitiesDropdown data={filteredData} toggleSearch={setOpen} />
-            )}
+            <div className="communities-dropdown-results">
+              {open && (
+                <CommunitiesDropdown
+                  data={filteredData}
+                  toggleSearch={setOpen}
+                />
+              )}
+            </div>
           </div>
         </div>
         <div className="create-post-form">

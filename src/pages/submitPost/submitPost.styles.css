@@ -38,6 +38,12 @@
   font-weight: 600;
 }
 
+.communities-dropdown-results {
+  width: 100%;
+  position: absolute;
+  top: 3.9rem;
+}
+
 .post-right-side-container {
   display: flex;
   flex-direction: column;

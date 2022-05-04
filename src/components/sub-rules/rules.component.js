@@ -25,8 +25,6 @@ export default function SubRules(props) {
     }
   }, [state.subRedditData]);
 
-  console.log(currentRules);
-
   return (
     <div className="rule-container">
       <div className="rules-header">

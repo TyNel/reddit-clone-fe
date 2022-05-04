@@ -10,12 +10,15 @@ import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown.component";
 import SignUp from "../signup/signup.component";
 import Login from "../login/login.component";
+import CommunitiesDropdown from "../communities-dropdown/communities-dropdown.component";
 
 export default function Header() {
   const [state, dispatch] = useContext(Context);
   const [open, setOpen] = useState(false);
+  const [search, toggleSearch] = useState(false);
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
+  const [filteredData, setFiltiredData] = useState([]);
   const user = state.user;
 
   const toggleSigninModal = (data) => {
@@ -24,6 +27,19 @@ export default function Header() {
 
   const toggleLogin = (data) => {
     setLoginOpen(data);
+  };
+
+  const handleChange = (e) => {
+    const query = e.target.value;
+    const dataFiltered = state.subNames.filter((sub) => {
+      return sub.subName.toUpperCase().includes(query.toUpperCase());
+    });
+
+    if (query === "") {
+      setFiltiredData([]);
+    } else {
+      setFiltiredData(dataFiltered);
+    }
   };
 
   return (
@@ -37,7 +53,22 @@ export default function Header() {
         <div className="searchbar-icon">
           <BsSearch color="#a4a4a4" />
         </div>
-        <input placeholder="Search Reddit" className="search-bar" type="text" />
+        <input
+          placeholder="Search Reddit"
+          className="search-bar"
+          type="text"
+          onChange={handleChange}
+          onClick={() => toggleSearch(true)}
+        />
+        <div className="search-result-container">
+          {search && (
+            <CommunitiesDropdown
+              data={filteredData}
+              toggleSearch={toggleSearch}
+              fromHeader={true}
+            />
+          )}
+        </div>
       </div>
       {user === "" ? (
         <div className="login-signup-container">

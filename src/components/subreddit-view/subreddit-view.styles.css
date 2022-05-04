@@ -8,13 +8,17 @@
 .sub-header-img-container {
   display: flex;
   width: 100%;
-  background-color: #f0f7fd;
+  height: 18rem;
   align-items: center;
   justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .sub-header-img {
   height: 13rem;
+  width: 50%;
   padding: 1.5rem 0;
   cursor: pointer;
 }
@@ -48,6 +52,7 @@
 .sub-title {
   font-size: 2.7rem;
   font-weight: 700;
+  text-transform: capitalize;
 }
 
 .btn--subreddit-join {
@@ -63,8 +68,8 @@
 .subreddit-name {
   width: 100%;
   font-size: 1.4rem;
-  padding-left: 5.2rem;
-  margin-top: -1rem;
+  padding-left: 8.2rem;
+  margin-top: -4rem;
   color: #69717a;
 }
 

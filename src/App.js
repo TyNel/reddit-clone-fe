@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/r/:subName" element={<Subreddit />} />
+        <Route exact path="/r/:subId/:subName" element={<Subreddit />} />
         <Route
           path="/r/:subName/comments/:postId/:postTitle"
           element={<Comments />}

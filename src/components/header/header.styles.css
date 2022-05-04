@@ -18,6 +18,7 @@
 .navbar-search-container {
   display: flex;
   align-items: center;
+  position: relative;
   height: 3.4rem;
   width: 69rem;
   border: 1px solid #edeff1;
@@ -31,12 +32,20 @@
   padding-right: 1rem;
   font-size: 2rem;
 }
-
 .search-bar {
   border: none;
   height: 3.4rem;
   width: 100%;
   background-color: #f6f7f8;
+}
+
+.search-result-container {
+  position: absolute;
+  width: 100%;
+  top: 3.9rem;
+  left: 0;
+  border: 1px solid #edeff1;
+  border-radius: 4px;
 }
 
 .login-signup-container {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function CommunitiesDropdown(props) {
   const data = props.data;
   const toggleSearch = props.toggleSearch;
+  const fromHeader = props.fromHeader;
 
   return (
     <div className="dropdown-results-container">
@@ -15,7 +16,11 @@ export default function CommunitiesDropdown(props) {
             alt="subreddit icon"
           />
           <Link
-            to={`/r/${sub.subId}/${sub.subName}/submit`}
+            to={
+              fromHeader === true
+                ? `/r/${sub.subId}/${sub.subName}/`
+                : `/r/${sub.subId}/${sub.subName}/submit`
+            }
             className="dropdown-result-item"
             onClick={() => toggleSearch(false)}
           >

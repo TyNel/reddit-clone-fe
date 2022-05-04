@@ -15,8 +15,9 @@ import { Context } from "../../contexts/store";
 import axios from "axios";
 
 export default function SubredditView() {
-  const { subName } = useParams();
+  const { subId, subName } = useParams();
   const [state, dispatch] = useContext(Context);
+  const subPosts = state.posts.length > 0 ? state.posts : [];
 
   useEffect(() => {
     async function GetSubData() {
@@ -40,35 +41,47 @@ export default function SubredditView() {
     GetSubData();
   }, [dispatch, subName]);
 
+  useEffect(() => {
+    async function GetSubPosts() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/SubPosts",
+          {
+            params: { subId },
+          }
+        );
+        if (response.status === 200) {
+          dispatch({
+            type: "SET_POSTS",
+            payload: response.data,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    GetSubPosts();
+  }, []);
+
   return (
     <>
       <div className="sub-header-top">
-        <div className="sub-header-img-container">
-          <img
-            src={
-              state.subRedditData.length > 0
-                ? state.subRedditData[0].subImage
-                : ""
-            }
-            alt="the word askreddit"
-            className="sub-header-img"
-          />
-        </div>
+        <div
+          className="sub-header-img-container"
+          style={{
+            backgroundImage: `url(${state.subRedditData[0]?.subImage})`,
+          }}
+        ></div>
         <div className="container sub-header-bottom">
           <div className="sub-name-container">
             <img
-              src="https://bit.ly/3K03ygp"
-              alt="gray question mark"
+              src={state.subRedditData[0]?.subIcon}
+              alt="sub icon"
               className="subreddit-icon"
             />
             <div className="sub-title">{subName}</div>
             <div className="btn btn--subreddit-join">Join</div>
             <div className="subreddit-name">{`r/${subName}`}</div>
-          </div>
-          <div className="header-nav">
-            <div className="nav-link">Posts</div>
-            <div className="nav-link">Wiki</div>
-            <div className="nav-link">Best of AskReddit</div>
           </div>
         </div>
       </div>
@@ -86,13 +99,13 @@ export default function SubredditView() {
             <BsSortUpAlt className="post-link-icon" />
             Top
           </Link>
-          <Link to="/" className="post-link">
-            <FiTrendingUp className="post-link-icon" />
-            Rising
-          </Link>
         </h2>
         <div className="sub-post-container">
-          <PostItem data={state.posts} />
+          {subPosts.map((post) => (
+            <div key={post.postId}>
+              <PostItem data={post} />
+            </div>
+          ))}
         </div>
         <div className="sub-right-side-container">
           <AboutCommunity />
