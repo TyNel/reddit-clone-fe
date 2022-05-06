@@ -1,11 +1,10 @@
 import "../top-communities/top-communities.styles.css";
-import { useContext, useEffect, useState } from "react";
-import { Context } from "../../contexts/store";
+import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function TopCommunities(props) {
-  const [state, dispatch] = useContext(Context);
   const [randomSubData, setRandom] = useState([]);
   const subData = props.data;
 
@@ -30,8 +29,9 @@ export default function TopCommunities(props) {
         <span className="header-text">Communities</span>
       </div>
       <div className="item-container">
-        {subData === undefined
-          ? randomSubData.map((post) => {
+        {subData?.length > 0 || subData === undefined ? (
+          subData === undefined ? (
+            randomSubData.map((post) => {
               return (
                 <div key={post.subId}>
                   <Link
@@ -49,7 +49,8 @@ export default function TopCommunities(props) {
                 </div>
               );
             })
-          : subData.map((post) => {
+          ) : (
+            subData.map((post) => {
               return (
                 <div key={post.postId}>
                   <Link
@@ -66,14 +67,11 @@ export default function TopCommunities(props) {
                   </Link>
                 </div>
               );
-            })}
-      </div>
-      <div className="btn view-all">View All</div>
-      <div className="leaderboard-container">
-        <div className="btn leaderboard">Top</div>
-        <div className="btn leaderboard">News</div>
-        <div className="btn leaderboard">Sports</div>
-        <div className="btn leaderboard">Gaming</div>
+            })
+          )
+        ) : (
+          <div className="no-results-container">No results</div>
+        )}
       </div>
     </div>
   );

@@ -1,15 +1,42 @@
 import "../trending/trending.styles.css";
+import { useContext, useEffect } from "react";
+import { Context } from "../../contexts/store";
+import axios from "axios";
 import TrendingItem from "../trending-item/trending-item.component";
 
 export default function Trending() {
+  const [state, dispatch] = useContext(Context);
+  const trendingData = state.trendingPosts;
+
+  useEffect(() => {
+    async function GetTrendingPosts() {
+      try {
+        const trendingData = await axios.get(
+          "https://localhost:5001/api/reddit/TrendingPosts"
+        );
+        if (trendingData.status === 200) {
+          dispatch({
+            type: "SET_TRENDING_POSTS",
+            payload: trendingData.data,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    GetTrendingPosts();
+  }, []);
+
   return (
     <div className="trending-preview">
       <div className="trending-header">Trending today</div>
       <div className="trending-item-container">
-        <TrendingItem />
-        <TrendingItem />
-        <TrendingItem />
-        <TrendingItem />
+        {trendingData.map((data) => (
+          <div key={data.postId}>
+            {" "}
+            <TrendingItem data={data} />
+          </div>
+        ))}
       </div>
     </div>
   );

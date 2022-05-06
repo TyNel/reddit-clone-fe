@@ -103,3 +103,8 @@
 .leaderboard:hover {
   background-color: #dddedf;
 }
+
+.no-results-container {
+  font-size: 1.4rem;
+  padding: 1rem;
+}

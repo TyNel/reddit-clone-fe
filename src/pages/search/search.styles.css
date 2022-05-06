@@ -2,6 +2,14 @@
   margin-top: 2rem;
 }
 
+.no-search-results {
+  display: flex;
+  text-align: center;
+  font-size: 1.4rem;
+  background-color: #fff;
+  padding: 3rem;
+}
+
 .right-side {
   display: flex;
   flex-direction: column;

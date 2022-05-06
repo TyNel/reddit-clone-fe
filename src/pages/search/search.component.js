@@ -1,5 +1,6 @@
 import "../search/search.styles.css";
 import { useContext, useEffect, useCallback, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
 import PostItem from "../../components/post-item/post-item.component";
 import FooterNav from "../../components/footer-nav/footer-nav.component";
@@ -10,6 +11,7 @@ export default function Search() {
   const [state, dispatch] = useContext(Context);
   const [subData, setSubData] = useState([]);
   const searchedData = state.posts;
+  const { query } = useParams();
 
   const communities = useCallback(() => {
     let result = [];
@@ -32,13 +34,20 @@ export default function Search() {
   return (
     <div className="container grid--2-cols search-results">
       <div>
-        {searchedData.map((post) => {
-          return (
-            <div key={post.postId}>
-              <PostItem data={post} />
-            </div>
-          );
-        })}
+        {searchedData.length > 0 ? (
+          searchedData.map((post) => {
+            return (
+              <div key={post.postId}>
+                <PostItem data={post} />
+              </div>
+            );
+          })
+        ) : (
+          <div className="no-search-results">
+            Looks like there aren't any results for "{query}". Try
+            double-checking your spelling or searching for a related topic.
+          </div>
+        )}
       </div>
       <div className="right-side">
         <TopCommunities data={subData} />

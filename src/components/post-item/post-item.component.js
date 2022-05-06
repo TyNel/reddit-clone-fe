@@ -39,10 +39,6 @@ export default function PostItem(props) {
   });
 
   const handleClick = async (e) => {
-    dispatch({
-      type: "SET_CURRENT_POST",
-      payload: data,
-    });
     const response = await axios.get(
       "https://localhost:5001/api/reddit/Comments",
       {
@@ -71,6 +67,10 @@ export default function PostItem(props) {
         dispatch({
           type: "SET_POSTS",
           payload: posts,
+        });
+        dispatch({
+          type: "SET_CURRENT_POST",
+          payload: posts[getPostIndex],
         });
         if (getUserVoteIndex >= 0) {
           userVotes[getUserVoteIndex].postIsLike = response.data.postIsLike;
@@ -144,13 +144,13 @@ export default function PostItem(props) {
             <AiOutlineWindows className="logo" />
             <span className="post-link-sub-text">{data.subName}</span>
           </Link>
-          <Link to="/" className="link posted-by">
+          <div className="posted-by">
             Posted by <span className="post-item-user">{data.postAuthor}</span>{" "}
             {currentDate - parseInt(data.dateAdded)} hours ago
-          </Link>
-          <Link to="/" className="link join-button">
+          </div>
+          <button to="/" className="btn join-button">
             Join
-          </Link>
+          </button>
           {data.postImageUrl === null ? (
             <div className="post-item-title">{data.postTitle}</div>
           ) : (

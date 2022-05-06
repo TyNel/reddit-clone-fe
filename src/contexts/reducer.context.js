@@ -5,6 +5,11 @@ export const Reducer = (state, action) => {
         ...state,
         posts: action.payload,
       };
+    case "SET_TRENDING_POSTS":
+      return {
+        ...state,
+        trendingPosts: action.payload,
+      };
     case "SET_SUBREDDIT_DATA":
       return {
         ...state,

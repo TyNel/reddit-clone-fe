@@ -40,9 +40,6 @@ export default function CommentPage() {
   };
 
   useEffect(() => {
-    if (state.subRedditData.length === 0) {
-      GetSubData();
-    }
     async function GetSubData() {
       try {
         const response = await axios.get(
@@ -61,6 +58,7 @@ export default function CommentPage() {
         console.log(error);
       }
     }
+    GetSubData();
   }, []);
 
   useEffect(() => {

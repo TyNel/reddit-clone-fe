@@ -6,6 +6,7 @@ const userPVotes = user ? JSON.parse(user.postVotes) : [];
 
 const INITIAL_STATE = {
   posts: [],
+  trendingPosts: [],
   currentPost: [],
   subRedditData: [],
   subNames: [],
