@@ -2,7 +2,7 @@ import "../signup/signup.styles.css";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { useFormik, ErrorMessage } from "formik";
 import axios from "axios";
 
 export default function SignUp(props) {
@@ -41,7 +41,7 @@ export default function SignUp(props) {
         toggleModal(false);
       }
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.errorMessages);
     }
   };
 
@@ -82,6 +82,9 @@ export default function SignUp(props) {
                   placeholder=" "
                 />
                 <span className="secondary-form-label">email</span>
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="form-error">{formik.errors.email}</div>
+                ) : null}
               </form>
               <div
                 className="btn btn--full continue--btn"
@@ -138,6 +141,9 @@ export default function SignUp(props) {
                     <span className="secondary-form-label">
                       Choose a username
                     </span>
+                    {formik.touched.username && formik.errors.username ? (
+                      <div className="form-error">{formik.errors.username}</div>
+                    ) : null}
                   </div>
                   <div className="input-container">
                     <input
@@ -150,6 +156,9 @@ export default function SignUp(props) {
                     />
                     <span className="secondary-form-label">Password</span>
                   </div>
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className="form-error">{formik.errors.password}</div>
+                  ) : null}
                 </form>
               </div>
               <div className="user-form-footer">

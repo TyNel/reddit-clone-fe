@@ -20,7 +20,7 @@ export default function HomePage() {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.errorMessages);
       }
     }
     GetNames();

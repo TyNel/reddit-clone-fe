@@ -47,7 +47,7 @@ export function Post() {
         );
       }
     } catch (error) {
-      console.warn(error);
+      console.log(error.response.data.errorMessages);
     }
   };
 
@@ -147,7 +147,7 @@ export function Images() {
         );
       }
     } catch (error) {
-      console.warn(error);
+      console.log(error.response.data.errorMessages);
     }
   };
 
@@ -253,7 +253,7 @@ export function Link() {
         );
       }
     } catch (error) {
-      console.warn(error);
+      console.log(error.response.data.errorMessages);
     }
   };
 

@@ -1,5 +1,5 @@
 import "../subreddit-view/subreddit-view.styles.css";
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import PostItem from "../post-item/post-item.component";
@@ -10,7 +10,6 @@ import ReturnButton from "../return-button/return-button.component";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { BsSortUpAlt } from "react-icons/bs";
-import { FiTrendingUp } from "react-icons/fi";
 import { Context } from "../../contexts/store";
 import axios from "axios";
 
@@ -35,7 +34,7 @@ export default function SubredditView() {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.errorMessages);
       }
     }
     GetSubData();

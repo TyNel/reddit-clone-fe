@@ -14,17 +14,21 @@ export default function TrendingItem(props) {
       type: "SET_CURRENT_POST",
       payload: data,
     });
-    const response = await axios.get(
-      "https://localhost:5001/api/reddit/Comments",
-      {
-        params: { postId },
+    try {
+      const response = await axios.get(
+        "https://localhost:5001/api/reddit/Comments",
+        {
+          params: { postId },
+        }
+      );
+      if (response.status === 200) {
+        dispatch({
+          type: "SET_COMMENTS",
+          payload: response.data,
+        });
       }
-    );
-    if (response.status === 200) {
-      dispatch({
-        type: "SET_COMMENTS",
-        payload: response.data,
-      });
+    } catch (error) {
+      console.log(error.response.data.errorMessages);
     }
   };
 

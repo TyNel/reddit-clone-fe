@@ -55,7 +55,7 @@ export default function CommentPage() {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.errorMessages);
       }
     }
     GetSubData();

@@ -43,7 +43,7 @@ export default function TopCommunities(props) {
                       className="sub-icon icon--create-post"
                       alt="subreddit icon"
                     />
-                    <span className="sub-name">{post.subName}</span>{" "}
+                    <span className="sub-name">r/{post.subName}</span>{" "}
                     <div className="btn btn--join-community">Join</div>
                   </Link>
                 </div>
@@ -62,7 +62,7 @@ export default function TopCommunities(props) {
                       className="sub-icon icon--create-post"
                       alt="subreddit icon"
                     />
-                    <span className="sub-name">{post.subName}</span>{" "}
+                    <span className="sub-name">r/{post.subName}</span>{" "}
                     <div className="btn btn--join-community">Join</div>
                   </Link>
                 </div>

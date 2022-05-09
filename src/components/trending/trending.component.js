@@ -21,7 +21,7 @@ export default function Trending() {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.errorMessages);
       }
     }
     GetTrendingPosts();

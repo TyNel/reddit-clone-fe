@@ -68,7 +68,8 @@ export default function Dropdown(props) {
         <IoIosHelpCircleOutline className="dropdown-icon" />
         <div className="dropdown-text">Help Center</div>
       </Link>
-      <div
+      <Link
+        to="/"
         className="dropdown-item"
         onClick={user.length === 0 ? () => userLogin() : () => userLogOut()}
       >
@@ -78,7 +79,7 @@ export default function Dropdown(props) {
         ) : (
           <div className="dropdown-text">Log Out</div>
         )}
-      </div>
+      </Link>
     </div>
   );
 }

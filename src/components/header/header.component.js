@@ -53,18 +53,22 @@ export default function Header() {
     if (query === null) {
       return;
     }
-    const response = await axios.get(
-      "https://localhost:5001/api/reddit/SearchPosts",
-      {
-        params: { query },
+    try {
+      const response = await axios.get(
+        "https://localhost:5001/api/reddit/SearchPosts",
+        {
+          params: { query },
+        }
+      );
+      if (response.status === 200) {
+        dispatch({
+          type: "SET_POSTS",
+          payload: response.data,
+        });
+        navigate(`/r/search/${query}`);
       }
-    );
-    if (response.status === 200) {
-      dispatch({
-        type: "SET_POSTS",
-        payload: response.data,
-      });
-      navigate(`/r/search/${query}`);
+    } catch (error) {
+      console.log(error.response.data.errorMessages);
     }
   };
 
