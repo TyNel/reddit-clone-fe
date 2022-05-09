@@ -19,77 +19,49 @@ import { FiTrendingUp } from "react-icons/fi";
 export default function Posts() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
-  const [pageNumber, setpageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const lastItemRef = useRef(null);
+  const [hasMore, setHasMore] = useState(true);
   const posts = state.posts;
+  const observer = useRef();
 
-  // const handleObserver = useCallback((entries) => {
-  //   const [target] = entries;
-  //   if (target.isIntersecting) {
-  //     setpageNumber((prev) => prev + 1);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const option = {
-  //     root: null,
-  //     rootMargin: "0px",
-  //     threshold: 0.9,
-  //   };
-  //   const observer = new IntersectionObserver(handleObserver, option);
-
-  //   if (lastItemRef.current) observer.observe(lastItemRef.current);
-  //   return () => {
-  //     observer.unobserve(lastItemRef);
-  //   };
-  // }, [handleObserver, posts]);
+  const lastItemRef = useCallback(
+    (node) => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore === true) {
+          setPageNumber((prevPageNumber) => prevPageNumber + 1);
+        }
+      });
+      if (node) {
+        observer.current.observe(node);
+      }
+    },
+    [hasMore]
+  );
 
   const getPosts = useCallback(async () => {
     try {
-      const trendingPosts = await axios.get(
+      const response = await axios.get(
         "https://localhost:5001/api/reddit/Posts",
         {
           params: { pageNumber, pageSize },
         }
       );
-      if (trendingPosts.status === 200) {
+      if (response.status === 200) {
+        setHasMore(response.data.length > 0);
+        let data = [...posts].concat(response.data);
         dispatch({
           type: "SET_POSTS",
-          payload: trendingPosts.data,
+          payload: data,
         });
       }
     } catch (error) {
       console.log(error.response.data.errorMessages);
     }
-  }, []);
-
-  // const getMorePosts = useCallback(async () => {
-  //   const posts = [...state.posts];
-  //   try {
-  //     const trendingPosts = await axios.get(
-  //       "https://localhost:5001/api/reddit/Posts",
-  //       {
-  //         params: { pageNumber, pageSize },
-  //       }
-  //     );
-  //     if (trendingPosts.status === 200) {
-  //       for (let i = 0; i < trendingPosts.length; i++) {
-  //         console.log(i);
-  //       }
-  //       dispatch({
-  //         type: "SET_POSTS",
-  //         payload: posts,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log(error.response.data.errorMessages);
-  //   }
-  // }, [pageNumber]);
-
-  // useEffect(() => {
-  //   getMorePosts();
-  // }, [getMorePosts]);
+  }, [pageNumber, pageSize]);
 
   useEffect(() => {
     getPosts();

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, matchPath, useLocation } from "react-router-dom";
 import logo from "../../assests/Reddit_Lockup_OnWhite.svg";
 import "../header/header.styles.css";
 import { BsSearch } from "react-icons/bs";
@@ -23,6 +23,11 @@ export default function Header() {
   const [filteredData, setFiltiredData] = useState([]);
   const [query, setQuery] = useState("");
   const user = state.user;
+
+  //check if user is on homepage already
+  const { pathname } = useLocation();
+  const match = matchPath({ path: "/" }, pathname);
+
   const navigate = useNavigate();
 
   const toggleSigninModal = (data) => {
@@ -84,12 +89,22 @@ export default function Header() {
     }
   };
 
+  const homePageRedirect = () => {
+    if (match === null) {
+      dispatch({
+        type: "SET_POSTS",
+        payload: [],
+      });
+      navigate("/");
+    }
+  };
+
   return (
     <div className="header">
       <div className="homepage-icon-box">
-        <Link to="/">
+        <div className="homepage-icon" onClick={homePageRedirect}>
           <img src={logo} alt="reddit logo" className="homepage-icon-img" />
-        </Link>
+        </div>
       </div>
       <form className="navbar-search-container" onSubmit={handleSubmit}>
         <div className="searchbar-icon">

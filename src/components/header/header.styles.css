@@ -11,6 +11,10 @@
   z-index: 1;
 }
 
+.homepage-icon {
+  cursor: pointer;
+}
+
 .homepage-icon-img {
   width: 11.5rem;
 }
