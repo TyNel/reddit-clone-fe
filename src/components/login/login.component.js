@@ -14,7 +14,6 @@ export default function Login(props) {
   const checkRouteLength = Object.entries(routeData);
   const navigate = useNavigate();
   const [state, dispatch] = useContext(Context);
-  console.log(checkRouteLength.length > 0);
 
   const validationSchema = yup.object({
     username: yup

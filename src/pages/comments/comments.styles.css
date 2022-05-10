@@ -74,3 +74,35 @@
 .footer-nav-comment-page {
   grid-column: 2;
 }
+
+/* 1100px */
+
+@media (max-width: 68.75em) {
+  .btn {
+    padding: 0.55rem 1.5rem;
+  }
+
+  .comment-page-content .right-side-container {
+    display: none;
+  }
+
+  .comment-page-content {
+    grid: none;
+    padding: 0 5.4rem;
+  }
+}
+
+/* 600px */
+
+@media (max-width: 37.5em) {
+  .btn {
+    padding: 0.55rem 1rem;
+  }
+  .comment-page-content {
+    padding: 0 2.6rem;
+  }
+
+  html {
+    font-size: 60%;
+  }
+}

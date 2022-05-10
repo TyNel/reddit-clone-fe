@@ -36,11 +36,7 @@ export default function Search() {
       <div>
         {searchedData.length > 0 ? (
           searchedData.map((post) => {
-            return (
-              <div key={post.postId}>
-                <PostItem data={post} />
-              </div>
-            );
+            return <PostItem data={post} key={post.postId} />;
           })
         ) : (
           <div className="no-search-results">

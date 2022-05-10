@@ -63,3 +63,15 @@
   border: 1px solid #ccc;
   border-radius: 0.3rem;
 }
+
+/* 960px */
+
+@media (max-width: 60em) {
+  .right-side-container {
+    display: none;
+  }
+
+  .grid--2-cols {
+    grid: none;
+  }
+}

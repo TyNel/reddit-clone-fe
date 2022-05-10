@@ -157,6 +157,39 @@ code {
   background-color: #c5c6c6;
 }
 
+/* 960px */
+
+@media (max-width: 60em) {
+  .container {
+    margin: none;
+    padding: 0 2rem;
+  }
+
+  .right-side-container {
+    display: none;
+  }
+
+  .posts-container {
+    grid: none;
+  }
+
+  .grid--2-cols {
+    grid: none;
+  }
+}
+
+/* 500px */
+
+@media (max-width: 31.25em) {
+  html {
+    font-size: 50%;
+  }
+  .container {
+    margin: none;
+    padding: 0 2rem;
+  }
+}
+
 /* - FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 */
 

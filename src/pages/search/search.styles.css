@@ -18,3 +18,11 @@
   grid-column: 2;
   grid-row: 1 / span 2;
 }
+
+/* BELOW 960px */
+
+@media (max-width: 61em) {
+  .right-side {
+    display: none;
+  }
+}

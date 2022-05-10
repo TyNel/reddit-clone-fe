@@ -1,2 +1,7 @@
-.homepage-body {
+/* 690px */
+
+@media (max-width: 43.2em) {
+  .homepage {
+    margin: none;
+  }
 }

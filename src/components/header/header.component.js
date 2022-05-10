@@ -70,6 +70,7 @@ export default function Header() {
           type: "SET_POSTS",
           payload: response.data,
         });
+        toggleSearch(false);
         navigate(`/r/search/${query}`);
       }
     } catch (error) {
@@ -87,6 +88,7 @@ export default function Header() {
       handleSubmit(e, userInput);
       setQuery("");
     }
+    toggleSearch(true);
   };
 
   const homePageRedirect = () => {

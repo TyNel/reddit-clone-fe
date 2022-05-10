@@ -56,7 +56,7 @@ export default function SubmitPost() {
   }, [subName, dispatch]);
 
   return (
-    <div className="container grid--2-cols">
+    <div className="container grid--2-cols submit-container">
       <div className="create-post-container">
         <div className="create-post-header">
           <div className="create-post-title">Create a post</div>

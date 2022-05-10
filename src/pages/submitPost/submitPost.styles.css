@@ -36,6 +36,7 @@
 .community-searchbar {
   border: none;
   font-weight: 600;
+  width: 100%;
 }
 
 .communities-dropdown-results {
@@ -84,4 +85,30 @@
   padding: 0.5rem;
   font-size: 1.4rem;
   font-weight: 500;
+}
+
+/* 950px */
+
+@media (max-width: 60.5em) {
+  .submit-container {
+    grid: none;
+  }
+  .post-right-side-container {
+    display: none;
+  }
+
+  .submit-container {
+    padding: 0 5.4rem;
+  }
+}
+
+/* 600px */
+
+@media (max-width: 37.5em) {
+  .community-link-container {
+    width: 100%;
+  }
+  .submit-container {
+    padding: 0 2.7rem;
+  }
 }

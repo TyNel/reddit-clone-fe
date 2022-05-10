@@ -93,7 +93,7 @@ export default function Posts() {
           Rising
         </Link>
       </h2>
-      <div className="left-side-container">
+      <div className="left-side-container posts">
         {posts.map((post, index) => {
           if (index === posts.length - 1) {
             return (

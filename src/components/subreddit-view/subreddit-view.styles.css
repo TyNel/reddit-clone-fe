@@ -17,16 +17,16 @@
 }
 
 .sub-header-img {
-  height: 13rem;
-  width: 50%;
-  padding: 1.5rem 0;
+  height: 100%;
+  width: 100%;
   cursor: pointer;
+  object-fit: cover;
 }
 
-.sub-header-img:hover {
+/* .sub-header-img:hover {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
-}
+} */
 
 .sub-header-bottom {
   display: flex;
@@ -99,4 +99,12 @@
   gap: 1rem;
   grid-column: 2;
   grid-row: 1 / span 2;
+}
+
+/* BELOW 960px */
+
+@media (max-width: 60em) {
+  .sub-right-side-container {
+    display: none;
+  }
 }

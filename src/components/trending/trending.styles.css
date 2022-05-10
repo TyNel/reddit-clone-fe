@@ -12,6 +12,7 @@
   color: #1a1a1b;
   letter-spacing: 0.2px;
   padding-top: 1rem;
+  align-self: flex-start;
 }
 
 .trending-item-container {
@@ -19,4 +20,28 @@
   justify-content: center;
   width: 100%;
   gap: 1rem;
+}
+
+/* BELOW 950px */
+
+@media (max-width: 59.5em) {
+  .trending-container:nth-of-type(4) {
+    display: none;
+  }
+}
+
+/* BELOW 750px */
+
+@media (max-width: 47em) {
+  .trending-container:nth-of-type(3) {
+    display: none;
+  }
+}
+
+/* BELOW 520px */
+
+@media (max-width: 32.5em) {
+  .trending-container:nth-of-type(2) {
+    display: none;
+  }
 }

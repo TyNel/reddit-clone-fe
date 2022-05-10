@@ -1,5 +1,6 @@
 .top-communities-container {
   max-height: 42rem;
+  min-width: 27.5rem;
   width: 100%;
   background-color: #fff;
   border: 1px solid #ccc;
