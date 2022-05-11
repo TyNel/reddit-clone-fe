@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { Context } from "../../contexts/store";
 import axios from "axios";
 import { useNavigate, matchPath, useLocation } from "react-router-dom";
@@ -38,17 +38,40 @@ export default function Header() {
     setLoginOpen(data);
   };
 
+  useEffect(() => {
+    let controller = new AbortController();
+    async function searchSubNames() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/SearchSubNames",
+          {
+            params: { query },
+            signal: controller.signal,
+          }
+        );
+        if (response.status === 200) {
+          console.log(response);
+          setFiltiredData(response.data);
+          dispatch({
+            type: "SET_SUBNAMES",
+            payload: response.data,
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) return;
+        console.log(error.response.data.errorMessages);
+      }
+    }
+    searchSubNames();
+    return () => {
+      controller.abort();
+    };
+  }, [query]);
+
   const handleChange = (e) => {
     const userInput = e.target.value;
-    const dataFiltered = state.subNames.filter((sub) => {
-      return sub.subName.toUpperCase().includes(userInput.toUpperCase());
-    });
-
     if (userInput === "") {
-      setFiltiredData([]);
       setQuery(null);
-    } else {
-      setFiltiredData(dataFiltered);
     }
     setQuery(userInput);
   };

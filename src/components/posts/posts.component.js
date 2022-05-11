@@ -61,7 +61,7 @@ export default function Posts() {
     } catch (error) {
       console.log(error.response.data.errorMessages);
     }
-  }, [pageNumber, pageSize]);
+  }, [pageNumber]);
 
   useEffect(() => {
     getPosts();

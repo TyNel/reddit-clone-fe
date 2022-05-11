@@ -17,19 +17,48 @@ export default function SubmitPost() {
   const [filteredData, setFiltiredData] = useState([]);
   const { subName } = useParams();
   const [state, dispatch] = useContext(Context);
+  const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
-    const query = e.target.value;
-    const dataFiltered = state.subNames.filter((sub) => {
-      return sub.subName.toUpperCase().includes(query.toUpperCase());
-    });
-
-    if (query === "") {
-      setFiltiredData([]);
+    const userInput = e.target.value;
+    if (userInput === "") {
+      setQuery(null);
     } else {
-      setFiltiredData(dataFiltered);
+      setQuery(userInput);
     }
   };
+
+  useEffect(() => {
+    let controller = new AbortController();
+    async function searchSubNames() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/SearchSubNames",
+          {
+            params: { query },
+            signal: controller.signal,
+          }
+        );
+        if (response.status === 200) {
+          setFiltiredData(response.data);
+          dispatch({
+            type: "SET_SUBNAMES",
+            payload: response.data,
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          return;
+        } else {
+          console.log(error.response.data.errorMessages);
+        }
+      }
+    }
+    searchSubNames();
+    return () => {
+      controller.abort();
+    };
+  }, [query]);
 
   useEffect(() => {
     async function GetSubData() {
@@ -45,8 +74,6 @@ export default function SubmitPost() {
             type: "SET_SUBREDDIT_DATA",
             payload: [response.data],
           });
-
-          console.log(response);
         }
       } catch (error) {
         console.log(error.response.data.errorMessages);

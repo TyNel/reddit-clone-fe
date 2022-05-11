@@ -8,11 +8,11 @@ import { useFormik } from "formik";
 
 export default function CommentForm(props) {
   const { subName, postId, postTitle } = useParams();
-  const navigate = useNavigate();
   const intPostId = parseInt(postId);
   const [state, dispatch] = useContext(Context);
   const user = JSON.parse(localStorage.getItem("user"));
   const userReply = props.userReply;
+  const navigate = useNavigate();
 
   const initialValues = {
     commentUserId: user ? user.userId : "",
@@ -30,6 +30,7 @@ export default function CommentForm(props) {
   };
 
   const onSubmit = async (values) => {
+    const updatedComments = [...state.comments];
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/AddComment",
@@ -37,7 +38,11 @@ export default function CommentForm(props) {
       );
       if (response.status === 200) {
         formik.resetForm();
-        state.comments.push(response.data);
+        updatedComments.push(response.data);
+        dispatch({
+          type: "SET_COMMENTS",
+          payload: updatedComments,
+        });
         dispatch({
           type: "SET_REPLY_STATE",
           payload: null,

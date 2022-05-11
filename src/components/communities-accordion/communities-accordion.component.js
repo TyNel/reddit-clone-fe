@@ -1,11 +1,12 @@
 import "./communities-accordion.styles.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
+import axios from "axios";
 
-export default function CommunitiesAccordion(props) {
+export default function CommunitiesAccordion() {
   const [state, dispatch] = useContext(Context);
   const [open, setOpen] = useState(false);
   const [extend, setExtend] = useState(false);
@@ -19,6 +20,25 @@ export default function CommunitiesAccordion(props) {
   const showLess = () => {
     setItemsToShow(3);
   };
+
+  useEffect(() => {
+    async function GetNames() {
+      try {
+        const subNames = await axios.get(
+          "https://localhost:5001/api/reddit/SubNames"
+        );
+        if (subNames.status === 200) {
+          dispatch({
+            type: "SET_SUBNAMES",
+            payload: subNames.data,
+          });
+        }
+      } catch (error) {
+        console.log(error.response.data.errorMessages);
+      }
+    }
+    GetNames();
+  }, []);
 
   return (
     <div className="accordion-container">
