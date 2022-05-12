@@ -17,9 +17,56 @@
 }
 
 .rules-header {
+  display: flex;
+  align-items: center;
   background-color: #444e59;
   color: #fff;
   padding: 1rem;
+}
+
+.add-rule-icon {
+  font-size: 1.4rem;
+  margin-left: auto;
+}
+
+.add-rule-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.add-rule-form .input-container {
+  width: 90%;
+  margin-bottom: 0;
+}
+
+.add-rule-form .user-form-input {
+  margin-bottom: 0.5rem;
+}
+
+.rule-btn,
+.rule-btn-cancel {
+  background-color: #444e59;
+  font-size: 1.2rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid #444e59;
+}
+
+.rule-btn-cancel {
+  background-color: #fff;
+  color: #444e59;
+}
+
+.form-footer-rules {
+  display: flex;
+  width: 90%;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 0 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #edeff1;
 }
 
 .rule-header {

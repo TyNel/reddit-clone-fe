@@ -2,7 +2,7 @@ import "../signup/signup.styles.css";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import * as yup from "yup";
-import { useFormik, ErrorMessage } from "formik";
+import { useFormik } from "formik";
 import axios from "axios";
 
 export default function SignUp(props) {
@@ -162,12 +162,12 @@ export default function SignUp(props) {
                 </form>
               </div>
               <div className="user-form-footer">
-                <div
+                <button
                   className="back-btn"
                   onClick={() => setContinue(!continueForm)}
                 >
                   Back
-                </div>
+                </button>
                 <button
                   form="signup-form"
                   className="btn btn--full user--submit"

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
 import axios from "axios";
 import { useNavigate, matchPath, useLocation } from "react-router-dom";
@@ -8,10 +8,12 @@ import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdAdd } from "react-icons/md";
+import { MdAddBusiness } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Dropdown from "../dropdown/dropdown.component";
 import SignUp from "../signup/signup.component";
 import Login from "../login/login.component";
+import CreateCommunity from "../create-community-modal/create-community.component";
 import CommunitiesDropdown from "../communities-dropdown/communities-dropdown.component";
 
 export default function Header() {
@@ -20,6 +22,7 @@ export default function Header() {
   const [search, toggleSearch] = useState(false);
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
+  const [communityModal, setCommunityModal] = useState(false);
   const [filteredData, setFiltiredData] = useState([]);
   const [query, setQuery] = useState("");
   const user = state.user;
@@ -155,37 +158,60 @@ export default function Header() {
           )}
         </div>
       </form>
-      {user === "" ? (
-        <div className="login-signup-container">
-          <div
-            className="btn btn--outline"
-            onClick={() => setLoginOpen(!loginModal)}
-          >
-            Log In
+      <div className="user-settings-container">
+        {user === "" ? (
+          <div className="login-signup-container">
+            <div
+              className="btn btn--outline"
+              onClick={() => setLoginOpen(!loginModal)}
+            >
+              Log In
+            </div>
+            {loginModal && (
+              <Login
+                toggleModal={toggleLogin}
+                toggleSignin={toggleSigninModal}
+              />
+            )}
+            <div
+              className="btn btn--full"
+              onClick={() => setSigninOpen(!signinModal)}
+            >
+              Sign Up
+            </div>
+            {signinModal && (
+              <SignUp
+                toggleModal={toggleSigninModal}
+                toggleLogin={toggleLogin}
+              />
+            )}
           </div>
-          {loginModal && (
-            <Login toggleModal={toggleLogin} toggleSignin={toggleSigninModal} />
-          )}
-          <div
-            className="btn btn--full"
-            onClick={() => setSigninOpen(!signinModal)}
-          >
-            Sign Up
+        ) : (
+          <div className="create-container">
+            <div
+              className="create-post-icon community"
+              onClick={() => setCommunityModal(!communityModal)}
+            >
+              <MdAddBusiness color="#a4a4a4" />
+            </div>
+            <div className="icon-description community-description">
+              Create Community
+            </div>
+            {communityModal && (
+              <CreateCommunity toggleModal={setCommunityModal} />
+            )}
+            <Link to="/r/submit" className="create-post-icon post">
+              <MdAdd color="#a4a4a4" />
+            </Link>
+            <div className="icon-description">Create Post</div>
           </div>
-          {signinModal && (
-            <SignUp toggleModal={toggleSigninModal} toggleLogin={toggleLogin} />
-          )}
+        )}
+        <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
+          <BsPerson color="#a4a4a4" />
+          <span className="userName">{user === "" ? null : user.userName}</span>
+          <MdKeyboardArrowDown color="#a4a4a4" />
+          {open && <Dropdown toggleLogin={toggleLogin} />}
         </div>
-      ) : (
-        <Link to="/r/submit" className="create-post-icon">
-          <MdAdd color="#a4a4a4" />
-        </Link>
-      )}
-      <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
-        <BsPerson color="#a4a4a4" />
-        <span className="userName">{user === "" ? null : user.userName}</span>
-        <MdKeyboardArrowDown color="#a4a4a4" />
-        {open && <Dropdown toggleLogin={toggleLogin} />}
       </div>
     </div>
   );

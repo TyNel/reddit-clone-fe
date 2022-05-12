@@ -52,6 +52,11 @@
   border-radius: 4px;
 }
 
+.user-settings-container {
+  display: flex;
+  gap: 1rem;
+}
+
 .login-signup-container {
   display: flex;
   gap: 1.2rem;
@@ -65,8 +70,39 @@
   cursor: pointer;
 }
 
-.create-post-icon {
-  margin-left: 3rem;
+.create-container {
+  display: flex;
+  position: relative;
+  gap: 1rem;
+}
+
+.icon-description {
+  display: none;
+  position: absolute;
+  bottom: -2.8rem;
+  left: 1.1rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0 0.2rem;
+  white-space: nowrap;
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.6rem;
+}
+
+.community-description {
+  position: absolute;
+  bottom: -2.8rem;
+  left: -3.8rem;
+}
+
+.post:hover + .icon-description {
+  display: block;
+}
+
+.community:hover + .icon-description {
+  display: block;
 }
 
 .userName {
@@ -76,7 +112,7 @@
 
 /* BELOW 1150px */
 
-@media (max-width: 72em) {
+@media (max-width: 72.4em) {
   .homepage-icon-img {
     width: 8.2rem;
   }
@@ -91,7 +127,7 @@
 
 /* BELOW 1000px */
 
-@media (max-width: 62.5em) {
+@media (max-width: 62.9em) {
   .homepage-icon-img {
     width: 8.2rem;
   }
@@ -110,7 +146,7 @@
 
 /* BELOW 700px */
 
-@media (max-width: 43.75em) {
+@media (max-width: 44.5em) {
   .homepage-icon-img {
     width: 8rem;
   }
@@ -134,9 +170,9 @@
     width: 8rem;
   }
   .navbar-search-container {
-    width: 75%;
+    width: 70%;
   }
-  .login-signup-container .btn {
+  .user-settings-container .dropdown-menu-icon {
     display: none;
   }
   .dropdown-menu-icon {

@@ -1,0 +1,23 @@
+.side-image {
+  width: 16rem;
+}
+
+.community-modal .form-container {
+  width: 50%;
+  margin: 10rem 0 0 1rem;
+}
+
+.community-modal .title {
+  margin: 1rem 0;
+  border-bottom: 1px solid #edeff1;
+}
+
+.community-submit-container {
+  display: flex;
+}
+
+.community-submit-container .btn-container-community {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}

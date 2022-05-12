@@ -65,13 +65,20 @@ export default function SubredditView() {
   return (
     <>
       <div className="sub-header-top">
-        <div className="sub-header-img-container">
-          <img
-            src={state.subRedditData[0]?.subImage}
-            alt="the word askreddit"
-            className="sub-header-img"
-          />
-        </div>
+        {state.subRedditData[0]?.subImage !== null ? (
+          <div className="sub-header-img-container">
+            <img
+              src={state.subRedditData[0]?.subImage}
+              alt="the word askreddit"
+              className="sub-header-img"
+            />
+          </div>
+        ) : (
+          <div className="sub-header-img-container">
+            <div className="default-sub-header"></div>
+          </div>
+        )}
+
         <div className="container sub-header-bottom">
           <div className="sub-name-container">
             <img

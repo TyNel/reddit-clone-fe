@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
-import { useNavigate, useParams, matchPath } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../signup/signup.styles.css";
 import { VscClose } from "react-icons/vsc";
 import * as yup from "yup";

@@ -10,10 +10,13 @@ export default function AboutCommunity() {
   const [currentTopics, setCurrentTopics] = useState([]);
 
   useEffect(() => {
-    if (state.subRedditData.length > 0) {
-      setCurrentTopics(JSON.parse(state.subRedditData[0].topics));
-    } else {
+    if (state.subRedditData.length === 0) {
       return;
+    }
+    if (state.subRedditData[0].topics === null) {
+      return;
+    } else {
+      setCurrentTopics(JSON.parse(state.subRedditData[0].topics));
     }
   }, [state.subRedditData]);
 
