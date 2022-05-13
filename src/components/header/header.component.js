@@ -146,7 +146,6 @@ export default function Header() {
           value={query}
           onChange={handleChange}
           onKeyDown={keyPressed}
-          onClick={() => toggleSearch(true)}
         />
         <div className={search === true ? "search-result-container" : "hidden"}>
           {search && (

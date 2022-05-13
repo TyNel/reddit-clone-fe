@@ -40,7 +40,7 @@ export default function AboutCommunity() {
           </div>
           <div className="date-created">
             <MdOutlineEditCalendar className="date-icon" /> Created{" "}
-            {data.dateAdded}
+            {new Date(data.dateAdded).toLocaleDateString()}
           </div>
           <div className="topics">
             <BsTagFill className="date-icon" />

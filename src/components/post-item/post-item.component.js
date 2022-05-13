@@ -19,7 +19,6 @@ export default function PostItem(props) {
   const [loading, setLoading] = useState(false);
   const data = props.data;
   const postId = data.postId;
-  const currentDate = new Date().getHours();
   const currentUser = state.user;
   const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
   const getUserVoteIndex = state.userPostVotes?.findIndex(
@@ -151,7 +150,7 @@ export default function PostItem(props) {
           </Link>
           <div className="posted-by">
             Posted by <span className="post-item-user">{data.postAuthor}</span>{" "}
-            on {data.dateAdded}
+            on {new Date(data.dateAdded).toLocaleDateString()}
           </div>
           <button to="/" className="btn join-button">
             Join

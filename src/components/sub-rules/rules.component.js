@@ -16,8 +16,6 @@ export default function SubRules() {
   const isUserAdmin = state.subRedditData[0]?.admin === state.user?.userId;
   const { subId, subName } = useParams();
 
-  console.log(currentRules);
-
   const initialValues = {
     ruleParentId: subId,
     ruleTitle: "",

@@ -24,6 +24,7 @@ export default function Posts() {
   const [hasMore, setHasMore] = useState(true);
   const posts = state.posts;
   const observer = useRef();
+  console.log(pageNumber);
 
   const lastItemRef = useCallback(
     (node) => {
@@ -43,6 +44,7 @@ export default function Posts() {
   );
 
   const getPosts = useCallback(async () => {
+    const prevPosts = [...posts];
     try {
       const response = await axios.get(
         "https://localhost:5001/api/reddit/Posts",
@@ -51,12 +53,28 @@ export default function Posts() {
         }
       );
       if (response.status === 200) {
-        setHasMore(response.data.length > 0);
-        let data = [...posts].concat(response.data);
-        dispatch({
-          type: "SET_POSTS",
-          payload: data,
-        });
+        if (posts.length === 0) {
+          setHasMore(response.data.length > 0);
+          const data = [...posts].concat(response.data);
+          dispatch({
+            type: "SET_POSTS",
+            payload: data,
+          });
+        } else {
+          response.data.forEach((newPost) => {
+            let exists = prevPosts.some(
+              (post) => post.postId === newPost.postId
+            );
+            if (exists === false) {
+              prevPosts.push(newPost);
+            }
+          });
+          setHasMore(response.data.length > 0);
+          dispatch({
+            type: "SET_POSTS",
+            payload: prevPosts,
+          });
+        }
       }
     } catch (error) {
       console.log(error.response.data.errorMessages);
