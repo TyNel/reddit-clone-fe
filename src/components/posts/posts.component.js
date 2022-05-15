@@ -1,5 +1,11 @@
 import { useState, useContext, useEffect, useCallback, useRef } from "react";
-import "../posts/posts.styles.css";
+import { Context } from "../../contexts/store";
+import { Link } from "react-router-dom";
+import { AiOutlineFire } from "react-icons/ai";
+import { GiSevenPointedStar } from "react-icons/gi";
+import { BsSortUpAlt } from "react-icons/bs";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { FiTrendingUp } from "react-icons/fi";
 import PostItem from "../post-item/post-item.component";
 import LocationDropDown from "../location-dropdown/location-dropdown.component";
 import TopCommunities from "../../components/top-communities/top-communties.component";
@@ -8,13 +14,7 @@ import CommunitiesAccordion from "../communities-accordion/communities-accordion
 import FooterNav from "../footer-nav/footer-nav.component";
 import ReturnButton from "../return-button/return-button.component";
 import axios from "axios";
-import { Context } from "../../contexts/store";
-import { Link } from "react-router-dom";
-import { AiOutlineFire } from "react-icons/ai";
-import { GiSevenPointedStar } from "react-icons/gi";
-import { BsSortUpAlt } from "react-icons/bs";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FiTrendingUp } from "react-icons/fi";
+import "../posts/posts.styles.css";
 
 export default function Posts() {
   const [open, setOpen] = useState(false);
@@ -24,7 +24,6 @@ export default function Posts() {
   const [hasMore, setHasMore] = useState(true);
   const posts = state.posts;
   const observer = useRef();
-  console.log(pageNumber);
 
   const lastItemRef = useCallback(
     (node) => {

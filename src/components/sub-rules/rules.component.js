@@ -1,12 +1,12 @@
-import "../sub-rules/rules.styles.css";
 import { useState, useEffect, useContext } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { Context } from "../../contexts/store";
 import { MdAdd } from "react-icons/md";
+import * as yup from "yup";
+import axios from "axios";
+import "../sub-rules/rules.styles.css";
 
 export default function SubRules() {
   const [currentIndex, setCurrentIndex] = useState();

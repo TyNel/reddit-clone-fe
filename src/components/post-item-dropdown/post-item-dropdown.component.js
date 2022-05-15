@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "../post-item-dropdown/post-item-dropdown.style.css";
 import { BiHide } from "react-icons/bi";
 import { VscReport } from "react-icons/vsc";
+import "../post-item-dropdown/post-item-dropdown.style.css";
 
 export default function PostItemDropDown() {
   return (

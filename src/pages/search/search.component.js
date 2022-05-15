@@ -1,4 +1,3 @@
-import "../search/search.styles.css";
 import { useContext, useEffect, useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
@@ -6,6 +5,7 @@ import PostItem from "../../components/post-item/post-item.component";
 import FooterNav from "../../components/footer-nav/footer-nav.component";
 import ReturnButton from "../../components/return-button/return-button.component";
 import TopCommunities from "../../components/top-communities/top-communties.component";
+import "../search/search.styles.css";
 
 export default function Search() {
   const [state, dispatch] = useContext(Context);

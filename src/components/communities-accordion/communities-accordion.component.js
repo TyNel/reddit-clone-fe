@@ -1,10 +1,10 @@
-import "./communities-accordion.styles.css";
 import { useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import axios from "axios";
+import "./communities-accordion.styles.css";
 
 export default function CommunitiesAccordion() {
   const [state, dispatch] = useContext(Context);

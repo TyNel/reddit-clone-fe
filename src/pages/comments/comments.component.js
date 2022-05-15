@@ -1,8 +1,7 @@
-import "../comments/comments.styles.css";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../../contexts/store";
-import axios from "axios";
+import { VscCommentDiscussion } from "react-icons/vsc";
 import PostItem from "../../components/post-item/post-item.component";
 import AboutCommunity from "../../components/about-community/about-community.component";
 import FooterNav from "../../components/footer-nav/footer-nav.component";
@@ -11,7 +10,8 @@ import Comment from "../../components/comment-item/comment-item.component";
 import CommentForm from "../../components/comment-form/comment-form.component";
 import SignUp from "../../components/signup/signup.component";
 import Login from "../../components/login/login.component";
-import { VscCommentDiscussion } from "react-icons/vsc";
+import axios from "axios";
+import "../comments/comments.styles.css";
 
 export default function CommentPage() {
   const [state, dispatch] = useContext(Context);

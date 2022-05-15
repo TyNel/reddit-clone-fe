@@ -1,17 +1,17 @@
-import "../subreddit-view/subreddit-view.styles.css";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { AiOutlineFire } from "react-icons/ai";
+import { GiSevenPointedStar } from "react-icons/gi";
+import { BsSortUpAlt } from "react-icons/bs";
+import { Context } from "../../contexts/store";
 import PostItem from "../post-item/post-item.component";
 import SubRules from "../sub-rules/rules.component";
 import FooterNav from "../footer-nav/footer-nav.component";
 import AboutCommunity from "../about-community/about-community.component";
 import ReturnButton from "../return-button/return-button.component";
-import { AiOutlineFire } from "react-icons/ai";
-import { GiSevenPointedStar } from "react-icons/gi";
-import { BsSortUpAlt } from "react-icons/bs";
-import { Context } from "../../contexts/store";
 import axios from "axios";
+import "../subreddit-view/subreddit-view.styles.css";
 
 export default function SubredditView() {
   const { subId, subName } = useParams();

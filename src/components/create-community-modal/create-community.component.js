@@ -1,11 +1,11 @@
-import "../create-community-modal/create-community.styles.css";
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
-import * as yup from "yup";
 import { useFormik } from "formik";
+import * as yup from "yup";
 import axios from "axios";
+import "../create-community-modal/create-community.styles.css";
 
 export default function CreateCommunity(props) {
   const navigate = useNavigate();

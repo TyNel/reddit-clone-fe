@@ -1,7 +1,8 @@
-import "../premium/premium.styles.css";
+import React from "react";
 import { BsShieldCheck } from "react-icons/bs";
+import "../premium/premium.styles.css";
 
-export default function Premium() {
+function Premium() {
   return (
     <div className="premium-container">
       {" "}
@@ -18,3 +19,5 @@ export default function Premium() {
     </div>
   );
 }
+
+export default React.memo(Premium);

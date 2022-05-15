@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
-import "../dropdown/dropdown.styles.css";
 import { HiOutlineMoon } from "react-icons/hi";
 import { GiTwoCoins } from "react-icons/gi";
 import { GrShield } from "react-icons/gr";
@@ -10,6 +9,7 @@ import { GrEmptyCircle } from "react-icons/gr";
 import { RiGlobeLine } from "react-icons/ri";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { MdLogin } from "react-icons/md";
+import "../dropdown/dropdown.styles.css";
 
 export default function Dropdown(props) {
   const [state, dispatch] = useContext(Context);
@@ -68,8 +68,8 @@ export default function Dropdown(props) {
         <IoIosHelpCircleOutline className="dropdown-icon" />
         <div className="dropdown-text">Help Center</div>
       </Link>
-      <Link
-        to="/"
+      <div
+        // to="/"
         className="dropdown-item"
         onClick={user.length === 0 ? () => userLogin() : () => userLogOut()}
       >
@@ -79,7 +79,7 @@ export default function Dropdown(props) {
         ) : (
           <div className="dropdown-text">Log Out</div>
         )}
-      </Link>
+      </div>
     </div>
   );
 }

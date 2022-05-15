@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
-import "./comment-item.styles.css";
-import CommentForm from "../comment-form/comment-form.component";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BsChatLeftText } from "react-icons/bs";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import CommentForm from "../comment-form/comment-form.component";
 import axios from "axios";
+import "./comment-item.styles.css";
 
 export default function Comment(props) {
   const [state, dispatch] = useContext(Context);
@@ -129,7 +129,11 @@ export default function Comment(props) {
       <div className="comment-body">{comment.commentBody}</div>
       <div className="comment-footer">
         <div className="comment-vote-container">
-          <button className="vote-button" onClick={handleVote}>
+          <button
+            className="vote-button"
+            onClick={handleVote}
+            aria-label="upvote"
+          >
             <BiUpvote
               className={
                 voteStatus === 1 ? "upvote-logo upvote-filled" : "upvote-logo"
@@ -148,7 +152,11 @@ export default function Comment(props) {
             )}
           </div>
 
-          <button className="vote-button" onClick={handleVote}>
+          <button
+            className="vote-button"
+            onClick={handleVote}
+            aria-label="downvote"
+          >
             <BiDownvote
               className={
                 voteStatus === 0

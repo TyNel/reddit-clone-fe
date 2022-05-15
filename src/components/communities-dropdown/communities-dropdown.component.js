@@ -1,5 +1,5 @@
-import "../communities-dropdown/communities-dropdown.styles.css";
 import { Link } from "react-router-dom";
+import "../communities-dropdown/communities-dropdown.styles.css";
 
 export default function CommunitiesDropdown(props) {
   const data = props.data;

@@ -1,11 +1,18 @@
-import Trending from "../../components/trending/trending.component";
-import Posts from "../../components/posts/posts.component";
+import { Suspense, lazy } from "react";
+import { TailSpin } from "react-loader-spinner";
+
+const Trending = lazy(() =>
+  import("../../components/trending/trending.component")
+);
+const Posts = lazy(() => import("../../components/posts/posts.component"));
 
 export default function HomePage() {
   return (
     <div className="container homepage">
-      <Trending />
-      <Posts />
+      <Suspense fallback={<TailSpin />}>
+        <Trending />
+        <Posts />
+      </Suspense>
     </div>
   );
 }

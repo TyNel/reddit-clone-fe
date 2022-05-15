@@ -1,8 +1,8 @@
-import "../trending-item/trending-item.styles.css";
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../trending-item/trending-item.styles.css";
 
 export default function TrendingItem(props) {
   const [state, dispatch] = useContext(Context);

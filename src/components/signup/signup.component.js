@@ -1,9 +1,9 @@
-import "../signup/signup.styles.css";
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
+import * as yup from "yup";
+import "../signup/signup.styles.css";
 
 export default function SignUp(props) {
   const toggleModal = props.toggleModal;

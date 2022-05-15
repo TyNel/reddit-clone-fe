@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { Context } from "../../contexts/store";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../post-form-tabs/post-form-tabs.styles.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import "../post-form-tabs/post-form-tabs.styles.css";
 
 export function Post() {
   const [state, dispatch] = useContext(Context);

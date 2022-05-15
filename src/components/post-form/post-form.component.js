@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "../post-form/post-form.styles.css";
 import { Post, Images, Link } from "../post-form-tabs/post-form-tabs.component";
 import { RiFileList2Line } from "react-icons/ri";
 import { RiImageLine } from "react-icons/ri";
 import { BsLink45Deg } from "react-icons/bs";
+import "../post-form/post-form.styles.css";
 
 export default function PostForm() {
   const [activeTab, setActiveTab] = useState("post");

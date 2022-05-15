@@ -1,8 +1,8 @@
-import "../trending/trending.styles.css";
 import { useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
-import axios from "axios";
 import TrendingItem from "../trending-item/trending-item.component";
+import axios from "axios";
+import "../trending/trending.styles.css";
 
 export default function Trending() {
   const [state, dispatch] = useContext(Context);

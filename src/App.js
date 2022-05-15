@@ -1,30 +1,44 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/homepage/homepage.component";
-import Header from "./components/header/header.component";
-import Subreddit from "./pages/subreddit/subreddit.component";
-import Comments from "./pages/comments/comments.component";
-import SubmitPost from "./pages/submitPost/submitPost.component";
-import Search from "./pages/search/search.component";
+import { TailSpin } from "react-loader-spinner";
+
+const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
+const Header = lazy(() => import("./components/header/header.component"));
+const Subreddit = lazy(() => import("./pages/subreddit/subreddit.component"));
+const Comments = lazy(() => import("./pages/comments/comments.component"));
+const SubmitPost = lazy(() =>
+  import("./pages/submitPost/submitPost.component")
+);
+const Search = lazy(() => import("./pages/search/search.component"));
 
 function App() {
   return (
     <div>
-      <Header />
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/r/:subId/:subName" element={<Subreddit />} />
-        <Route
-          path="/r/:subName/comments/:postId/:postTitle"
-          element={<Comments />}
-        />
-        <Route exact path="/r/submit" element={<SubmitPost />} />
-        <Route
-          exact
-          path="/r/:subId/:subName/submit"
-          element={<SubmitPost />}
-        />
-        <Route exact path="/r/search/:query" element={<Search />} />
-      </Routes>
+      <Suspense
+        fallback={
+          <div className="loading-icon">
+            <TailSpin color="#0079d3" ariaLabel="loading" />
+          </div>
+        }
+      >
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/r/:subId/:subName" element={<Subreddit />} />
+          <Route
+            exact
+            path="/r/:subName/comments/:postId/:postTitle"
+            element={<Comments />}
+          />
+          <Route exact path="/r/submit" element={<SubmitPost />} />
+          <Route
+            exact
+            path="/r/:subId/:subName/submit"
+            element={<SubmitPost />}
+          />
+          <Route exact path="/r/search/:query" element={<Search />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }

@@ -1,16 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-import "../submitPost/submitPost.styles.css";
-import PostForm from "../../components/post-form/post-form.component";
-import AboutCommunity from "../../components/about-community/about-community.component";
-import FooterNav from "../../components/footer-nav/footer-nav.component";
-import SubRules from "../../components/sub-rules/rules.component";
 import { BsSearch } from "react-icons/bs";
 import { SiReddit } from "react-icons/si";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Context } from "../../contexts/store";
-import CommunitiesDropdown from "../../components/communities-dropdown/communities-dropdown.component";
 import { useParams } from "react-router-dom";
+import CommunitiesDropdown from "../../components/communities-dropdown/communities-dropdown.component";
+import PostForm from "../../components/post-form/post-form.component";
+import AboutCommunity from "../../components/about-community/about-community.component";
+import FooterNav from "../../components/footer-nav/footer-nav.component";
+import SubRules from "../../components/sub-rules/rules.component";
 import axios from "axios";
+import "../submitPost/submitPost.styles.css";
 
 export default function SubmitPost() {
   const [open, setOpen] = useState(false);

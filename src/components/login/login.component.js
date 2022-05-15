@@ -1,19 +1,18 @@
 import { useContext } from "react";
 import { Context } from "../../contexts/store";
-import { useNavigate, useParams } from "react-router-dom";
-import "../signup/signup.styles.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
-import * as yup from "yup";
 import { useFormik } from "formik";
+import * as yup from "yup";
 import axios from "axios";
+import "../signup/signup.styles.css";
 
 export default function Login(props) {
   const toggleModal = props.toggleModal;
   const toggleSignin = props.toggleSignin;
-  const routeData = useParams();
-  const checkRouteLength = Object.entries(routeData);
   const navigate = useNavigate();
   const [state, dispatch] = useContext(Context);
+  const { pathname } = useLocation();
 
   const validationSchema = yup.object({
     username: yup
@@ -56,15 +55,10 @@ export default function Login(props) {
         });
         localStorage.setItem("user", JSON.stringify(response.data));
         console.log("logged in");
-        toggleModal(false);
-        if (checkRouteLength.length > 0) {
-          console.log("poggers");
-          navigate(
-            `/r/${routeData.subName}/comments/${routeData.postId}/${routeData.postTitle}`
-          );
-        } else {
-          navigate("/");
+        if (pathname === "/") {
+          toggleModal(false);
         }
+        navigate(pathname);
       }
     } catch (error) {
       console.log(error.response.data.errorMessagesor);

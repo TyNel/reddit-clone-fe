@@ -1,8 +1,5 @@
-import { useState, useContext, useRef } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
-import "../post-item/post-item.styles.css";
-import PostItemDropDown from "../post-item-dropdown/post-item-dropdown.component";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BsChatLeftText } from "react-icons/bs";
@@ -11,7 +8,10 @@ import { BsSave } from "react-icons/bs";
 import { RiShareForwardLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { AiOutlineWindows } from "react-icons/ai";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TailSpin } from "react-loader-spinner";
+import PostItemDropDown from "../post-item-dropdown/post-item-dropdown.component";
+import axios from "axios";
+import "../post-item/post-item.styles.css";
 
 export default function PostItem(props) {
   const [open, setOpen] = useState(false);
@@ -114,7 +114,11 @@ export default function PostItem(props) {
     <>
       <div className="post-item-container">
         <div className="vote-container">
-          <button className="vote-button" onClick={handleVote}>
+          <button
+            className="vote-button"
+            onClick={handleVote}
+            aria-label="upvote"
+          >
             <BiUpvote
               className={
                 checkVoteStatus === 1
@@ -126,10 +130,18 @@ export default function PostItem(props) {
           </button>
           <div className="vote-count-container">
             {" "}
-            {loading === true ? <AiOutlineLoading3Quarters /> : data.voteCount}
+            {loading === true ? (
+              <TailSpin color="#0079d3" height={25} width={25} />
+            ) : (
+              data.voteCount
+            )}
           </div>
 
-          <button className="vote-button" onClick={handleVote}>
+          <button
+            className="vote-button"
+            onClick={handleVote}
+            aria-label="downvote"
+          >
             <BiDownvote
               className={
                 checkVoteStatus === 0

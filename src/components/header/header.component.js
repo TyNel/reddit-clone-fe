@@ -1,9 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { Context } from "../../contexts/store";
-import axios from "axios";
 import { useNavigate, matchPath, useLocation } from "react-router-dom";
-import logo from "../../assests/Reddit_Lockup_OnWhite.svg";
-import "../header/header.styles.css";
 import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -15,6 +12,9 @@ import SignUp from "../signup/signup.component";
 import Login from "../login/login.component";
 import CreateCommunity from "../create-community-modal/create-community.component";
 import CommunitiesDropdown from "../communities-dropdown/communities-dropdown.component";
+import logo from "../../assests/Reddit_Lockup_OnWhite.svg";
+import axios from "axios";
+import "../header/header.styles.css";
 
 export default function Header() {
   const [state, dispatch] = useContext(Context);

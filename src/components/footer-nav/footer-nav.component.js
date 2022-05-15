@@ -1,8 +1,9 @@
-import "../footer-nav/footer-nav.styles.css";
+import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
+import "../footer-nav/footer-nav.styles.css";
 
-export default function FooterNav() {
+function FooterNav() {
   return (
     <div className="nav-container">
       <div className="link-container">
@@ -59,3 +60,5 @@ export default function FooterNav() {
     </div>
   );
 }
+
+export default React.memo(FooterNav);
