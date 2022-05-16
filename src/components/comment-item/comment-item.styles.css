@@ -19,8 +19,9 @@
   font-weight: 600;
 }
 
-.dot {
-  padding: 0 0.1rem 0 0.4rem;
+.posted-by {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .comment-body {

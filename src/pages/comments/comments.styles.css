@@ -29,6 +29,10 @@
   flex-shrink: 0;
 }
 
+.login-signup-container-comments .btn-container {
+  margin-left: 1rem;
+}
+
 .btn-container {
   display: flex;
   flex-wrap: nowrap;

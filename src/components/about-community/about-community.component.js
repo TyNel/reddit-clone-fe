@@ -7,6 +7,7 @@ import "../about-community/about-community.styles.css";
 
 export default function AboutCommunity() {
   const [state, dispatch] = useContext(Context);
+
   const [currentTopics, setCurrentTopics] = useState([]);
 
   useEffect(() => {
@@ -49,10 +50,7 @@ export default function AboutCommunity() {
           <div className="topic-links">
             {currentTopics.map((data) => {
               return (
-                <div
-                  className="btn btn--subreddit-join btn--topic"
-                  key={data.topicId}
-                >
+                <div className="btn btn--topic" key={data.topicId}>
                   {data.topicName}
                 </div>
               );

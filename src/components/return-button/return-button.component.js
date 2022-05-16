@@ -1,4 +1,6 @@
-export default function ReturnButton() {
+import React from "react";
+
+function ReturnButton() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -12,3 +14,5 @@ export default function ReturnButton() {
     </div>
   );
 }
+
+export default React.memo(ReturnButton);

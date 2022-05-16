@@ -11,6 +11,7 @@ export default function CommunitiesAccordion() {
   const [open, setOpen] = useState(false);
   const [extend, setExtend] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(3);
+
   const subreddits = state.subNames.length > 0 ? state.subNames : [];
 
   const showmore = () => {

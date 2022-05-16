@@ -7,9 +7,9 @@ import axios from "axios";
 import "../comment-form/comment-form.styles.css";
 
 export default function CommentForm(props) {
+  const [state, dispatch] = useContext(Context);
   const { subName, postId, postTitle } = useParams();
   const intPostId = parseInt(postId);
-  const [state, dispatch] = useContext(Context);
   const user = JSON.parse(localStorage.getItem("user"));
   const userReply = props.userReply;
   const navigate = useNavigate();
@@ -58,8 +58,6 @@ export default function CommentForm(props) {
     initialValues,
     onSubmit,
   });
-
-  console.log(formik.values);
 
   return (
     <form className="comment-form" onSubmit={formik.handleSubmit}>

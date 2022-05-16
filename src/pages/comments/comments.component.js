@@ -85,6 +85,58 @@ export default function CommentPage() {
     }
   }, []);
 
+  //Repopulate data if user refreshes page
+  useEffect(() => {
+    if (
+      state.currentPost.length === 0 &&
+      state.posts.length === 0 &&
+      state.comments.length === 0
+    ) {
+      getCurrentPost();
+      GetComments();
+    }
+    async function getCurrentPost() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/CurrentPost",
+          {
+            params: { postId },
+          }
+        );
+        if (response.status === 200) {
+          dispatch({
+            type: "SET_CURRENT_POST",
+            payload: response.data,
+          });
+          dispatch({
+            type: "SET_POSTS",
+            payload: [response.data],
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    async function GetComments() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/Comments",
+          {
+            params: { postId },
+          }
+        );
+        if (response.status === 200) {
+          dispatch({
+            type: "SET_COMMENTS",
+            payload: response.data,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
   return (
     <div className="container grid--2-cols comment-page-content">
       <div className="comment-page-header"></div>

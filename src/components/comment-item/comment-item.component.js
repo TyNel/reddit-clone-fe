@@ -1,44 +1,20 @@
 import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
-import { BiUpvote } from "react-icons/bi";
-import { BiDownvote } from "react-icons/bi";
 import { BsChatLeftText } from "react-icons/bs";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import CommentVote from "../comment-vote/comment-vote.component";
 import CommentForm from "../comment-form/comment-form.component";
-import axios from "axios";
 import "./comment-item.styles.css";
 
 export default function Comment(props) {
   const [state, dispatch] = useContext(Context);
+  const comment = props.comment;
+  const replies = props.replies;
+  const toggleForm = props.toggleForm;
+
   const [userToReply, setUser] = useState({
     isRoot: false,
     comment: {},
   });
-  const currentUser = state.user;
-  const userId = currentUser ? currentUser.userId : null;
-  const comment = props.comment;
-  const replies = props.replies;
-  const toggleForm = props.toggleForm;
-  const getCommentIndex = state.comments?.findIndex(
-    (currentComment) => currentComment.commentId === comment.commentId
-  );
-  const getVoteIndex = state.userCommentVotes?.findIndex(
-    (currentComment) =>
-      currentComment.likeDislikeCommentId === comment.commentId
-  );
-  const voteStatus = state.userCommentVotes[getVoteIndex]?.commentIsLike;
-
-  const [upVote, setUpVote] = useState({
-    likeDislikeCommentId: comment.commentId,
-    commentLikeDislikeUserId: userId,
-    commentIsLike: 1,
-  });
-  const [downVote, setDownVote] = useState({
-    likeDislikeCommentId: comment.commentId,
-    commentLikeDislikeUserId: userId,
-    commentIsLike: 0,
-  });
-  const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
     if (comment.commentParentId !== null) {
@@ -59,58 +35,6 @@ export default function Comment(props) {
     }
   };
 
-  const handleVote = (e) => {
-    if (currentUser.length === 0) {
-      window.alert("Please log in to vote");
-      return;
-    }
-    if (e.target.id === "upvote") {
-      setLoading(true);
-      userVote(upVote);
-    }
-    if (e.target.id === "downvote") {
-      setLoading(true);
-      userVote(downVote);
-    }
-  };
-
-  const userVote = async (vote) => {
-    const comments = [...state.comments];
-    const userVotes = [...state.userCommentVotes];
-
-    try {
-      const response = await axios.post(
-        "https://localhost:5001/api/reddit/LikeComment",
-        vote
-      );
-      if (response.status === 200) {
-        setLoading(false);
-        if (getCommentIndex >= 0) {
-          comments[getCommentIndex].voteCount = response.data.voteCount;
-          dispatch({
-            type: "SET_COMMENTS",
-            payload: comments,
-          });
-        }
-        if (getVoteIndex >= 0) {
-          userVotes[getVoteIndex].commentIsLike = response.data.commentIsLike;
-          dispatch({
-            type: "SET_USER_COMMENT_VOTES",
-            payload: userVotes,
-          });
-        } else {
-          userVotes.push(response.data);
-          dispatch({
-            type: "SET_USER_COMMENT_VOTES",
-            payload: userVotes,
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error.response.data.errorMessages);
-    }
-  };
-
   return (
     <div className="comment-section-container">
       <div className="username-container">
@@ -123,51 +47,14 @@ export default function Comment(props) {
         </div>
         <div className="user-name">{comment.userName}</div>
         <div className="posted-by">
-          <span className="dot">&#8226;</span> 6 hrs ago
+          on {new Date(comment.dateAdded).toLocaleDateString()}
         </div>
       </div>
       <div className="comment-body">{comment.commentBody}</div>
       <div className="comment-footer">
         <div className="comment-vote-container">
-          <button
-            className="vote-button"
-            onClick={handleVote}
-            aria-label="upvote"
-          >
-            <BiUpvote
-              className={
-                voteStatus === 1 ? "upvote-logo upvote-filled" : "upvote-logo"
-              }
-              id="upvote"
-            />
-          </button>
-          <div className="comment-vote-container">
-            {" "}
-            {loading === true ? (
-              <AiOutlineLoading3Quarters />
-            ) : comment.voteCount === null ? (
-              0
-            ) : (
-              comment.voteCount
-            )}
-          </div>
-
-          <button
-            className="vote-button"
-            onClick={handleVote}
-            aria-label="downvote"
-          >
-            <BiDownvote
-              className={
-                voteStatus === 0
-                  ? "downvote-logo downvote-filled"
-                  : "downvote-logo"
-              }
-              id="downvote"
-            />
-          </button>
+          <CommentVote comment={comment} />
         </div>
-
         <div
           className="link footer-link"
           onClick={() => handleClick(comment.commentId)}

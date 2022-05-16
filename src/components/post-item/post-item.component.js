@@ -1,14 +1,11 @@
 import { useState, useContext } from "react";
 import { Context } from "../../contexts/store";
-import { BiUpvote } from "react-icons/bi";
-import { BiDownvote } from "react-icons/bi";
 import { BsChatLeftText } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
 import { BsSave } from "react-icons/bs";
 import { RiShareForwardLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { AiOutlineWindows } from "react-icons/ai";
-import { TailSpin } from "react-loader-spinner";
+import PostVote from "../post-vote/post-vote.component";
 import PostItemDropDown from "../post-item-dropdown/post-item-dropdown.component";
 import axios from "axios";
 import "../post-item/post-item.styles.css";
@@ -16,26 +13,9 @@ import "../post-item/post-item.styles.css";
 export default function PostItem(props) {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useContext(Context);
-  const [loading, setLoading] = useState(false);
   const data = props.data;
   const postId = data.postId;
-  const currentUser = state.user;
   const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
-  const getUserVoteIndex = state.userPostVotes?.findIndex(
-    (post) => post.likeDislikePostId === postId
-  );
-  const checkVoteStatus = state.userPostVotes[getUserVoteIndex]?.postIsLike;
-
-  const [upVote, setUpVote] = useState({
-    likeDislikePostId: postId,
-    likeDislikeUserId: currentUser ? currentUser.userId : null,
-    postIsLike: 1,
-  });
-  const [downVote, setDownVote] = useState({
-    likeDislikePostId: postId,
-    likeDislikeUserId: currentUser ? currentUser.userId : null,
-    postIsLike: 0,
-  });
 
   const handleClick = async (e) => {
     const posts = [...state.posts];
@@ -57,107 +37,26 @@ export default function PostItem(props) {
     }
   };
 
-  const userVote = async (vote) => {
-    const posts = [...state.posts];
-    const userVotes = [...state.userPostVotes];
-    try {
-      const response = await axios.post(
-        "https://localhost:5001/api/reddit/LikePost",
-        vote
-      );
-      if (response.status === 200) {
-        setLoading(false);
-        posts[getPostIndex].voteCount = response.data.voteCount;
-        dispatch({
-          type: "SET_POSTS",
-          payload: posts,
-        });
-        dispatch({
-          type: "SET_CURRENT_POST",
-          payload: posts[getPostIndex],
-        });
-        if (getUserVoteIndex >= 0) {
-          userVotes[getUserVoteIndex].postIsLike = response.data.postIsLike;
-          dispatch({
-            type: "SET_USER_POST_VOTES",
-            payload: userVotes,
-          });
-        } else {
-          userVotes.push(response.data);
-          dispatch({
-            type: "SET_USER_POST_VOTES",
-            payload: userVotes,
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error.response.data.errorMessages);
-    }
-  };
-
-  const handleVote = (e) => {
-    if (currentUser.length === 0) {
-      window.alert("Please log in to vote");
-      return;
-    }
-    if (e.target.id === "upvote") {
-      setLoading(true);
-      userVote(upVote);
-    }
-    if (e.target.id === "downvote") {
-      setLoading(true);
-      userVote(downVote);
-    }
-  };
-
   return (
     <>
       <div className="post-item-container">
         <div className="vote-container">
-          <button
-            className="vote-button"
-            onClick={handleVote}
-            aria-label="upvote"
-          >
-            <BiUpvote
-              className={
-                checkVoteStatus === 1
-                  ? "upvote-logo upvote-filled"
-                  : "upvote-logo"
-              }
-              id="upvote"
-            />
-          </button>
-          <div className="vote-count-container">
-            {" "}
-            {loading === true ? (
-              <TailSpin color="#0079d3" height={25} width={25} />
-            ) : (
-              data.voteCount
-            )}
-          </div>
-
-          <button
-            className="vote-button"
-            onClick={handleVote}
-            aria-label="downvote"
-          >
-            <BiDownvote
-              className={
-                checkVoteStatus === 0
-                  ? "downvote-logo downvote-filled"
-                  : "downvote-logo"
-              }
-              id="downvote"
-            />
-          </button>
+          <PostVote
+            postId={postId}
+            getPostIndex={getPostIndex}
+            voteCount={data.voteCount}
+          />
         </div>
         <div className="post-item-body">
           <Link
             to={`/r/${data.postCommunity}/${data.subName}`}
             className="link post-link-sub"
           >
-            <AiOutlineWindows className="logo" />
+            <img
+              src={data.subIcon}
+              className="post--item-icon"
+              alt="subreddit icon"
+            />
             <span className="post-link-sub-text">{data.subName}</span>
           </Link>
           <div className="posted-by">
@@ -168,11 +67,27 @@ export default function PostItem(props) {
             Join
           </button>
           {data.postImageUrl === null ? (
-            <div className="post-item-title">{data.postTitle}</div>
+            <Link
+              className="post-item-title"
+              onClick={(e) => handleClick(e)}
+              to={`/r/${data.subName}/comments/${data.postId}/${data.postTitle}`}
+            >
+              {data.postTitle}
+            </Link>
           ) : (
             <div className="post-img-container">
-              <div className="post-item-title">{data.postTitle}</div>
-              <Link to="/" className="link">
+              <Link
+                className="post-item-title"
+                onClick={(e) => handleClick(e)}
+                to={`/r/${data.subName}/comments/${data.postId}/${data.postTitle}`}
+              >
+                {data.postTitle}
+              </Link>
+              <Link
+                className="link"
+                onClick={(e) => handleClick(e)}
+                to={`/r/${data.subName}/comments/${data.postId}/${data.postTitle}`}
+              >
                 <img
                   src={data.postImageUrl}
                   alt="User submitted post"
@@ -192,7 +107,13 @@ export default function PostItem(props) {
             </a>
           ) : null}
           {data.postBodyText !== null ? (
-            <div className="post-body-container">{data.postBodyText}</div>
+            <Link
+              onClick={(e) => handleClick(e)}
+              to={`/r/${data.subName}/comments/${data.postId}/${data.postTitle}`}
+              className="post-body-container"
+            >
+              {data.postBodyText}
+            </Link>
           ) : null}
         </div>
         <footer className="post-item-footer">

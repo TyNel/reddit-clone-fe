@@ -8,9 +8,9 @@ import axios from "axios";
 import "../create-community-modal/create-community.styles.css";
 
 export default function CreateCommunity(props) {
+  const [state, dispatch] = useContext(Context);
   const navigate = useNavigate();
   const toggleModal = props.toggleModal;
-  const [state, dispatch] = useContext(Context);
 
   const validationSchema = yup.object({
     subName: yup
