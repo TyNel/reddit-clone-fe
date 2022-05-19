@@ -23,6 +23,7 @@ export default function Login(props) {
     password: yup
       .string("Please enter your password")
       .min(8, "Password must be at least 8 characters")
+      .max(20, "Password must be 20 characters or less")
       .required("Password is required"),
   });
 
@@ -61,7 +62,7 @@ export default function Login(props) {
         navigate(pathname);
       }
     } catch (error) {
-      console.log(error.response.data.errorMessagesor);
+      alert(error.response.data.errorMessages);
     }
   };
 
@@ -102,7 +103,7 @@ export default function Login(props) {
                 placeholder=" "
               />
               {formik.touched.username && formik.errors.username ? (
-                <div>{formik.errors.username}</div>
+                <div className="form-error">{formik.errors.username}</div>
               ) : null}
               <span className="secondary-form-label">username</span>
             </div>
@@ -116,6 +117,9 @@ export default function Login(props) {
                 placeholder=" "
               />
               <span className="secondary-form-label">Password</span>
+              {formik.touched.password && formik.errors.password ? (
+                <div className="form-error">{formik.errors.password}</div>
+              ) : null}
             </div>
           </form>
           <button

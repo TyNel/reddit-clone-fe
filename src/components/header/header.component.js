@@ -53,7 +53,6 @@ export default function Header() {
           }
         );
         if (response.status === 200) {
-          console.log(response);
           setFiltiredData(response.data);
           dispatch({
             type: "SET_SUBNAMES",

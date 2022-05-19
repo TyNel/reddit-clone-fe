@@ -13,6 +13,7 @@ export function Post() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
+  const enableReinitialize = true;
 
   const validationSchema = yup.object({
     postTitle: yup.string("Please enter a title").required("Title is required"),
@@ -24,8 +25,6 @@ export function Post() {
     postTitle: "",
     postBody: "",
   };
-
-  const enableReinitialize = true;
 
   const onSubmit = async (values) => {
     try {

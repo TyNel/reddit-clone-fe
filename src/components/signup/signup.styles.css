@@ -195,12 +195,6 @@ input:hover + span {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.back-btn {
-  font-size: 1.4rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
 .user--submit {
   margin-left: auto;
 }

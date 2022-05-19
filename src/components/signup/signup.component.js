@@ -9,6 +9,7 @@ export default function SignUp(props) {
   const toggleModal = props.toggleModal;
   const toggleLogin = props.toggleLogin;
   const [continueForm, setContinue] = useState(false);
+  const validateOnChange = "true";
 
   const validationSchema = yup.object({
     email: yup
@@ -18,10 +19,12 @@ export default function SignUp(props) {
     username: yup
       .string("Please enter a username")
       .min(2, "Username must be between 2 and 20 characters long")
+      .max(20, "Username must be between 2 and 20 characters long")
       .required("Username is required"),
     password: yup
       .string("Please enter your password")
-      .min(8, "Password must be at least 8 characters")
+      .min(8, "Password must be between 8 and 20 characters long")
+      .max(20, "Password must be between 8 and 20 characters long")
       .required("Password is required"),
   });
 
@@ -39,6 +42,7 @@ export default function SignUp(props) {
       );
       if (response.status === 200) {
         toggleModal(false);
+        toggleLogin(true);
       }
     } catch (error) {
       alert(error.response.data.errorMessages);
@@ -48,6 +52,7 @@ export default function SignUp(props) {
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnChange,
     onSubmit,
   });
 
@@ -86,12 +91,15 @@ export default function SignUp(props) {
                   <div className="form-error">{formik.errors.email}</div>
                 ) : null}
               </form>
-              <div
+              <button
                 className="btn btn--full continue--btn"
+                disabled={
+                  typeof formik.errors.email === typeof "" ? true : false
+                }
                 onClick={() => setContinue(!continueForm)}
               >
                 Continue
-              </div>
+              </button>
               <div className="login-link">
                 Already a redditor?{" "}
                 <span
@@ -163,7 +171,7 @@ export default function SignUp(props) {
               </div>
               <div className="user-form-footer">
                 <button
-                  className="back-btn"
+                  className="btn btn--full"
                   onClick={() => setContinue(!continueForm)}
                 >
                   Back
