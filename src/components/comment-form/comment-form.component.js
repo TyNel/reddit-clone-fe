@@ -1,17 +1,18 @@
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addComment } from "../../features/comments/commentsSlice";
+import { toggleReplyForm } from "../../features/toggleReplyForm/toggleReplyFormSlice";
 import { useNavigate } from "react-router-dom";
-import { Context } from "../../contexts/store";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import "../comment-form/comment-form.styles.css";
 
-export default function CommentForm(props) {
-  const [state, dispatch] = useContext(Context);
-  const { subName, postId, postTitle } = useParams();
-  const intPostId = parseInt(postId);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userReply = props.userReply;
+export default function CommentForm({ userReply }) {
+  const { subName, id, postTitle } = useParams();
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const intPostId = parseInt(id);
+  const user = state.user.length === 0 ? null : state.user;
   const navigate = useNavigate();
 
   const initialValues = {
@@ -30,7 +31,6 @@ export default function CommentForm(props) {
   };
 
   const onSubmit = async (values) => {
-    const updatedComments = [...state.comments];
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/AddComment",
@@ -38,19 +38,16 @@ export default function CommentForm(props) {
       );
       if (response.status === 200) {
         formik.resetForm();
-        updatedComments.push(response.data);
-        dispatch({
-          type: "SET_COMMENTS",
-          payload: updatedComments,
-        });
-        dispatch({
-          type: "SET_REPLY_STATE",
-          payload: null,
-        });
-        navigate(`/r/${subName}/comments/${postId}/${postTitle}`);
+        dispatch(addComment(response.data));
+        dispatch(toggleReplyForm(null));
+        navigate(`/r/${subName}/comments/${id}/${postTitle}`);
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 

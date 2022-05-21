@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "../communities-dropdown/communities-dropdown.styles.css";
 
-export default function CommunitiesDropdown(props) {
-  const data = props.data;
-  const toggleSearch = props.toggleSearch;
-  const fromHeader = props.fromHeader;
-
+export default function CommunitiesDropdown({
+  data,
+  toggleSearch,
+  fromHeader,
+}) {
   return (
     <div className="dropdown-results-container">
       {data.map((sub) => (

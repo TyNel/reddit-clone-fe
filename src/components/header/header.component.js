@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-import { Context } from "../../contexts/store";
+import { useState, useEffect } from "react";
 import { useNavigate, matchPath, useLocation } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
@@ -7,6 +6,9 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdAdd } from "react-icons/md";
 import { MdAddBusiness } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchedPosts } from "../../features/searchedPosts/searchedPostsSlice";
+import { setSubNames } from "../../features/subNames/subNamesSlice";
 import Dropdown from "../dropdown/dropdown.component";
 import SignUp from "../signup/signup.component";
 import Login from "../login/login.component";
@@ -17,7 +19,6 @@ import axios from "axios";
 import "../header/header.styles.css";
 
 export default function Header() {
-  const [state, dispatch] = useContext(Context);
   const [open, setOpen] = useState(false);
   const [search, toggleSearch] = useState(false);
   const [signinModal, setSigninOpen] = useState(false);
@@ -25,13 +26,19 @@ export default function Header() {
   const [communityModal, setCommunityModal] = useState(false);
   const [filteredData, setFiltiredData] = useState([]);
   const [query, setQuery] = useState("");
-  const user = state.user;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   //check if user is on homepage already
   const { pathname } = useLocation();
   const match = matchPath({ path: "/" }, pathname);
-
-  const navigate = useNavigate();
+  const homePageRedirect = () => {
+    if (match === null) {
+      dispatch(setSearchedPosts([]));
+      navigate("/");
+    }
+  };
 
   const toggleSigninModal = (data) => {
     setSigninOpen(data);
@@ -54,10 +61,7 @@ export default function Header() {
         );
         if (response.status === 200) {
           setFiltiredData(response.data);
-          dispatch({
-            type: "SET_SUBNAMES",
-            payload: response.data,
-          });
+          dispatch(setSubNames(response.data));
         }
       } catch (error) {
         if (axios.isCancel(error)) return;
@@ -68,7 +72,7 @@ export default function Header() {
     return () => {
       controller.abort();
     };
-  }, [query]);
+  }, [query, dispatch]);
 
   const handleChange = (e) => {
     const userInput = e.target.value;
@@ -91,15 +95,16 @@ export default function Header() {
         }
       );
       if (response.status === 200) {
-        dispatch({
-          type: "SET_POSTS",
-          payload: response.data,
-        });
+        dispatch(setSearchedPosts(response.data));
         toggleSearch(false);
         navigate(`/r/search/${query}`);
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -114,16 +119,6 @@ export default function Header() {
       setQuery("");
     }
     toggleSearch(true);
-  };
-
-  const homePageRedirect = () => {
-    if (match === null) {
-      dispatch({
-        type: "SET_POSTS",
-        payload: [],
-      });
-      navigate("/");
-    }
   };
 
   return (
@@ -157,7 +152,7 @@ export default function Header() {
         </div>
       </form>
       <div className="user-settings-container">
-        {user === "" ? (
+        {user.length === 0 ? (
           <div className="login-signup-container">
             <div
               className="btn btn--outline"
@@ -206,7 +201,9 @@ export default function Header() {
         )}
         <div onClick={() => setOpen(!open)} className="dropdown-menu-icon">
           <BsPerson color="#a4a4a4" />
-          <span className="userName">{user === "" ? null : user.userName}</span>
+          <span className="userName">
+            {user.length === 0 ? null : user.userName}
+          </span>
           <MdKeyboardArrowDown color="#a4a4a4" />
           {open && <Dropdown toggleLogin={toggleLogin} />}
         </div>

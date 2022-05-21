@@ -1,5 +1,7 @@
-import { useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/user/userSlice";
+import { setPostsVotes } from "../../features/userPostsVotes/userPostsVotesSlice";
+import { setCommentVotes } from "../../features/userCommentVotes/userCommentVotesSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import { useFormik } from "formik";
@@ -11,8 +13,8 @@ export default function Login(props) {
   const toggleModal = props.toggleModal;
   const toggleSignin = props.toggleSignin;
   const navigate = useNavigate();
-  const [state, dispatch] = useContext(Context);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const validationSchema = yup.object({
     username: yup
@@ -42,19 +44,9 @@ export default function Login(props) {
         let postVotes = JSON.parse(response.data.postVotes);
         let commentVotes = JSON.parse(response.data.commentVotes);
 
-        dispatch({
-          type: "SET_USER_POST_VOTES",
-          payload: postVotes ? postVotes : [],
-        });
-        dispatch({
-          type: "SET_USER_COMMENT_VOTES",
-          payload: commentVotes ? commentVotes : [],
-        });
-        dispatch({
-          type: "SET_USER",
-          payload: response.data,
-        });
-        localStorage.setItem("user", JSON.stringify(response.data));
+        dispatch(setPostsVotes(postVotes ? postVotes : []));
+        dispatch(setCommentVotes(commentVotes ? commentVotes : []));
+        dispatch(setUser(response.data));
         console.log("logged in");
         if (pathname === "/") {
           toggleModal(false);
@@ -62,7 +54,11 @@ export default function Login(props) {
         navigate(pathname);
       }
     } catch (error) {
-      alert(error.response.data.errorMessages);
+      if (error.data) {
+        alert(error.response.data.errorMessages);
+      } else {
+        console.log(error);
+      }
     }
   };
 

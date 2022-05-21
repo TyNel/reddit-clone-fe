@@ -1,6 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCommentVotes } from "../../features/userCommentVotes/userCommentVotesSlice";
+import { setSubData } from "../../features/subRedditData/subRedditDataSlice";
 import { useParams } from "react-router-dom";
-import { Context } from "../../contexts/store";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import PostItem from "../../components/post-item/post-item.component";
 import AboutCommunity from "../../components/about-community/about-community.component";
@@ -14,13 +16,13 @@ import axios from "axios";
 import "../comments/comments.styles.css";
 
 export default function CommentPage() {
-  const [state, dispatch] = useContext(Context);
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
   const { postId, subName } = useParams();
-  const userVotes = state.userPostVotes;
-  const userId = state.user === "" ? null : state.user.userId;
-  const currentPost = state.currentPost;
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const userId = state.user.length === 0 ? null : state.user.userId;
+  const currentPost = state.currentPost[0];
   const rootComments = state.comments.filter(
     (comment) => comment.commentParentId === null
   );
@@ -49,10 +51,7 @@ export default function CommentPage() {
           }
         );
         if (response.status === 200) {
-          dispatch({
-            type: "SET_SUBREDDIT_DATA",
-            payload: [response.data],
-          });
+          dispatch(setSubData(response.data));
         }
       } catch (error) {
         console.log(error.response.data.errorMessages);
@@ -74,62 +73,7 @@ export default function CommentPage() {
           }
         );
         if (response.status === 200) {
-          dispatch({
-            type: "SET_USER_COMMENT_VOTES",
-            payload: response.data,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, []);
-
-  //Repopulate data if user refreshes page
-  useEffect(() => {
-    if (
-      state.currentPost.length === 0 &&
-      state.posts.length === 0 &&
-      state.comments.length === 0
-    ) {
-      getCurrentPost();
-      GetComments();
-    }
-    async function getCurrentPost() {
-      try {
-        const response = await axios.get(
-          "https://localhost:5001/api/reddit/CurrentPost",
-          {
-            params: { postId },
-          }
-        );
-        if (response.status === 200) {
-          dispatch({
-            type: "SET_CURRENT_POST",
-            payload: response.data,
-          });
-          dispatch({
-            type: "SET_POSTS",
-            payload: [response.data],
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    async function GetComments() {
-      try {
-        const response = await axios.get(
-          "https://localhost:5001/api/reddit/Comments",
-          {
-            params: { postId },
-          }
-        );
-        if (response.status === 200) {
-          dispatch({
-            type: "SET_COMMENTS",
-            payload: response.data,
-          });
+          dispatch(setCommentVotes(response.data));
         }
       } catch (error) {
         console.log(error);
@@ -141,7 +85,7 @@ export default function CommentPage() {
     <div className="container grid--2-cols comment-page-content">
       <div className="comment-page-header"></div>
       <div className="comment-page-body">
-        <PostItem data={currentPost} votes={userVotes} />
+        <PostItem data={currentPost} />
         {userId === null ? (
           <div className="login-signup-container-comments">
             <div className="content-container">

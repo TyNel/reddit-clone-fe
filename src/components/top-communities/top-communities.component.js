@@ -1,27 +1,33 @@
 import "../top-communities/top-communities.styles.css";
 import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function TopCommunities(props) {
+export default function TopCommunities({ subData }) {
   const [randomSubData, setRandom] = useState([]);
-  const subData = props.data;
 
   useEffect(() => {
-    const GetRandomSubs = async () => {
-      const response = await axios.get(
-        "https://localhost:5001/api/reddit/SubNames"
-      );
-
-      if (response.status === 200) {
-        setRandom(response.data);
-      }
-    };
     if (subData === undefined) {
       GetRandomSubs();
     }
-  }, []);
+    async function GetRandomSubs() {
+      try {
+        const response = await axios.get(
+          "https://localhost:5001/api/reddit/SubNames"
+        );
+
+        if (response.status === 200) {
+          setRandom(response.data);
+        }
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data.errorMessages);
+        } else {
+          console.log(error.message);
+        }
+      }
+    }
+  }, [subData]);
 
   return (
     <div className="top-communities-container">

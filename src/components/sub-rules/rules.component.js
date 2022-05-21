@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { HiOutlineChevronDown } from "react-icons/hi";
-import { Context } from "../../contexts/store";
 import { MdAdd } from "react-icons/md";
 import * as yup from "yup";
 import axios from "axios";
@@ -10,7 +10,7 @@ import "../sub-rules/rules.styles.css";
 
 export default function SubRules() {
   const [currentIndex, setCurrentIndex] = useState();
-  const [state] = useContext(Context);
+  const state = useSelector((state) => state);
   const [currentRules, setCurrentTopics] = useState([]);
   const [addRule, toggleAddRule] = useState(false);
   const isUserAdmin = state.subRedditData[0]?.admin === state.user?.userId;
@@ -46,7 +46,11 @@ export default function SubRules() {
         toggleAddRule();
       }
     } catch (error) {
-      console.log(error, error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -159,7 +163,7 @@ export default function SubRules() {
                 </div>
                 {rule.ruleTitle}{" "}
               </div>
-              <HiOutlineChevronDown className="accordian-icon" />
+              <HiOutlineChevronDown className="rules-icon" />
             </div>
             {currentIndex === rule.ruleId ? (
               <ul className="subpoint-table">

@@ -1,16 +1,16 @@
-import { useContext, useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Context } from "../../contexts/store";
 import PostItem from "../../components/post-item/post-item.component";
 import FooterNav from "../../components/footer-nav/footer-nav.component";
 import ReturnButton from "../../components/return-button/return-button.component";
-import TopCommunities from "../../components/top-communities/top-communties.component";
+import TopCommunities from "../../components/top-communities/top-communities.component";
 import "../search/search.styles.css";
 
 export default function Search() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
   const [subData, setSubData] = useState([]);
-  const searchedData = state.posts;
+  const searchedData = state.searchedPosts;
   const { query } = useParams();
 
   const communities = useCallback(() => {
@@ -36,7 +36,11 @@ export default function Search() {
       <div>
         {searchedData.length > 0 ? (
           searchedData.map((post) => {
-            return <PostItem data={post} key={post.postId} />;
+            return (
+              <div key={post.postId}>
+                <PostItem data={post} />{" "}
+              </div>
+            );
           })
         ) : (
           <div className="no-search-results">
@@ -46,7 +50,7 @@ export default function Search() {
         )}
       </div>
       <div className="right-side">
-        <TopCommunities data={subData} />
+        <TopCommunities subData={subData} />
         <FooterNav />
         <ReturnButton />
       </div>

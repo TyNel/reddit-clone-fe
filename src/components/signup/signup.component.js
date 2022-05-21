@@ -45,7 +45,11 @@ export default function SignUp(props) {
         toggleLogin(true);
       }
     } catch (error) {
-      alert(error.response.data.errorMessages);
+      if (error.response) {
+        alert(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 

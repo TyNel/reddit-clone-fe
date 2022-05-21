@@ -1,17 +1,19 @@
-import React, { useState, useContext } from "react";
-import { Context } from "../../contexts/store";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateUserCommentVotes } from "../../features/userCommentVotes/userCommentVotesSlice";
+import { updateCommentVoteCount } from "../../features/comments/commentsSlice";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import axios from "axios";
 
-function CommentVote(props) {
-  const [state, dispatch] = useContext(Context);
+function CommentVote({ comment }) {
   const [loading, setLoading] = useState(false);
-  const { comment } = props;
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const currentUser = state.user;
   const userId = currentUser ? currentUser.userId : null;
-
   const getVoteIndex = state.userCommentVotes?.findIndex(
     (currentComment) =>
       currentComment.likeDislikeCommentId === comment.commentId
@@ -30,12 +32,6 @@ function CommentVote(props) {
   };
 
   const userVote = async (vote) => {
-    const comments = [...state.comments];
-    const userVotes = [...state.userCommentVotes];
-    const getCommentIndex = state.comments?.findIndex(
-      (currentComment) => currentComment.commentId === comment.commentId
-    );
-
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/LikeComment",
@@ -43,29 +39,15 @@ function CommentVote(props) {
       );
       if (response.status === 200) {
         setLoading(false);
-        if (getCommentIndex >= 0) {
-          comments[getCommentIndex].voteCount = response.data.voteCount;
-          dispatch({
-            type: "SET_COMMENTS",
-            payload: comments,
-          });
-        }
-        if (getVoteIndex >= 0) {
-          userVotes[getVoteIndex].commentIsLike = response.data.commentIsLike;
-          dispatch({
-            type: "SET_USER_COMMENT_VOTES",
-            payload: userVotes,
-          });
-        } else {
-          userVotes.push(response.data);
-          dispatch({
-            type: "SET_USER_COMMENT_VOTES",
-            payload: userVotes,
-          });
-        }
+        dispatch(updateUserCommentVotes(response.data));
+        dispatch(updateCommentVoteCount(response.data));
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -84,47 +66,39 @@ function CommentVote(props) {
     }
   };
   return (
-    <>
+    <div className="comment-vote-container">
+      <button className="vote-button" onClick={handleVote} aria-label="upvote">
+        <BiUpvote
+          className={
+            voteStatus === 1 ? "upvote-logo upvote-filled" : "upvote-logo"
+          }
+          id="upvote"
+        />
+      </button>
       <div className="comment-vote-container">
-        <button
-          className="vote-button"
-          onClick={handleVote}
-          aria-label="upvote"
-        >
-          <BiUpvote
-            className={
-              voteStatus === 1 ? "upvote-logo upvote-filled" : "upvote-logo"
-            }
-            id="upvote"
-          />
-        </button>
-        <div className="comment-vote-container">
-          {" "}
-          {loading === true ? (
-            <AiOutlineLoading3Quarters />
-          ) : comment.voteCount === null ? (
-            0
-          ) : (
-            comment.voteCount
-          )}
-        </div>
-
-        <button
-          className="vote-button"
-          onClick={handleVote}
-          aria-label="downvote"
-        >
-          <BiDownvote
-            className={
-              voteStatus === 0
-                ? "downvote-logo downvote-filled"
-                : "downvote-logo"
-            }
-            id="downvote"
-          />
-        </button>
+        {" "}
+        {loading === true ? (
+          <AiOutlineLoading3Quarters />
+        ) : comment.voteCount === null ? (
+          0
+        ) : (
+          comment.voteCount
+        )}
       </div>
-    </>
+
+      <button
+        className="vote-button"
+        onClick={handleVote}
+        aria-label="downvote"
+      >
+        <BiDownvote
+          className={
+            voteStatus === 0 ? "downvote-logo downvote-filled" : "downvote-logo"
+          }
+          id="downvote"
+        />
+      </button>
+    </div>
   );
 }
 

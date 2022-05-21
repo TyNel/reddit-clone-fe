@@ -1,5 +1,7 @@
-import { useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from "../../features/user/userSlice";
+import { resetUserPostVotes } from "../../features/userPostsVotes/userPostsVotesSlice";
+import { resetUserCommentVotes } from "../../features/userCommentVotes/userCommentVotesSlice";
 import { Link } from "react-router-dom";
 import { HiOutlineMoon } from "react-icons/hi";
 import { GiTwoCoins } from "react-icons/gi";
@@ -12,21 +14,16 @@ import { MdLogin } from "react-icons/md";
 import "../dropdown/dropdown.styles.css";
 
 export default function Dropdown(props) {
-  const [state, dispatch] = useContext(Context);
-  const user = state.user ? state.user : [];
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const toggleLogin = props.toggleLogin;
   const userLogin = () => {
     toggleLogin(true);
   };
   const userLogOut = () => {
-    dispatch({
-      type: "SET_USER_POST_VOTES",
-      payload: [],
-    });
-    dispatch({
-      type: "SET_USER",
-      payload: "",
-    });
+    dispatch(resetUser());
+    dispatch(resetUserPostVotes());
+    dispatch(resetUserCommentVotes());
     localStorage.clear();
     toggleLogin(true);
   };

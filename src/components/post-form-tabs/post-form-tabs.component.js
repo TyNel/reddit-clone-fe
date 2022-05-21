@@ -1,16 +1,18 @@
-import { useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { setCurrentPost } from "../../features/currentPost/currentPostSlice";
+import { setComments } from "../../features/comments/commentsSlice";
 import * as yup from "yup";
 import axios from "axios";
 import "../post-form-tabs/post-form-tabs.styles.css";
 
 export function Post() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const currentUser = state.user;
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
   const enableReinitialize = true;
@@ -33,20 +35,18 @@ export function Post() {
         values
       );
       if (response.status === 200) {
-        dispatch({
-          type: "SET_CURRENT_POST",
-          payload: response.data,
-        });
-        dispatch({
-          type: "SET_COMMENTS",
-          payload: [],
-        });
+        dispatch(setCurrentPost(response.data));
+        dispatch(setComments([]));
         navigate(
           `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`
         );
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -102,9 +102,10 @@ export function Post() {
 }
 
 export function Images() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const currentUser = state.user;
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
 
@@ -132,21 +133,18 @@ export function Images() {
         values
       );
       if (response.status === 200) {
-        dispatch({
-          type: "SET_CURRENT_POST",
-          payload: response.data,
-        });
-        dispatch({
-          type: "SET_COMMENTS",
-          payload: [],
-        });
-        state.trendingPosts.push(response.data);
+        dispatch(setCurrentPost(response.data));
+        dispatch(setComments([]));
         navigate(
           `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`
         );
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -209,9 +207,10 @@ export function Images() {
 }
 
 export function Link() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const currentUser = state.user;
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
   const validationSchema = yup.object({
@@ -238,21 +237,18 @@ export function Link() {
         values
       );
       if (response.status === 200) {
-        dispatch({
-          type: "SET_CURRENT_POST",
-          payload: response.data,
-        });
-        dispatch({
-          type: "SET_COMMENTS",
-          payload: [],
-        });
-        state.trendingPosts.push(response.data);
+        dispatch(setCurrentPost(response.data));
+        dispatch(setComments([]));
         navigate(
           `/r/${subName}/comments/${response.data.postId}/${response.data.postTitle}`
         );
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 

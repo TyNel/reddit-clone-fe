@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/r/:subId/:subName" element={<Subreddit />} />
           <Route
             exact
-            path="/r/:subName/comments/:postId/:postTitle"
+            path="/r/:subName/comments/:id/:postTitle"
             element={<Comments />}
           />
           <Route exact path="/r/submit" element={<SubmitPost />} />

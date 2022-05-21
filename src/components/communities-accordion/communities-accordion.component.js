@@ -1,5 +1,6 @@
-import { useContext, useEffect } from "react";
-import { Context } from "../../contexts/store";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSubNames } from "../../features/subNames/subNamesSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
@@ -7,11 +8,11 @@ import axios from "axios";
 import "./communities-accordion.styles.css";
 
 export default function CommunitiesAccordion() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [extend, setExtend] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(3);
-
   const subreddits = state.subNames.length > 0 ? state.subNames : [];
 
   const showmore = () => {
@@ -29,17 +30,18 @@ export default function CommunitiesAccordion() {
           "https://localhost:5001/api/reddit/SubNames"
         );
         if (subNames.status === 200) {
-          dispatch({
-            type: "SET_SUBNAMES",
-            payload: subNames.data,
-          });
+          dispatch(setSubNames(subNames.data));
         }
       } catch (error) {
-        console.log(error.response.data.errorMessages);
+        if (error.response) {
+          console.log(error.response.data.errorMessages);
+        } else {
+          console.log(error.message);
+        }
       }
     }
     GetNames();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="accordion-container">

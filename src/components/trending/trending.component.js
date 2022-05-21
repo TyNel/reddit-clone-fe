@@ -1,11 +1,13 @@
-import { useContext, useEffect } from "react";
-import { Context } from "../../contexts/store";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setTrendingPosts } from "../../features/trendingPosts/trendingPostsSlice";
 import TrendingItem from "../trending-item/trending-item.component";
 import axios from "axios";
 import "../trending/trending.styles.css";
 
 export default function Trending() {
-  const [state, dispatch] = useContext(Context);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const trendingData = state.trendingPosts;
 
   useEffect(() => {
@@ -15,17 +17,14 @@ export default function Trending() {
           "https://localhost:5001/api/reddit/TrendingPosts"
         );
         if (trendingData.status === 200) {
-          dispatch({
-            type: "SET_TRENDING_POSTS",
-            payload: trendingData.data,
-          });
+          dispatch(setTrendingPosts(trendingData.data));
         }
       } catch (error) {
         console.log(error.response.data.errorMessages);
       }
     }
     GetTrendingPosts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="trending-preview">

@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useDispatch } from "react-redux";
+import { setComments } from "../../features/comments/commentsSlice";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../trending-item/trending-item.styles.css";
 
-export default function TrendingItem(props) {
-  const [state, dispatch] = useContext(Context);
-  const data = props.data;
-  const postId = data.postId;
+export default function TrendingItem({ data, postId }) {
+  const dispatch = useDispatch();
 
   const handleClick = async (e) => {
     dispatch({
@@ -22,10 +20,7 @@ export default function TrendingItem(props) {
         }
       );
       if (response.status === 200) {
-        dispatch({
-          type: "SET_COMMENTS",
-          payload: response.data,
-        });
+        dispatch(setComments(response.data));
       }
     } catch (error) {
       console.log(error.response.data.errorMessages);

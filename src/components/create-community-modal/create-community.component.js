@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import { useFormik } from "formik";
@@ -7,10 +6,9 @@ import * as yup from "yup";
 import axios from "axios";
 import "../create-community-modal/create-community.styles.css";
 
-export default function CreateCommunity(props) {
-  const [state, dispatch] = useContext(Context);
+export default function CreateCommunity({ toggleModal }) {
+  const state = useSelector((state) => state);
   const navigate = useNavigate();
-  const toggleModal = props.toggleModal;
 
   const validationSchema = yup.object({
     subName: yup
@@ -59,7 +57,11 @@ export default function CreateCommunity(props) {
         navigate(`/r/${data.subId}/${data.subName}`);
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 

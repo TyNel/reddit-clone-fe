@@ -1,9 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { SiReddit } from "react-icons/si";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { Context } from "../../contexts/store";
 import { useParams } from "react-router-dom";
+import { setSubNames } from "../../features/subNames/subNamesSlice";
+import { setSubData } from "../../features/subRedditData/subRedditDataSlice";
 import CommunitiesDropdown from "../../components/communities-dropdown/communities-dropdown.component";
 import PostForm from "../../components/post-form/post-form.component";
 import AboutCommunity from "../../components/about-community/about-community.component";
@@ -16,7 +18,7 @@ export default function SubmitPost() {
   const [open, setOpen] = useState(false);
   const [filteredData, setFiltiredData] = useState([]);
   const { subName } = useParams();
-  const [state, dispatch] = useContext(Context);
+  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
@@ -41,10 +43,7 @@ export default function SubmitPost() {
         );
         if (response.status === 200) {
           setFiltiredData(response.data);
-          dispatch({
-            type: "SET_SUBNAMES",
-            payload: response.data,
-          });
+          dispatch(setSubNames(response.data));
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -58,7 +57,7 @@ export default function SubmitPost() {
     return () => {
       controller.abort();
     };
-  }, [query]);
+  }, [query, dispatch]);
 
   useEffect(() => {
     async function GetSubData() {
@@ -70,10 +69,7 @@ export default function SubmitPost() {
           }
         );
         if (response.status === 200) {
-          dispatch({
-            type: "SET_SUBREDDIT_DATA",
-            payload: [response.data],
-          });
+          dispatch(setSubData(response.data));
         }
       } catch (error) {
         console.log(error.response.data.errorMessages);

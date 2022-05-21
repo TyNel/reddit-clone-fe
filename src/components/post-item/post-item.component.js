@@ -1,5 +1,8 @@
-import { useState, useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setComments } from "../../features/comments/commentsSlice";
+import { setCurrentPost } from "../../features/currentPost/currentPostSlice";
 import { BsChatLeftText } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
 import { BsSave } from "react-icons/bs";
@@ -10,30 +13,34 @@ import PostItemDropDown from "../post-item-dropdown/post-item-dropdown.component
 import axios from "axios";
 import "../post-item/post-item.styles.css";
 
-export default function PostItem(props) {
+export default function PostItem({ data }) {
   const [open, setOpen] = useState(false);
-  const [state, dispatch] = useContext(Context);
-  const data = props.data;
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const postId = data.postId;
-  const getPostIndex = state.posts.findIndex((post) => post.postId === postId);
 
   const handleClick = async (e) => {
-    const posts = [...state.posts];
-    dispatch({
-      type: "SET_CURRENT_POST",
-      payload: posts[getPostIndex],
-    });
-    const response = await axios.get(
-      "https://localhost:5001/api/reddit/Comments",
-      {
-        params: { postId },
+    if (id === undefined) {
+      dispatch(setCurrentPost(data));
+    } else {
+      return;
+    }
+    try {
+      const response = await axios.get(
+        "https://localhost:5001/api/reddit/Comments",
+        {
+          params: { postId },
+        }
+      );
+      if (response.status === 200) {
+        dispatch(setComments(response.data));
       }
-    );
-    if (response.status === 200) {
-      dispatch({
-        type: "SET_COMMENTS",
-        payload: response.data,
-      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -41,11 +48,7 @@ export default function PostItem(props) {
     <>
       <div className="post-item-container">
         <div className="vote-container">
-          <PostVote
-            postId={postId}
-            getPostIndex={getPostIndex}
-            voteCount={data.voteCount}
-          />
+          <PostVote postId={postId} voteCount={data.voteCount} />
         </div>
         <div className="post-item-body">
           <Link

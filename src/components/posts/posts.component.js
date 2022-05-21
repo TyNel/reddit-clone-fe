@@ -1,5 +1,6 @@
-import { useState, useContext, useEffect, useCallback, useRef } from "react";
-import { Context } from "../../contexts/store";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setPosts } from "../../features/posts/postsSlice";
 import { Link } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
@@ -8,7 +9,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FiTrendingUp } from "react-icons/fi";
 import PostItem from "../post-item/post-item.component";
 import LocationDropDown from "../location-dropdown/location-dropdown.component";
-import TopCommunities from "../../components/top-communities/top-communties.component";
+import TopCommunities from "../../components/top-communities/top-communities.component";
 import Premium from "../premium/premium-component";
 import CommunitiesAccordion from "../communities-accordion/communities-accordion.component";
 import FooterNav from "../footer-nav/footer-nav.component";
@@ -18,11 +19,11 @@ import "../posts/posts.styles.css";
 
 export default function Posts() {
   const [open, setOpen] = useState(false);
-  const [state, dispatch] = useContext(Context);
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const pageSize = 10;
   const [hasMore, setHasMore] = useState(true);
-  const posts = state.posts;
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
   const observer = useRef();
 
   const lastItemRef = useCallback(
@@ -54,11 +55,7 @@ export default function Posts() {
       if (response.status === 200) {
         if (posts.length === 0) {
           setHasMore(response.data.length > 0);
-          const data = [...posts].concat(response.data);
-          dispatch({
-            type: "SET_POSTS",
-            payload: data,
-          });
+          dispatch(setPosts(response.data));
         } else {
           response.data.forEach((newPost) => {
             let exists = prevPosts.some(
@@ -69,14 +66,15 @@ export default function Posts() {
             }
           });
           setHasMore(response.data.length > 0);
-          dispatch({
-            type: "SET_POSTS",
-            payload: prevPosts,
-          });
+          dispatch(setPosts(prevPosts));
         }
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.data) {
+        alert(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   }, [pageNumber]);
 

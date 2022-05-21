@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { BsTagFill } from "react-icons/bs";
-import { Context } from "../../contexts/store";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import "../about-community/about-community.styles.css";
 
 export default function AboutCommunity() {
-  const [state, dispatch] = useContext(Context);
-
+  const state = useSelector((state) => state);
   const [currentTopics, setCurrentTopics] = useState([]);
 
   useEffect(() => {

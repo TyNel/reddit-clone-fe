@@ -1,15 +1,14 @@
-import { useState, useContext } from "react";
-import { Context } from "../../contexts/store";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleReplyForm } from "../../features/toggleReplyForm/toggleReplyFormSlice";
 import { BsChatLeftText } from "react-icons/bs";
 import CommentVote from "../comment-vote/comment-vote.component";
 import CommentForm from "../comment-form/comment-form.component";
 import "./comment-item.styles.css";
 
-export default function Comment(props) {
-  const [state, dispatch] = useContext(Context);
-  const comment = props.comment;
-  const replies = props.replies;
-  const toggleForm = props.toggleForm;
+export default function Comment({ comment, replies, toggleForm }) {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const [userToReply, setUser] = useState({
     isRoot: false,
@@ -23,15 +22,9 @@ export default function Comment(props) {
       setUser({ isRoot: true, comment: comment });
     }
     if (state.toggleReplyForm === comment.commentId) {
-      dispatch({
-        type: "SET_REPLY_STATE",
-        payload: null,
-      });
+      dispatch(toggleReplyForm(null));
     } else {
-      dispatch({
-        type: "SET_REPLY_STATE",
-        payload: comment.commentId,
-      });
+      dispatch(toggleReplyForm(comment.commentId));
     }
   };
 

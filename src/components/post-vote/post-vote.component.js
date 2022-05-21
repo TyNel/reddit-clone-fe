@@ -1,38 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updatePostVotes } from "../../features/posts/postsSlice";
+import { updateUserVotes } from "../../features/userPostsVotes/userPostsVotesSlice";
+import { updateCurrentPost } from "../../features/currentPost/currentPostSlice";
 import { useParams } from "react-router-dom";
-import { Context } from "../../contexts/store";
 import { TailSpin } from "react-loader-spinner";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import axios from "axios";
 import "../post-vote/post-vote.styles.css";
 
-function PostVote(props) {
+const PostVote = ({ postId, voteCount }) => {
   const [loading, setLoading] = useState(false);
-  const [state, dispatch] = useContext(Context);
-  const { postId, getPostIndex, voteCount } = props;
-  const { paramPostId } = useParams();
-  const currentUser = state.user;
-
-  const getUserVoteIndex = state.userPostVotes?.findIndex(
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const state = useSelector((state) => state);
+  const getUserVoteIndex = state.userPostsVotes?.findIndex(
     (post) => post.likeDislikePostId === postId
   );
-  const checkVoteStatus = state.userPostVotes[getUserVoteIndex]?.postIsLike;
+  const checkVoteStatus = state.userPostsVotes[getUserVoteIndex]?.postIsLike;
 
   const upVote = {
-    likeDislikePostId: postId === undefined ? paramPostId : postId,
-    likeDislikeUserId: currentUser ? currentUser.userId : null,
+    likeDislikePostId: postId === undefined ? id : postId,
+    likeDislikeUserId: state.user ? state.user.userId : null,
     postIsLike: 1,
   };
   const downVote = {
-    likeDislikePostId: postId === undefined ? paramPostId : postId,
-    likeDislikeUserId: currentUser ? currentUser.userId : null,
+    likeDislikePostId: postId === undefined ? id : postId,
+    likeDislikeUserId: state.user ? state.user.userId : null,
     postIsLike: 0,
   };
 
   const userVote = async (vote) => {
-    const posts = [...state.posts];
-    const userVotes = [...state.userPostVotes];
     try {
       const response = await axios.post(
         "https://localhost:5001/api/reddit/LikePost",
@@ -40,35 +40,23 @@ function PostVote(props) {
       );
       if (response.status === 200) {
         setLoading(false);
-        posts[getPostIndex].voteCount = response.data.voteCount;
-        dispatch({
-          type: "SET_POSTS",
-          payload: posts,
-        });
-        dispatch({
-          type: "SET_CURRENT_POST",
-          payload: posts[getPostIndex],
-        });
-        if (getUserVoteIndex >= 0) {
-          userVotes[getUserVoteIndex].postIsLike = response.data.postIsLike;
-          dispatch({
-            type: "SET_USER_POST_VOTES",
-            payload: userVotes,
-          });
-        } else {
-          userVotes.push(response.data);
-          dispatch({
-            type: "SET_USER_POST_VOTES",
-            payload: userVotes,
-          });
+        dispatch(updatePostVotes(response.data));
+        dispatch(updateUserVotes(response.data));
+        if (id) {
+          dispatch(updateCurrentPost(response.data));
         }
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
+
   const handleVote = (e) => {
-    if (currentUser.length === 0) {
+    if (state.user.length === 0) {
       window.alert("Please log in to vote");
       return;
     }
@@ -124,6 +112,6 @@ function PostVote(props) {
       </div>
     </>
   );
-}
+};
 
 export default React.memo(PostVote);
