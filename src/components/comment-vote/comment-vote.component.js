@@ -34,7 +34,7 @@ function CommentVote({ comment }) {
   const userVote = async (vote) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/LikeComment",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/LikeComment",
         vote
       );
       if (response.status === 200) {

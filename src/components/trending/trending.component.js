@@ -14,7 +14,7 @@ export default function Trending() {
     async function GetTrendingPosts() {
       try {
         const trendingData = await axios.get(
-          "https://localhost:5001/api/reddit/TrendingPosts"
+          "https://tysocialappapi.azurewebsites.net/api/reddit/TrendingPosts"
         );
         if (trendingData.status === 200) {
           dispatch(setTrendingPosts(trendingData.data));

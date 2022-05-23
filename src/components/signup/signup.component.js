@@ -37,7 +37,7 @@ export default function SignUp(props) {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddUser",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddUser",
         values
       );
       if (response.status === 200) {

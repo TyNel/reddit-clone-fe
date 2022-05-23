@@ -12,7 +12,7 @@ export default function TrendingItem({ data, postId }) {
     dispatch(setCurrentPost(data));
     try {
       const response = await axios.get(
-        "https://localhost:5001/api/reddit/Comments",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/Comments",
         {
           params: { postId },
         }

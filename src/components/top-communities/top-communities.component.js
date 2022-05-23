@@ -13,7 +13,7 @@ export default function TopCommunities({ subData }) {
     async function GetRandomSubs() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/SubNames"
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SubNames"
         );
 
         if (response.status === 200) {

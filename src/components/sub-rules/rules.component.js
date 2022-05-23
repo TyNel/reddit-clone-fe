@@ -38,7 +38,7 @@ export default function SubRules() {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddRule",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddRule",
         values
       );
       if (response.status === 200) {

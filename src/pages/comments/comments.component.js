@@ -45,7 +45,7 @@ export default function CommentPage() {
     async function GetSubData() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/SubReddit",
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SubReddit",
           {
             params: { subName },
           }
@@ -67,7 +67,7 @@ export default function CommentPage() {
     async function getUserCommentVotes() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/UserLikedComments",
+          "https://tysocialappapi.azurewebsites.net/api/reddit/UserLikedComments",
           {
             params: { postId, userId },
           }

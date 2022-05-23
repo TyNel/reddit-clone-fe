@@ -48,7 +48,7 @@ export default function CreateCommunity({ toggleModal }) {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddSub",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddSub",
         values
       );
       if (response.status === 200) {

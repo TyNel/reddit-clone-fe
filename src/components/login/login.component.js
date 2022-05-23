@@ -47,7 +47,7 @@ export default function Login(props) {
         dispatch(setPostsVotes(postVotes ? postVotes : []));
         dispatch(setCommentVotes(commentVotes ? commentVotes : []));
         dispatch(setUser(response.data));
-        console.log("logged in");
+
         if (pathname === "/") {
           toggleModal(false);
         }

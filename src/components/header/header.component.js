@@ -53,7 +53,7 @@ export default function Header() {
     async function searchSubNames() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/SearchSubNames",
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SearchSubNames",
           {
             params: { query },
             signal: controller.signal,

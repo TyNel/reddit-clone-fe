@@ -33,7 +33,7 @@ export default function CommentForm({ userReply }) {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddComment",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddComment",
         values
       );
       if (response.status === 200) {

@@ -27,7 +27,7 @@ export default function CommunitiesAccordion() {
     async function GetNames() {
       try {
         const subNames = await axios.get(
-          "https://localhost:5001/api/reddit/SubNames"
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SubNames"
         );
         if (subNames.status === 200) {
           dispatch(setSubNames(subNames.data));

@@ -25,7 +25,7 @@ export default function SubredditView() {
     async function GetSubData() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/SubReddit",
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SubReddit",
           {
             params: { subName },
           }
@@ -48,7 +48,7 @@ export default function SubredditView() {
     async function GetSubPosts() {
       try {
         const response = await axios.get(
-          "https://localhost:5001/api/reddit/SubPosts",
+          "https://tysocialappapi.azurewebsites.net/api/reddit/SubPosts",
           {
             params: { subId },
           }

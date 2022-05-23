@@ -35,7 +35,7 @@ const PostVote = ({ postId, voteCount }) => {
   const userVote = async (vote) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/LikePost",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/LikePost",
         vote
       );
       if (response.status === 200) {

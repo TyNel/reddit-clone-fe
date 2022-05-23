@@ -48,7 +48,7 @@ export default function Posts() {
     const prevPosts = [...posts];
     try {
       const response = await axios.get(
-        "https://localhost:5001/api/reddit/Posts",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/Posts",
         {
           params: { pageNumber, pageSize },
         }
