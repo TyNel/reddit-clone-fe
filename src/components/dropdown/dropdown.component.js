@@ -66,7 +66,6 @@ export default function Dropdown(props) {
         <div className="dropdown-text">Help Center</div>
       </Link>
       <div
-        // to="/"
         className="dropdown-item"
         onClick={user.length === 0 ? () => userLogin() : () => userLogOut()}
       >

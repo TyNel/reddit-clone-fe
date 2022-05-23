@@ -108,6 +108,7 @@ export function Images() {
   const currentUser = state.user;
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
+  const enableReinitialize = true;
 
   const validationSchema = yup.object({
     postTitle: yup.string("Please enter a title").required("Title is required"),
@@ -123,8 +124,6 @@ export function Images() {
     postTitle: "",
     postImageUrl: "",
   };
-
-  const enableReinitialize = true;
 
   const onSubmit = async (values) => {
     try {
@@ -213,6 +212,7 @@ export function Link() {
   const currentUser = state.user;
   const { subId, subName } = useParams();
   const convertToInt = parseInt(subId);
+
   const validationSchema = yup.object({
     postTitle: yup.string("Please enter a title").required("Title is required"),
     postLink: yup
@@ -261,11 +261,7 @@ export function Link() {
 
   return (
     <form className="tab-container" onSubmit={formik.handleSubmit}>
-      <div
-        className={
-          formik.errors.postLink ? "tab-header tab-error" : "tab-header"
-        }
-      >
+      <div className="tab-header">
         <input
           className="tab-title"
           type="text"
@@ -278,11 +274,7 @@ export function Link() {
       {formik.touched.postTitle && formik.errors.postTitle ? (
         <div className="form-error">{formik.errors.postTitle}</div>
       ) : null}
-      <div
-        className={
-          formik.errors.postLink ? "tab-content tab-error" : "tab-content"
-        }
-      >
+      <div className="tab-content">
         <textarea
           className="tab-body"
           type="text"

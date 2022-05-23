@@ -63,12 +63,12 @@ export default function CommentForm({ userReply }) {
           Comment as {user ? user.userName : "blank"}
         </div>
         <textarea
-          id="commentBody"
           type="text"
-          placeholder="What are your thoughts?"
+          id="commentBody"
           className="comment-textarea"
           value={formik.values.commentBody}
           onChange={formik.handleChange}
+          placeholder="What are your thoughts?"
         ></textarea>
         <button
           type="submit"

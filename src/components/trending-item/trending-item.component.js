@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setComments } from "../../features/comments/commentsSlice";
+import { setCurrentPost } from "../../features/currentPost/currentPostSlice";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../trending-item/trending-item.styles.css";
@@ -8,10 +9,7 @@ export default function TrendingItem({ data, postId }) {
   const dispatch = useDispatch();
 
   const handleClick = async (e) => {
-    dispatch({
-      type: "SET_CURRENT_POST",
-      payload: data,
-    });
+    dispatch(setCurrentPost(data));
     try {
       const response = await axios.get(
         "https://localhost:5001/api/reddit/Comments",
@@ -23,7 +21,11 @@ export default function TrendingItem({ data, postId }) {
         dispatch(setComments(response.data));
       }
     } catch (error) {
-      console.log(error.response.data.errorMessages);
+      if (error.response) {
+        console.log(error.response.data.errorMessages);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 

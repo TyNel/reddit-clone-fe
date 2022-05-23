@@ -16,6 +16,10 @@ export default function Comment({ comment, replies, toggleForm }) {
   });
 
   const handleClick = () => {
+    if (state.user.length === 0) {
+      window.alert("Please log in to reply");
+      return;
+    }
     if (comment.commentParentId !== null) {
       setUser({ isRoot: false, comment: comment });
     } else {
@@ -49,7 +53,7 @@ export default function Comment({ comment, replies, toggleForm }) {
           <CommentVote comment={comment} />
         </div>
         <div
-          className="link footer-link"
+          className="link footer-link reply-btn"
           onClick={() => handleClick(comment.commentId)}
         >
           {" "}

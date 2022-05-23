@@ -43,6 +43,7 @@ export default function SubRules() {
       );
       if (response.status === 200) {
         setCurrentTopics([...currentRules, response.data]);
+        formik.resetForm();
         toggleAddRule();
       }
     } catch (error) {
@@ -69,6 +70,7 @@ export default function SubRules() {
   });
 
   useEffect(() => {
+    //if sub has no rules yet assign as empty array
     if (
       state.subRedditData.length > 0 &&
       state.subRedditData[0].rules !== null

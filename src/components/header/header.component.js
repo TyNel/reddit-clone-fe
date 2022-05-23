@@ -133,10 +133,9 @@ export default function Header() {
           <BsSearch color="#a4a4a4" />
         </div>
         <input
-          required
-          placeholder="Search Reddit"
-          className="search-bar"
           type="text"
+          className="search-bar"
+          placeholder="Search Reddit"
           value={query}
           onChange={handleChange}
           onKeyDown={keyPressed}

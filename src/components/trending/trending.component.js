@@ -20,7 +20,11 @@ export default function Trending() {
           dispatch(setTrendingPosts(trendingData.data));
         }
       } catch (error) {
-        console.log(error.response.data.errorMessages);
+        if (error.response) {
+          console.log(error.response.data.errorMessages);
+        } else {
+          console.log(error.message);
+        }
       }
     }
     GetTrendingPosts();
@@ -31,7 +35,7 @@ export default function Trending() {
       <div className="trending-header">Trending today</div>
       <div className="trending-item-container">
         {trendingData.map((data) => (
-          <TrendingItem data={data} key={data.postId} />
+          <TrendingItem data={data} key={data.postId} postId={data.postId} />
         ))}
       </div>
     </div>

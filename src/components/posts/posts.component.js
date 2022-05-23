@@ -26,6 +26,7 @@ export default function Posts() {
   const posts = useSelector((state) => state.posts);
   const observer = useRef();
 
+  //check if user has scrolled to bottom of page
   const lastItemRef = useCallback(
     (node) => {
       if (observer.current) {
@@ -57,6 +58,7 @@ export default function Posts() {
           setHasMore(response.data.length > 0);
           dispatch(setPosts(response.data));
         } else {
+          //if posts already exist check if response has any already in state
           response.data.forEach((newPost) => {
             let exists = prevPosts.some(
               (post) => post.postId === newPost.postId
