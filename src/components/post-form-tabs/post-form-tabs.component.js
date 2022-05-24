@@ -128,7 +128,7 @@ export function Images() {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddPost",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddPost",
         values
       );
       if (response.status === 200) {
@@ -233,7 +233,7 @@ export function Link() {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/reddit/AddPost",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/AddPost",
         values
       );
       if (response.status === 200) {
