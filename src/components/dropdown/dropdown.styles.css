@@ -5,6 +5,7 @@
   right: 0;
   background-color: #fff;
   z-index: 1;
+  overflow-y: scroll;
 }
 
 .dropdown-subheader {
