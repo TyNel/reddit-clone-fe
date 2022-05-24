@@ -89,7 +89,7 @@ export default function Header() {
     }
     try {
       const response = await axios.get(
-        "https://localhost:5001/api/reddit/SearchPosts",
+        "https://tysocialappapi.azurewebsites.net/api/reddit/SearchPosts",
         {
           params: { query },
         }
