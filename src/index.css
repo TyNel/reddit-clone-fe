@@ -162,7 +162,6 @@ code {
   gap: 1rem;
   grid-column: 2;
   grid-row: 2 / span 2;
-  max-width: 31rem;
 }
 
 /* Vote Container Styling */
