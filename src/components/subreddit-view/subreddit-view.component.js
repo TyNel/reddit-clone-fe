@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubData } from "../../features/subRedditData/subRedditDataSlice";
 import { setPosts } from "../../features/posts/postsSlice";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { AiOutlineFire } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
@@ -17,6 +16,7 @@ import "../subreddit-view/subreddit-view.styles.css";
 
 export default function SubredditView() {
   const { subId, subName } = useParams();
+  const [activeTab, setActiveTab] = useState("hot");
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const subPosts = state.posts.length > 0 ? state.posts : [];
@@ -96,18 +96,36 @@ export default function SubredditView() {
       <div className="container grid--2-cols">
         <div className="left-side-container">
           <h2 className="posts-header">
-            <Link to="/" className="post-link">
+            <div
+              to="/"
+              className={
+                activeTab === "hot" ? "post-link active-tab" : "post-link"
+              }
+              onClick={() => setActiveTab("hot")}
+            >
               <AiOutlineFire className="post-link-icon" />
               Hot
-            </Link>
-            <Link to="/" className="post-link">
+            </div>
+            <div
+              to="/"
+              className={
+                activeTab === "new" ? "post-link active-tab" : "post-link"
+              }
+              onClick={() => setActiveTab("new")}
+            >
               <GiSevenPointedStar className="post-link-icon" />
               New
-            </Link>
-            <Link to="/" className="post-link">
+            </div>
+            <div
+              to="/"
+              className={
+                activeTab === "top" ? "post-link active-tab" : "post-link"
+              }
+              onClick={() => setActiveTab("top")}
+            >
               <BsSortUpAlt className="post-link-icon" />
               Top
-            </Link>
+            </div>
           </h2>
           <div className="sub-post-container">
             {subPosts.map((post) => (

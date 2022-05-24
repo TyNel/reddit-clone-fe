@@ -19,12 +19,13 @@ import "../posts/posts.styles.css";
 
 export default function Posts() {
   const [open, setOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("hot");
   const [pageNumber, setPageNumber] = useState(1);
-  const pageSize = 10;
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const observer = useRef();
+  const pageSize = 10;
 
   //check if user has scrolled to bottom of page
   const lastItemRef = useCallback(
@@ -88,7 +89,11 @@ export default function Posts() {
     <div className="grid--2-cols">
       <div className="popular-posts">Popular Posts</div>
       <h2 className="posts-header">
-        <Link to="/" className="post-link">
+        <Link
+          to="/"
+          className={activeTab === "hot" ? "post-link active-tab" : "post-link"}
+          onClick={() => setActiveTab("hot")}
+        >
           <AiOutlineFire className="post-link-icon" />
           Hot
         </Link>
@@ -97,15 +102,29 @@ export default function Posts() {
           <MdOutlineKeyboardArrowDown />
           {open && <LocationDropDown />}
         </div>
-        <Link to="/" className="post-link">
+        <Link
+          to="/"
+          className={activeTab === "new" ? "post-link active-tab" : "post-link"}
+          onClick={() => setActiveTab("new")}
+        >
           <GiSevenPointedStar className="post-link-icon" />
           New
         </Link>
-        <Link to="/" className="post-link">
+        <Link
+          to="/"
+          className={activeTab === "top" ? "post-link active-tab" : "post-link"}
+          onClick={() => setActiveTab("top")}
+        >
           <BsSortUpAlt className="post-link-icon" />
           Top
         </Link>
-        <Link to="/" className="post-link">
+        <Link
+          to="/"
+          className={
+            activeTab === "rising" ? "post-link active-tab" : "post-link"
+          }
+          onClick={() => setActiveTab("rising")}
+        >
           <FiTrendingUp className="post-link-icon" />
           Rising
         </Link>

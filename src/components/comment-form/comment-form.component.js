@@ -12,8 +12,8 @@ export default function CommentForm({ userReply }) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const intPostId = parseInt(id);
-  const user = state.user.length === 0 ? null : state.user;
   const navigate = useNavigate();
+  const user = state.user.length === 0 ? null : state.user;
 
   const initialValues = {
     commentUserId: user ? user.userId : "",

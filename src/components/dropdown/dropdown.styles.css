@@ -113,10 +113,37 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* 850px width 350px height (on phone) */
+/* 915px width 415px height (on phone) */
 
-@media (max-width: 53em) and (max-height: 25em) {
+@media (max-width: 57.25em) and (max-height: 26em) {
   .dropdown-item {
-    padding: 0.4rem 1.4rem;
+    padding: 0.3rem 1.4rem;
+  }
+}
+
+/* 595px */
+
+@media (max-width: 37.25em) {
+  .slider:before {
+    height: 12px;
+    width: 12px;
+  }
+}
+
+/* 400px */
+
+@media (max-width: 24.75em) {
+  .slider:before {
+    height: 8px;
+    width: 8px;
+  }
+}
+
+/* 275px */
+
+@media (max-width: 17.25em) {
+  .slider:before {
+    height: 4px;
+    width: 4px;
   }
 }

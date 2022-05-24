@@ -44,4 +44,9 @@
   .trending-container:nth-of-type(2) {
     display: none;
   }
+
+  .trending-preview {
+    width: 80%;
+    margin: 0 auto;
+  }
 }

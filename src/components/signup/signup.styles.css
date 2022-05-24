@@ -54,6 +54,10 @@
   margin-bottom: 4.8rem;
 }
 
+.continue--btn:disabled {
+  cursor: not-allowed;
+}
+
 /* Form styling */
 
 .signup-form {

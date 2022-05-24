@@ -69,6 +69,7 @@
 }
 
 .post-item-title {
+  display: inline-block;
   font-size: 1.8rem;
   padding-left: 0.8rem;
   margin-bottom: 0.5rem;
