@@ -234,6 +234,14 @@ code {
   }
 }
 
+/* 600px */
+
+@media (max-width: 37.5em) {
+  html {
+    font-size: 50%;
+  }
+}
+
 /* 500px */
 
 @media (max-width: 31.25em) {
@@ -243,6 +251,22 @@ code {
   .container {
     margin: none;
     padding: 0 2rem;
+  }
+}
+
+/* 400 px */
+
+@media (max-width: 25.5em) {
+  html {
+    font-size: 33%;
+  }
+}
+
+/* 250px */
+
+@media (max-width: 16.5em) {
+  html {
+    font-size: 20%;
   }
 }
 

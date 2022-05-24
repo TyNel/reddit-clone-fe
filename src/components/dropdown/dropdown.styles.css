@@ -115,7 +115,7 @@ input:checked + .slider:before {
 
 /* 850px width 350px height (on phone) */
 
-@media (max-width: 53em) and (max-width: 24.5em) {
+@media (max-width: 53em) and (max-height: 25em) {
   .dropdown-item {
     padding: 0.4rem 1.4rem;
   }
