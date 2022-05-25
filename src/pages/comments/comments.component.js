@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCommentVotes } from "../../features/userCommentVotes/userCommentVotesSlice";
 import { setSubData } from "../../features/subRedditData/subRedditDataSlice";
 import { useParams } from "react-router-dom";
 import { VscCommentDiscussion } from "react-icons/vsc";
@@ -18,7 +17,7 @@ import "../comments/comments.styles.css";
 export default function CommentPage() {
   const [signinModal, setSigninOpen] = useState(false);
   const [loginModal, setLoginOpen] = useState(false);
-  const { postId, subName } = useParams();
+  const { subName } = useParams();
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const userId = state.user.length === 0 ? null : state.user.userId;
@@ -54,31 +53,14 @@ export default function CommentPage() {
           dispatch(setSubData(response.data));
         }
       } catch (error) {
-        console.log(error.response.data.errorMessages);
+        if (error.response) {
+          console.log(error.response.data.errorMessages);
+        } else {
+          console.log(error.message);
+        }
       }
     }
     GetSubData();
-  }, []);
-
-  useEffect(() => {
-    if (state.user !== null) {
-      getUserCommentVotes();
-    }
-    async function getUserCommentVotes() {
-      try {
-        const response = await axios.get(
-          "https://tysocialappapi.azurewebsites.net/api/reddit/UserLikedComments",
-          {
-            params: { postId, userId },
-          }
-        );
-        if (response.status === 200) {
-          dispatch(setCommentVotes(response.data));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
   }, []);
 
   return (
