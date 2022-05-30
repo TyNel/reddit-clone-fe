@@ -1,5 +1,5 @@
 .trending-container {
-  min-width: 24rem;
+  width: 100%;
   min-height: 19rem;
   border: 1px solid black;
   overflow: hidden;

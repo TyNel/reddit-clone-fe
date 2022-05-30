@@ -4,13 +4,15 @@
 
 .comment-page-body {
   grid-column: 1;
+}
+
+.comment-body-lower {
   border: 1px solid #ccc;
 }
 
 .login-signup-container-comments {
   display: flex;
   background-color: #fff;
-  margin-top: -1rem;
   padding: 1rem 4.2rem;
 }
 
@@ -94,11 +96,11 @@
     padding: 0.55rem 1.5rem;
   }
 
-  .comment-page-content .right-side-container {
+  .comments-right-side-container {
     display: none;
   }
 
-  .comment-page-content {
+  .comments-container {
     grid: none;
     padding: 0 5.4rem;
   }

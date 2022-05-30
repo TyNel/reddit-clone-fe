@@ -65,66 +65,67 @@ export default function CommentPage() {
     <div className="container grid--2-cols comments-container">
       <div className="comment-page-body">
         <PostItem data={currentPost} />
-
-        {userId === null ? (
-          <div className="login-signup-container-comments">
-            <div className="content-container">
-              <div className="login-signup-text">
-                Log in or sign up to leave a comment
-              </div>
-              <div className="btn-container">
-                <div
-                  className="btn btn--outline"
-                  onClick={() => setLoginOpen(!loginModal)}
-                >
-                  Log In
+        <div className="comment-body-lower">
+          {userId === null ? (
+            <div className="login-signup-container-comments">
+              <div className="content-container">
+                <div className="login-signup-text">
+                  Log in or sign up to leave a comment
                 </div>
-                {loginModal && (
-                  <Login
-                    toggleModal={toggleLogin}
-                    toggleSignin={toggleSigninModal}
-                  />
-                )}
-                <div
-                  className="btn btn--full"
-                  onClick={() => setSigninOpen(!signinModal)}
-                >
-                  Sign Up
+                <div className="btn-container">
+                  <div
+                    className="btn btn--outline"
+                    onClick={() => setLoginOpen(!loginModal)}
+                  >
+                    Log In
+                  </div>
+                  {loginModal && (
+                    <Login
+                      toggleModal={toggleLogin}
+                      toggleSignin={toggleSigninModal}
+                    />
+                  )}
+                  <div
+                    className="btn btn--full"
+                    onClick={() => setSigninOpen(!signinModal)}
+                  >
+                    Sign Up
+                  </div>
+                  {signinModal && (
+                    <SignUp
+                      toggleModal={toggleSigninModal}
+                      toggleLogin={toggleLogin}
+                    />
+                  )}
                 </div>
-                {signinModal && (
-                  <SignUp
-                    toggleModal={toggleSigninModal}
-                    toggleLogin={toggleLogin}
-                  />
-                )}
               </div>
             </div>
-          </div>
-        ) : (
-          <CommentForm />
-        )}
+          ) : (
+            <CommentForm />
+          )}
 
-        {rootComments.length > 0 ? (
-          <div>
-            {rootComments.map((rootComment) => (
-              <div key={rootComment.commentId}>
-                {" "}
-                <Comment
-                  comment={rootComment}
-                  replies={getReplies(rootComment.commentId)}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="empty-comments-container">
-            <VscCommentDiscussion className="no-comment-icon" />
-            <div className="no-comment-text">No Comments Yet</div>
-            <div className="no-comment-text sub-text">
-              Be the first to share what you think!
+          {rootComments.length > 0 ? (
+            <div>
+              {rootComments.map((rootComment) => (
+                <div key={rootComment.commentId}>
+                  {" "}
+                  <Comment
+                    comment={rootComment}
+                    replies={getReplies(rootComment.commentId)}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="empty-comments-container">
+              <VscCommentDiscussion className="no-comment-icon" />
+              <div className="no-comment-text">No Comments Yet</div>
+              <div className="no-comment-text sub-text">
+                Be the first to share what you think!
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <div className="comments-right-side-container">
         <AboutCommunity />
