@@ -43,11 +43,9 @@ export default function CommentForm({ userReply }) {
         navigate(`/r/${subName}/comments/${id}/${postTitle}`);
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 

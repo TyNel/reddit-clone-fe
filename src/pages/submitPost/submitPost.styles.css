@@ -22,6 +22,18 @@
   border-radius: 4px;
 }
 
+.community-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  color: #fff;
+  background-color: #0079d3;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
 .community-icon {
   margin-left: auto;
   margin-right: 1rem;
@@ -84,6 +96,22 @@
   padding: 0.5rem;
   font-size: 1.4rem;
   font-weight: 500;
+}
+
+/* 1180px */
+
+@media (max-width: 73.75em) {
+  .posting-rules-item {
+    font-size: 1.2rem;
+  }
+}
+
+/* 1030px */
+
+@media (max-width: 64.5em) {
+  .posting-rules-item {
+    font-size: 1.1rem;
+  }
 }
 
 /* 950px */

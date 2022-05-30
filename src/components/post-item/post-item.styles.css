@@ -4,6 +4,7 @@
   grid-template-columns: 0.5fr 7fr;
   grid-template-rows: 1fr;
   background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 3px;
   margin-bottom: 1rem;
 }

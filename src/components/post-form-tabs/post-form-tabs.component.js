@@ -18,7 +18,10 @@ export function Post() {
   const enableReinitialize = true;
 
   const validationSchema = yup.object({
-    postTitle: yup.string("Please enter a title").required("Title is required"),
+    postTitle: yup
+      .string("Please enter a title")
+      .max(300, "Title must be 300 characters or less")
+      .required("Title is required"),
   });
 
   const initialValues = {
@@ -29,6 +32,10 @@ export function Post() {
   };
 
   const onSubmit = async (values) => {
+    if (state.user.length === 0) {
+      alert("Please log in to post");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://tysocialappapi.azurewebsites.net/api/reddit/AddPost",
@@ -42,11 +49,9 @@ export function Post() {
         );
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 
@@ -111,7 +116,10 @@ export function Images() {
   const enableReinitialize = true;
 
   const validationSchema = yup.object({
-    postTitle: yup.string("Please enter a title").required("Title is required"),
+    postTitle: yup
+      .string("Please enter a title")
+      .max(300, "Title must be 300 characters or less")
+      .required("Title is required"),
     postImageUrl: yup
       .string("Please provide image url")
       .url("Url is not valid")
@@ -126,6 +134,10 @@ export function Images() {
   };
 
   const onSubmit = async (values) => {
+    if (state.user.length === 0) {
+      alert("Please log in to post");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://tysocialappapi.azurewebsites.net/api/reddit/AddPost",
@@ -139,11 +151,9 @@ export function Images() {
         );
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 
@@ -214,7 +224,10 @@ export function Link() {
   const convertToInt = parseInt(subId);
 
   const validationSchema = yup.object({
-    postTitle: yup.string("Please enter a title").required("Title is required"),
+    postTitle: yup
+      .string("Please enter a title")
+      .max(300, "Title must be 300 characters or less")
+      .required("Title is required"),
     postLink: yup
       .string("Please provide image url")
       .url("Url is not valid")
@@ -231,6 +244,10 @@ export function Link() {
   const enableReinitialize = true;
 
   const onSubmit = async (values) => {
+    if (state.user.length === 0) {
+      alert("Please log in to post");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://tysocialappapi.azurewebsites.net/api/reddit/AddPost",
@@ -244,11 +261,9 @@ export function Link() {
         );
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 

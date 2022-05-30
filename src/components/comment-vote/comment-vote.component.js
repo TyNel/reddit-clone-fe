@@ -13,23 +13,11 @@ function CommentVote({ comment }) {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const currentUser = state.user;
-  const userId = currentUser ? currentUser.userId : null;
-  const getVoteIndex = state.userCommentVotes?.findIndex(
+
+  const userVoteStatus = state.userCommentVotes?.find(
     (currentComment) =>
       currentComment.likeDislikeCommentId === comment.commentId
   );
-  const voteStatus = state.userCommentVotes[getVoteIndex]?.commentIsLike;
-
-  const upVote = {
-    likeDislikeCommentId: comment.commentId,
-    commentLikeDislikeUserId: userId,
-    commentIsLike: 1,
-  };
-  const downVote = {
-    likeDislikeCommentId: comment.commentId,
-    commentLikeDislikeUserId: userId,
-    commentIsLike: 0,
-  };
 
   const userVote = async (vote) => {
     try {
@@ -43,26 +31,33 @@ function CommentVote({ comment }) {
         dispatch(updateCommentVoteCount(response.data));
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 
   const handleVote = (e) => {
+    let vote = {
+      likeDislikeCommentId: comment.commentId,
+      commentLikeDislikeUserId: currentUser ? currentUser.userId : null,
+      commentIsLike: null,
+    };
     if (currentUser.length === 0) {
       window.alert("Please log in to vote");
       return;
     }
     if (e.target.id === "upvote") {
+      vote.commentIsLike = 1;
       setLoading(true);
-      userVote(upVote);
+      userVote(vote);
+      return;
     }
     if (e.target.id === "downvote") {
+      vote.commentIsLike = 0;
       setLoading(true);
-      userVote(downVote);
+      userVote(vote);
+      return;
     }
   };
   return (
@@ -70,7 +65,9 @@ function CommentVote({ comment }) {
       <button className="vote-button" onClick={handleVote} aria-label="upvote">
         <BiUpvote
           className={
-            voteStatus === 1 ? "upvote-logo upvote-filled" : "upvote-logo"
+            userVoteStatus?.commentIsLike === 1
+              ? "upvote-logo upvote-filled"
+              : "upvote-logo"
           }
           id="upvote"
         />
@@ -93,7 +90,9 @@ function CommentVote({ comment }) {
       >
         <BiDownvote
           className={
-            voteStatus === 0 ? "downvote-logo downvote-filled" : "downvote-logo"
+            userVoteStatus?.commentIsLike === 0
+              ? "downvote-logo downvote-filled"
+              : "downvote-logo"
           }
           id="downvote"
         />

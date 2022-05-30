@@ -36,11 +36,9 @@ export default function PostItem({ data }) {
         dispatch(setComments(response.data));
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 
@@ -54,6 +52,12 @@ export default function PostItem({ data }) {
           <Link
             to={`/r/${data.postCommunity}/${data.subName}`}
             className="link post-link-sub"
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "auto",
+              })
+            }
           >
             <img
               src={data.subIcon}

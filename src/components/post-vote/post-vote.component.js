@@ -16,21 +16,10 @@ const PostVote = ({ postId, voteCount }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const state = useSelector((state) => state);
-  const getUserVoteIndex = state.userPostsVotes?.findIndex(
+
+  const userVoteStatus = state.userPostsVotes?.find(
     (post) => post.likeDislikePostId === postId
   );
-  const checkVoteStatus = state.userPostsVotes[getUserVoteIndex]?.postIsLike;
-
-  const upVote = {
-    likeDislikePostId: postId === undefined ? id : postId,
-    likeDislikeUserId: state.user ? state.user.userId : null,
-    postIsLike: 1,
-  };
-  const downVote = {
-    likeDislikePostId: postId === undefined ? id : postId,
-    likeDislikeUserId: state.user ? state.user.userId : null,
-    postIsLike: 0,
-  };
 
   const userVote = async (vote) => {
     try {
@@ -42,31 +31,40 @@ const PostVote = ({ postId, voteCount }) => {
         setLoading(false);
         dispatch(updatePostVotes(response.data));
         dispatch(updateUserVotes(response.data));
+        //if on comment page update post in currentPost as well
         if (id) {
           dispatch(updateCurrentPost(response.data));
         }
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      console.log(
+        error.response ? error.response.data.errorMessages : error.message
+      );
     }
   };
 
   const handleVote = (e) => {
+    let vote = {
+      likeDislikePostId: postId === undefined ? id : postId,
+      likeDislikeUserId: state.user ? state.user.userId : null,
+      postIsLike: null,
+    };
+
     if (state.user.length === 0) {
       window.alert("Please log in to vote");
       return;
     }
     if (e.target.id === "upvote") {
+      vote.postIsLike = 1;
       setLoading(true);
-      userVote(upVote);
+      userVote(vote);
+      return;
     }
     if (e.target.id === "downvote") {
+      vote.postIsLike = 0;
       setLoading(true);
-      userVote(downVote);
+      userVote(vote);
+      return;
     }
   };
   return (
@@ -79,7 +77,7 @@ const PostVote = ({ postId, voteCount }) => {
         >
           <BiUpvote
             className={
-              checkVoteStatus === 1
+              userVoteStatus?.postIsLike === 1
                 ? "upvote-logo upvote-filled"
                 : "upvote-logo"
             }
@@ -102,7 +100,7 @@ const PostVote = ({ postId, voteCount }) => {
         >
           <BiDownvote
             className={
-              checkVoteStatus === 0
+              userVoteStatus?.postIsLike === 0
                 ? "downvote-logo downvote-filled"
                 : "downvote-logo"
             }

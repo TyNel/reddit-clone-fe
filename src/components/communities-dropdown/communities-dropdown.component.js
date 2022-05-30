@@ -5,7 +5,12 @@ export default function CommunitiesDropdown({
   data,
   toggleSearch,
   fromHeader,
+  resetQuery,
 }) {
+  const handleClick = () => {
+    toggleSearch(false);
+    resetQuery("");
+  };
   return (
     <div className="dropdown-results-container">
       {data.map((sub) => (
@@ -22,7 +27,7 @@ export default function CommunitiesDropdown({
                 : `/r/${sub.subId}/${sub.subName}/submit`
             }
             className="dropdown-result-item"
-            onClick={() => toggleSearch(false)}
+            onClick={handleClick}
           >
             <span className="post-sub-name">r/{sub.subName}</span>
           </Link>

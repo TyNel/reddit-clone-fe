@@ -40,7 +40,7 @@ export default function Login(props) {
         "https://tysocialappapi.azurewebsites.net/api/reddit/UserLogin",
         values
       );
-      console.log(response);
+
       if (response.status === 200) {
         let postVotes = JSON.parse(response.data.postVotes);
         let commentVotes = JSON.parse(response.data.commentVotes);
@@ -55,11 +55,9 @@ export default function Login(props) {
         navigate(pathname);
       }
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.errorMessages);
-      } else {
-        console.log(error);
-      }
+      error.response
+        ? alert(error.response.data.errorMessages)
+        : console.log(error);
     }
   };
 

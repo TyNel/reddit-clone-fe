@@ -53,21 +53,19 @@ export default function CommentPage() {
           dispatch(setSubData(response.data));
         }
       } catch (error) {
-        if (error.response) {
-          console.log(error.response.data.errorMessages);
-        } else {
-          console.log(error.message);
-        }
+        console.log(
+          error.response ? error.response.data.errorMessages : error.message
+        );
       }
     }
     GetSubData();
   }, []);
 
   return (
-    <div className="container grid--2-cols comment-page-content">
-      <div className="comment-page-header"></div>
+    <div className="container grid--2-cols comments-container">
       <div className="comment-page-body">
         <PostItem data={currentPost} />
+
         {userId === null ? (
           <div className="login-signup-container-comments">
             <div className="content-container">
@@ -128,7 +126,7 @@ export default function CommentPage() {
           </div>
         )}
       </div>
-      <div className="right-side-container">
+      <div className="comments-right-side-container">
         <AboutCommunity />
         <FooterNav />
         <ReturnButton />

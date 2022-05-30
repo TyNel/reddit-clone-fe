@@ -49,7 +49,7 @@ export default function SubmitPost() {
         if (axios.isCancel(error)) {
           return;
         } else {
-          console.log(error.response.data.errorMessages);
+          console.log(error);
         }
       }
     }
@@ -72,7 +72,7 @@ export default function SubmitPost() {
           dispatch(setSubData(response.data));
         }
       } catch (error) {
-        console.log(error.response.data.errorMessages);
+        console.log(error.response.errors.errorMessages);
       }
     }
     GetSubData();
@@ -93,7 +93,9 @@ export default function SubmitPost() {
               placeholder="Search a community"
               onChange={handleChange}
               onClick={() => setOpen(true)}
+              value={query}
             ></input>
+            {subName ? <div className="community-btn">{subName}</div> : null}
             <div
               className="dropdown-menu-icon community-icon"
               onClick={() => setOpen(!open)}
@@ -106,6 +108,7 @@ export default function SubmitPost() {
                 <CommunitiesDropdown
                   data={filteredData}
                   toggleSearch={setOpen}
+                  resetQuery={setQuery}
                 />
               )}
             </div>

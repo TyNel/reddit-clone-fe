@@ -34,11 +34,9 @@ export default function SubredditView() {
           dispatch(setSubData(response.data));
         }
       } catch (error) {
-        if (error.response) {
-          console.log(error.response.data.errorMessages);
-        } else {
-          console.log(error.message);
-        }
+        console.log(
+          error.response ? error.response.data.errorMessages : error.message
+        );
       }
     }
     GetSubData();

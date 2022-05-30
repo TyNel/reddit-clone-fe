@@ -65,7 +65,9 @@ export default function Header() {
         }
       } catch (error) {
         if (axios.isCancel(error)) return;
-        console.log(error.response.data.errorMessages);
+        console.log(
+          error.response ? error.response.data.errorMessages : error.message
+        );
       }
     }
     searchSubNames();

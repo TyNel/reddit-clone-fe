@@ -20,11 +20,9 @@ export default function TopCommunities({ subData }) {
           setRandom(response.data);
         }
       } catch (error) {
-        if (error.response) {
-          console.log(error.response.data.errorMessages);
-        } else {
-          console.log(error.message);
-        }
+        console.log(
+          error.response ? error.response.data.errorMessages : error.message
+        );
       }
     }
   }, [subData]);
@@ -43,6 +41,12 @@ export default function TopCommunities({ subData }) {
                   <Link
                     to={`/r/${post.subId}/${post.subName}`}
                     className="top-communities-item"
+                    onClick={() =>
+                      window.scrollTo({
+                        top: 0,
+                        behavior: "auto",
+                      })
+                    }
                   >
                     <img
                       src={post.subIcon}
