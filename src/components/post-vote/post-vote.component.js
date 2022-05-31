@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "../post-vote/post-vote.styles.css";
 
@@ -51,7 +52,7 @@ const PostVote = ({ postId, voteCount }) => {
     };
 
     if (state.user.length === 0) {
-      window.alert("Please log in to vote");
+      toast.error("Please log in to vote");
       return;
     }
     if (e.target.id === "upvote") {
@@ -87,7 +88,7 @@ const PostVote = ({ postId, voteCount }) => {
         <div className="vote-count-container">
           {" "}
           {loading === true ? (
-            <TailSpin color="#0079d3" height={25} width={25} />
+            <TailSpin color="#0079d3" height={15} width={15} />
           ) : (
             voteCount
           )}

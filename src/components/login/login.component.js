@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/user/userSlice";
 import { setPostsVotes } from "../../features/userPostsVotes/userPostsVotesSlice";
@@ -5,16 +6,16 @@ import { setCommentVotes } from "../../features/userCommentVotes/userCommentVote
 import { useNavigate, useLocation } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import axios from "axios";
 import "../signup/signup.styles.css";
 
-export default function Login(props) {
-  const toggleModal = props.toggleModal;
-  const toggleSignin = props.toggleSignin;
+export default function Login({ toggleModal, toggleSignin }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const toastRef = useRef(null);
 
   const validationSchema = yup.object({
     username: yup
@@ -42,22 +43,23 @@ export default function Login(props) {
       );
 
       if (response.status === 200) {
+        toast.success("Login Successful");
         let postVotes = JSON.parse(response.data.postVotes);
         let commentVotes = JSON.parse(response.data.commentVotes);
-
         dispatch(setPostsVotes(postVotes ? postVotes : []));
         dispatch(setCommentVotes(commentVotes ? commentVotes : []));
         dispatch(setUser(response.data));
-
         if (pathname === "/") {
           toggleModal(false);
         }
         navigate(pathname);
       }
     } catch (error) {
-      error.response
-        ? alert(error.response.data.errorMessages)
-        : console.log(error);
+      if (error.response) {
+        toast.error(error.response.data.errorMessages[0]);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 

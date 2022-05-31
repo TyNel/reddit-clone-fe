@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import axios from "axios";
 import "../create-community-modal/create-community.styles.css";
@@ -24,12 +25,12 @@ export default function CreateCommunity({ toggleModal }) {
     subImage: yup
       .string("Please provide community background image")
       .url("Url is not valid")
-      .max(100, "Url link cannot exceed more than 100 characters long")
+      .max(300, "Url link cannot exceed more than 300 characters long")
       .required("Image is required"),
     subIcon: yup
       .string("Please provide community icon image")
       .url("Url is not valid")
-      .max(100, "Url link cannot exceed more than 100 characters long")
+      .max(300, "Url link cannot exceed more than 300 characters long")
       .required("Image is required"),
     subCategory: yup
       .string("Please specify community category")
@@ -46,6 +47,9 @@ export default function CreateCommunity({ toggleModal }) {
   };
 
   const onSubmit = async (values) => {
+    if (state.user.length === 0) {
+      toast.error("Please log in to create community");
+    }
     try {
       const response = await axios.post(
         "https://tysocialappapi.azurewebsites.net/api/reddit/AddSub",
@@ -57,8 +61,8 @@ export default function CreateCommunity({ toggleModal }) {
         navigate(`/r/${data.subId}/${data.subName}`);
       }
     } catch (error) {
-      console.log(
-        error.response ? error.response.data.errorMessages : error.message
+      toast.error(
+        error.response ? error.response.data.errorMessages[0] : error.message
       );
     }
   };

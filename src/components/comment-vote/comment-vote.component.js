@@ -5,7 +5,8 @@ import { updateUserCommentVotes } from "../../features/userCommentVotes/userComm
 import { updateCommentVoteCount } from "../../features/comments/commentsSlice";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TailSpin } from "react-loader-spinner";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function CommentVote({ comment }) {
@@ -44,7 +45,7 @@ function CommentVote({ comment }) {
       commentIsLike: null,
     };
     if (currentUser.length === 0) {
-      window.alert("Please log in to vote");
+      toast.error("Please log in to vote");
       return;
     }
     if (e.target.id === "upvote") {
@@ -75,7 +76,7 @@ function CommentVote({ comment }) {
       <div className="comment-vote-container">
         {" "}
         {loading === true ? (
-          <AiOutlineLoading3Quarters />
+          <TailSpin height={15} width={15} />
         ) : comment.voteCount === null ? (
           0
         ) : (

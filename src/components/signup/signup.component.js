@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { VscClose } from "react-icons/vsc";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import axios from "axios";
 import * as yup from "yup";
 import "../signup/signup.styles.css";
@@ -41,15 +42,14 @@ export default function SignUp(props) {
         values
       );
       if (response.status === 200) {
+        toast.success("Account created, please sign in");
         toggleModal(false);
         toggleLogin(true);
       }
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.errorMessages);
-      } else {
-        console.log(error.message);
-      }
+      toast.error(
+        error.response ? error.response.data.errorMessages[0] : error.message
+      );
     }
   };
 
