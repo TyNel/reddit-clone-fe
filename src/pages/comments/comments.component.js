@@ -59,7 +59,7 @@ export default function CommentPage() {
       }
     }
     GetSubData();
-  }, []);
+  }, [dispatch, subName]);
 
   return (
     <div className="container grid--2-cols comments-container">

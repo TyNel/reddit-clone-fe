@@ -20,7 +20,8 @@ export default function PostItem({ data }) {
   const postId = data.postId;
 
   const handleClick = async (e) => {
-    if (id === undefined) {
+    //if navigating to comment page set current post
+    if (!id) {
       dispatch(setCurrentPost(data));
     } else {
       return;
@@ -64,7 +65,7 @@ export default function PostItem({ data }) {
               className="post--item-icon"
               alt="subreddit icon"
             />
-            <span className="post-link-sub-text">{data.subName}</span>
+            <span className="post-link-sub-text">r/{data.subName}</span>
           </Link>
           <div className="posted-by">
             Posted by <span className="post-item-user">{data.postAuthor}</span>{" "}
