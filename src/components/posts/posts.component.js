@@ -59,7 +59,7 @@ export default function Posts() {
           setHasMore(response.data.length > 0);
           dispatch(setPosts(response.data));
         } else {
-          //if posts already exist check if response has any already in state
+          //if posts already exist check if response has any elements already in state
           response.data.forEach((newPost) => {
             let exists = prevPosts.some(
               (post) => post.postId === newPost.postId

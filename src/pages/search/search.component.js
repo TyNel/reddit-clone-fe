@@ -15,15 +15,13 @@ export default function Search() {
 
   const communities = useCallback(() => {
     let result = [];
-    for (let i = 0; i < searchedData.length; i++) {
-      if (
-        result.find(
-          (element) => element.subName === searchedData[i].subName
-        ) === undefined
-      ) {
-        result.push(searchedData[i]);
+
+    //check for unique subreddits in searched posts response
+    searchedData.forEach((post) => {
+      if (!result.find((el) => el.subName === post.subName)) {
+        result.push(post);
       }
-    }
+    });
     setSubData(result);
   }, [searchedData]);
 
@@ -33,7 +31,7 @@ export default function Search() {
 
   return (
     <div className="container grid--2-cols search-results">
-      <div>
+      <div className="left-side-container">
         {searchedData.length > 0 ? (
           searchedData.map((post) => {
             return (

@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/user/userSlice";
 import { setPostsVotes } from "../../features/userPostsVotes/userPostsVotesSlice";
@@ -15,7 +14,6 @@ export default function Login({ toggleModal, toggleSignin }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const toastRef = useRef(null);
 
   const validationSchema = yup.object({
     username: yup
