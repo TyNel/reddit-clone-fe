@@ -68,7 +68,7 @@ export default function SubredditView() {
           <div className="sub-header-img-container">
             <img
               src={state.subRedditData[0]?.subImage}
-              alt="the word askreddit"
+              alt="subreddit-title-img"
               className="sub-header-img"
             />
           </div>
