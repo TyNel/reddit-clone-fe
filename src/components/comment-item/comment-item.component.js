@@ -48,7 +48,7 @@ export default function Comment({ comment, replies, toggleForm }) {
         </div>
       </div>
       <div className="comment-body">{comment.commentBody}</div>
-      <div className="comment-footer">
+      <footer className="comment-footer">
         <div className="comment-vote-container">
           <CommentVote comment={comment} />
         </div>
@@ -64,7 +64,7 @@ export default function Comment({ comment, replies, toggleForm }) {
         <div className="footer-link-text footer-link">Report</div>
         <div className="footer-link-text footer-link">Save</div>
         <div className="footer-link-text footer-link">Follow</div>
-      </div>
+      </footer>
       {state.toggleReplyForm === comment.commentId ? (
         <CommentForm
           userReply={userToReply}

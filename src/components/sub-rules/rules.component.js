@@ -81,7 +81,7 @@ export default function SubRules() {
 
   return (
     <div className="rule-container">
-      <div className="rules-header">
+      <header className="rules-header">
         <span className="about-header-text">r/{subName} Rules</span>
         {isUserAdmin === true ? (
           <div
@@ -91,7 +91,7 @@ export default function SubRules() {
             <MdAdd color="#fff" />
           </div>
         ) : null}
-      </div>
+      </header>
       {addRule && (
         <>
           <form

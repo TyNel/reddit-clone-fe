@@ -83,7 +83,7 @@ export default function CreateCommunity({ toggleModal }) {
         <VscClose className="close-icon" onClick={() => toggleModal(false)} />
         <div className="form-container">
           <div className="policy-container">
-            <div className="title">Create a Community</div>
+            <h1 className="title">Create a Community</h1>
           </div>
           <form
             className="user-form login-form"

@@ -42,10 +42,10 @@ export default function TrendingItem({ data, postId }) {
           className="trending-link"
         >
           <h2 className="trending-title-text">{data.postTitle}</h2>
-          <div className="trending-text">
+          <p className="trending-text">
             {data.postBodyText === null ? "" : data.postBodyText.slice(0, 55)}
             {data.postBodyText?.length >= 55 ? "..." : ""}
-          </div>
+          </p>
         </Link>
         <div className="bottom-logo-container">
           {" "}

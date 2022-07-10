@@ -29,9 +29,9 @@ export default function TopCommunities({ subData }) {
 
   return (
     <div className="top-communities-container">
-      <div className="top-communities-header">
-        <span className="header-text">Communities</span>
-      </div>
+      <header className="top-communities-header">
+        <h2 className="header-text">Communities</h2>
+      </header>
       <div className="item-container">
         {subData?.length > 0 || subData === undefined ? (
           subData === undefined ? (
@@ -73,7 +73,7 @@ export default function TopCommunities({ subData }) {
                       alt="subreddit icon"
                     />
                     <span className="sub-name">r/{post.subName}</span>{" "}
-                    <div className="btn btn--join-community">Join</div>
+                    <button className="btn btn--join-community">Join</button>
                   </Link>
                 </div>
               );

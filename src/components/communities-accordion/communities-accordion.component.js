@@ -44,7 +44,7 @@ export default function CommunitiesAccordion() {
   return (
     <div className="accordion-container">
       <div className="accordian-header" onClick={() => setOpen(!open)}>
-        <div className="accordian-title">Popular Communities</div>
+        <h1 className="accordian-title">Popular Communities</h1>
         <HiOutlineChevronDown className="accordian-icon" />
       </div>
       {open === true ? (

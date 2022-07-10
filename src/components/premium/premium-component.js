@@ -10,12 +10,12 @@ function Premium() {
         <BsShieldCheck className="premium-icon" />
       </div>
       <div className="premium-content-container">
-        <span className="premium-title">Reddit Premium</span>
-        <span className="premium-text">
+        <h2 className="premium-title">Reddit Premium</h2>
+        <p className="premium-text">
           The best Reddit experience, with monthly Coins
-        </span>
+        </p>
       </div>
-      <div className="btn btn--try-now">Try Now</div>
+      <button className="btn btn--try-now">Try Now</button>
     </div>
   );
 }

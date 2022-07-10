@@ -85,17 +85,16 @@ export default function SubredditView() {
               alt="sub icon"
               className="subreddit-icon"
             />
-            <div className="sub-title">{subName}</div>
-            <div className="btn btn--subreddit-join">Join</div>
-            <div className="subreddit-name">{`r/${subName}`}</div>
+            <h2 className="sub-title">{subName}</h2>
+            <button className="btn btn--subreddit-join">Join</button>
+            <h3 className="subreddit-name">{`r/${subName}`}</h3>
           </div>
         </div>
       </div>
       <div className="container grid--2-cols">
         <div className="left-side-container">
-          <h2 className="posts-header">
-            <div
-              to="/"
+          <header className="posts-header">
+            <h2
               className={
                 activeTab === "hot" ? "post-link active-tab" : "post-link"
               }
@@ -103,9 +102,8 @@ export default function SubredditView() {
             >
               <AiOutlineFire className="post-link-icon" />
               Hot
-            </div>
-            <div
-              to="/"
+            </h2>
+            <h2
               className={
                 activeTab === "new" ? "post-link active-tab" : "post-link"
               }
@@ -113,9 +111,8 @@ export default function SubredditView() {
             >
               <GiSevenPointedStar className="post-link-icon" />
               New
-            </div>
-            <div
-              to="/"
+            </h2>
+            <h2
               className={
                 activeTab === "top" ? "post-link active-tab" : "post-link"
               }
@@ -123,8 +120,8 @@ export default function SubredditView() {
             >
               <BsSortUpAlt className="post-link-icon" />
               Top
-            </div>
-          </h2>
+            </h2>
+          </header>
           <div className="sub-post-container">
             {subPosts.map((post) => (
               <div key={post.postId}>

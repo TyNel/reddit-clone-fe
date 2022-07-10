@@ -77,11 +77,11 @@ export default function Login({ toggleModal, toggleSignin }) {
         <VscClose className="close-icon" onClick={() => toggleModal(false)} />
         <div className="form-container">
           <div className="policy-container">
-            <div className="title">Login</div>
-            <div className="user-policy">
+            <h1 className="title">Login</h1>
+            <p className="user-policy">
               By continuing, you are setting up a Reddit account and agree to
               our User Agreement and Privacy Policy.
-            </div>
+            </p>
           </div>
           <form
             className="user-form login-form"

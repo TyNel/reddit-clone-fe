@@ -87,8 +87,8 @@ export default function Posts() {
 
   return (
     <div className="grid--2-cols">
-      <div className="popular-posts">Popular Posts</div>
-      <h2 className="posts-header">
+      <h2 className="popular-posts">Popular Posts</h2>
+      <header className="posts-header">
         <Link
           to="/"
           className={activeTab === "hot" ? "post-link active-tab" : "post-link"}
@@ -128,7 +128,7 @@ export default function Posts() {
           <FiTrendingUp className="post-link-icon" />
           Rising
         </Link>
-      </h2>
+      </header>
       <div className="left-side-container posts">
         {posts.map((post, index) => {
           if (index === posts.length - 1) {

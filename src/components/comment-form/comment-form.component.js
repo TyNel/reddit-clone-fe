@@ -57,9 +57,9 @@ export default function CommentForm({ userReply }) {
   return (
     <form className="comment-form" onSubmit={formik.handleSubmit}>
       <div className="comment-input-container">
-        <div className="username-sub-text">
+        <p className="username-sub-text">
           Comment as {user ? user.userName : "blank"}
-        </div>
+        </p>
         <textarea
           type="text"
           id="commentBody"

@@ -30,7 +30,7 @@ export default function Trending() {
 
   return (
     <div className="trending-preview">
-      <div className="trending-header">Trending today</div>
+      <h2 className="trending-header">Trending today</h2>
       <div className="trending-item-container">
         {trendingData.map((data) => (
           <TrendingItem data={data} key={data.postId} postId={data.postId} />

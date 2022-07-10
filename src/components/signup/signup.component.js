@@ -75,11 +75,11 @@ export default function SignUp(props) {
             />
             <div className="form-container">
               <div className="policy-container">
-                <div className="title">Sign up</div>
-                <div className="user-policy">
+                <h2 className="title">Sign up</h2>
+                <p className="user-policy">
                   By continuing, you are setting up a Reddit account and agree
                   to our User Agreement and Privacy Policy.
-                </div>
+                </p>
               </div>
               <form className="signup-form" onSubmit={formik.handleSubmit}>
                 <input
@@ -123,18 +123,18 @@ export default function SignUp(props) {
         <div className="modal-container">
           <div className="modal-content">
             <div className="username-form-container">
-              <div className="modal-header">
+              <header className="modal-header">
                 <VscClose
                   className="close-icon"
                   onClick={() => toggleModal(false)}
                 />
-                <div className="username-title">Choose your username</div>
-                <div className="username-secondary-text">
+                <p className="username-title">Choose your username</p>
+                <p className="username-secondary-text">
                   Your username is how other community members will see you.
                   This name will be used to credit you for things you share on
                   Reddit. What should we call you?
-                </div>
-              </div>
+                </p>
+              </header>
               <div className="user-form-container signup-form">
                 <form
                   className="user-form"

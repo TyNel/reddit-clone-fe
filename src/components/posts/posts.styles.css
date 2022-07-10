@@ -7,6 +7,10 @@
   padding-top: 2rem;
 }
 
+.posts-header .post-link {
+  font-weight: 600;
+}
+
 .location-select {
   border: none;
 }
